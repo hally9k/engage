@@ -11,10 +11,10 @@
     ]
   },
   "scripts": {
-    "test": "test",
-    "lint": "eslint app/* server/* index.js",
     "precommit": "npm run lint",
-    "prepush": "npm t"
+    "prepush": "npm t",
+    "test": "mocha $(find . -name '*test.js' ! -ipath '*node_modules*')",
+    "lint": "eslint app/* server/* index.js"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
