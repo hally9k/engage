@@ -9,11 +9,12 @@
 		"*.js": ["eslint"]
 	},
 	"scripts": {
-		"precommit": "npm run lint",
-		"prepush": "npm t",
+		"start": "nodemon index",
 		"test": "mocha $(find . -name '*test.js' ! -ipath '*node_modules*')  --opts 'config/mocha/mocha.opts'",
 		"lint": "eslint app server index",
-		"format": "prettier-eslint \"server/**/*.{js,jsx}\" \"app/**/*.{js,jsx}\" \"index.js\" --write"
+		"format": "prettier-eslint \"server/**/*.{js,jsx}\" \"app/**/*.{js,jsx}\" \"index.js\" --write",
+		"precommit": "npm run lint",
+		"prepush": "npm t"
 	},
 	"devDependencies": {
 		"babel-eslint": "^7.2.3",
