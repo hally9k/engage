@@ -6,8 +6,7 @@
   "env": {
     "browser": true,
     "commonjs": true,
-    "es6": true,
-    "jest": true
+    "es6": true
   },
   "extends": [
     "eslint:recommended",
@@ -27,25 +26,12 @@
     "babel",
     "compat",
     "filenames",
-    "flowtype",
     "import",
-    "jest",
     "jsx-a11y",
     "react"
   ],
-  "settings": {
-    "flowtype": {
-      "onlyFilesWithFlowAnnotation": true
-    }
-  },
   "rules": {
     "compat/compat": "error",
-    "flowtype/require-parameter-type": ["error"],
-    "flowtype/require-return-type": ["warn"],
-    "flowtype/require-valid-file-annotation": ["error"],
-    "flowtype/require-variable-type": ["error"],
-    "flowtype/sort-keys": ["error"],
-    "flowtype/no-dupe-keys": ["error"],
     "jsx-a11y/anchor-is-valid": ["error"],
     "jsx-a11y/label-has-for": ["warn"],
     "react/jsx-boolean-value": ["error", "always"],

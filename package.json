@@ -3,14 +3,19 @@
   "version": "0.0.1",
   "description": "An educational application to help parents engage with their pre-schoolers.",
   "main": "index.js",
+  "author": "hally9k@gmail.com",
+  "license": "ISC",
+  "lint-staged": {
+    "*.js": [
+      "eslint"
+    ]
+  },
   "scripts": {
     "test": "test",
     "lint": "eslint app/* server/* index.js",
     "precommit": "npm run lint",
     "prepush": "npm t"
   },
-  "author": "hally9k@gmail.com",
-  "license": "ISC",
   "devDependencies": {
     "babel-eslint": "^7.2.3",
     "eslint": "^4.3.0",
@@ -21,6 +26,7 @@
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.1.0",
     "husky": "^0.14.3",
+    "lint-staged": "^4.0.2",
     "mocha": "^3.4.2",
     "nodemon": "^1.11.0"
   },
