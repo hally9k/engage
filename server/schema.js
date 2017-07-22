@@ -1,19 +1,15 @@
 const gql = require('graphql')
 const User = require('./modules/user')
 
-const {
-    GraphQLSchema,
-    GraphQLList,
-    GraphQLObjectType
-  } = gql
+const { GraphQLSchema, GraphQLList, GraphQLObjectType } = gql
 
 const knex = require('knex')({
     client: 'pg',
     connection: {
-        host : '127.0.0.1',
-        user : 'postgres',
-        password : '',
-        database : 'engage'
+        host: '127.0.0.1',
+        user: 'postgres',
+        password: '',
+        database: 'engage'
     }
 })
 
@@ -25,10 +21,14 @@ const schema = new GraphQLSchema({
                 type: new GraphQLList(User),
                 resolve: (_, args) => {
                     return args.id
-                        ? knex.select().from('user').where('id', args.id).then((user) => user)
+                        ? knex
+                            .select()
+                            .from('user')
+                            .where('id', args.id)
+                            .then((user) => user)
                         : knex.select().from('user').then((users) => users)
                 }
-            }// ,
+            } // ,
             // child: {
             //   type: new GraphQLList(Child),
             //   resolve: (_, args) => {
