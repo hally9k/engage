@@ -1,0 +1,35 @@
+{
+  "name": "engage",
+  "version": "0.0.1",
+  "description": "An educational application to help parents engage with their pre-schoolers.",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "lint": "eslint app/* server/* index.js",
+    "precommit": "npm run lint",
+    "prepush": "npm t"
+  },
+  "author": "hally9k@gmail.com",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "eslint": "^4.3.0",
+    "eslint-plugin-babel": "^4.1.1",
+    "eslint-plugin-compat": "^1.0.4",
+    "eslint-plugin-filenames": "^1.2.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.1.0",
+    "husky": "^0.14.3",
+    "mocha": "^3.4.2",
+    "nodemon": "^1.11.0"
+  },
+  "dependencies": {
+    "graphql": "^0.10.5",
+    "knex": "^0.13.0",
+    "koa": "^2.3.0",
+    "koa-graphql": "^0.7.1",
+    "koa-mount": "^3.0.0",
+    "pg": "^7.0.2"
+  }
+}
