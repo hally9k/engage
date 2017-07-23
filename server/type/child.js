@@ -1,4 +1,13 @@
-const { GraphQLString, GraphQLInt, GraphQLObjectType } = require('graphql')
+const {
+    GraphQLString,
+    GraphQLInt,
+    GraphQLObjectType,
+    GraphQLList
+} = require('graphql')
+
+const Subject = require('./subject')
+
+const sql = require('../connector/sql')
 
 const ChildType = new GraphQLObjectType({
     name: 'Child',
@@ -15,6 +24,17 @@ const ChildType = new GraphQLObjectType({
         age: {
             type: GraphQLInt,
             description: 'The age of a child.'
+        },
+        subjects: {
+            type: new GraphQLList(Subject),
+            description: 'The subjects of a child.',
+            resolve: _ =>
+                sql
+                    .select()
+                    .from('child_subject')
+                    .innerJoin('subject', 'child_id', 'id')
+                    .where('child_id', _.id)
+                    .then(subjects => subjects)
         }
     })
 })

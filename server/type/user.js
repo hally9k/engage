@@ -1,4 +1,13 @@
-const { GraphQLString, GraphQLInt, GraphQLObjectType } = require('graphql')
+const {
+    GraphQLString,
+    GraphQLInt,
+    GraphQLObjectType,
+    GraphQLList
+} = require('graphql')
+
+const Child = require('./child')
+
+const sql = require('../connector/sql')
 
 const UserType = new GraphQLObjectType({
     name: 'User',
@@ -19,6 +28,18 @@ const UserType = new GraphQLObjectType({
         email: {
             type: GraphQLString,
             description: 'The email address of a user.'
+        },
+        children: {
+            type: new GraphQLList(Child),
+            description: 'The children of a user.',
+            resolve: _ => {
+                return sql
+                    .select()
+                    .from('user_child')
+                    .innerJoin('child', 'id', 'child_id')
+                    .where('user_id', _.id)
+                    .then(child => child)
+            }
         }
     })
 })
