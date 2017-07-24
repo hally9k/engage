@@ -3,14 +3,8 @@ const mount = require('koa-mount')
 const graphqlHTTP = require('koa-graphql')
 
 const schema = require('./server/schema')
-const sql = require('./server/schema/connector/sql')
-const {
-    User,
-    Child,
-    Subject,
-    Activity,
-    Session
-} = require('./server/schema/model')
+const sql = require('./server/connector/sql')
+const { User, Child, Subject, Activity, Session } = require('./server/model')
 
 const user = new User(sql)
 const child = new Child(sql)

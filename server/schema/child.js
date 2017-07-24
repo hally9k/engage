@@ -26,7 +26,7 @@ const ChildType = new GraphQLObjectType({
         subjects: {
             type: new GraphQLList(SubjectType),
             description: 'The subjects of a child.',
-            resolve: (_, args, { child }) => child.subjects(_.id)
+            resolve: (obj, args, { child }) => child.subjects(obj.id)
         }
     })
 })

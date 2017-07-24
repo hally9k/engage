@@ -25,7 +25,7 @@ const ActivityType = new GraphQLObjectType({
         subject: {
             type: Subject,
             description: 'The subject an activity belongs to.',
-            resolve: (_, args, { subject }) => subject.one(_.subject_id)
+            resolve: (obj, args, { subject }) => subject.one(obj.subject_id)
         }
     })
 })

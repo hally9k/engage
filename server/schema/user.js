@@ -30,7 +30,7 @@ const UserType = new GraphQLObjectType({
         children: {
             type: new GraphQLList(ChildType),
             description: 'The children of a user.',
-            resolve: (_, args, { user }) => user.children(_.id)
+            resolve: (obj, args, { user }) => user.children(obj.id)
         }
     })
 })

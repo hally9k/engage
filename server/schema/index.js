@@ -5,13 +5,11 @@ const {
     GraphQLObjectType
 } = require('graphql')
 
-const {
-    UserType,
-    ChildType,
-    SubjectType,
-    ActivityType,
-    SessionType
-} = require('./type')
+const UserType = require('./user')
+const ChildType = require('./child')
+const SubjectType = require('./subject')
+const ActivityType = require('./activity')
+const SessionType = require('./session')
 
 const schema = new GraphQLSchema({
     query: new GraphQLObjectType({

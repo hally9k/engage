@@ -23,7 +23,7 @@ const SessionType = new GraphQLObjectType({
         createdAt: {
             type: GraphQLString,
             description: 'Notes taken about a session.',
-            resolve: _ => _.created_at
+            resolve: obj => obj.created_at
         },
         activity: {
             type: ActivityType,
