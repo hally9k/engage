@@ -1,13 +1,13 @@
-const User = require('./user')
-const Child = require('./child')
-const Subject = require('./subject')
-const Activity = require('./activity')
-const Session = require('./session')
+import Activity from './activity'
+import Child from './child'
+import Session from './session'
+import Subject from './subject'
+import User from './user'
 
 module.exports = {
-    User,
-    Child,
-    Subject,
     Activity,
-    Session
+    Child,
+    Session,
+    Subject,
+    User
 }

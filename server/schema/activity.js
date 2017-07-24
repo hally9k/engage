@@ -1,6 +1,6 @@
-const { GraphQLString, GraphQLInt, GraphQLObjectType } = require('graphql')
+import Subject from './subject'
 
-const Subject = require('./subject')
+import { GraphQLInt, GraphQLObjectType, GraphQLString } from 'graphql'
 
 const ActivityType = new GraphQLObjectType({
     name: 'Activity',
@@ -30,4 +30,4 @@ const ActivityType = new GraphQLObjectType({
     })
 })
 
-module.exports = ActivityType
+export default ActivityType

@@ -21,4 +21,4 @@ class Subject {
     }
 }
 
-module.exports = Subject
+export default Subject

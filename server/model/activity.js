@@ -21,4 +21,4 @@ class Activity {
     }
 }
 
-module.exports = Activity
+export default Activity

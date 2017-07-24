@@ -1,15 +1,15 @@
-const {
-    GraphQLSchema,
+import ActivityType from './activity'
+import ChildType from './child'
+import SessionType from './session'
+import SubjectType from './subject'
+import UserType from './user'
+
+import {
     GraphQLID,
     GraphQLList,
-    GraphQLObjectType
-} = require('graphql')
-
-const UserType = require('./user')
-const ChildType = require('./child')
-const SubjectType = require('./subject')
-const ActivityType = require('./activity')
-const SessionType = require('./session')
+    GraphQLObjectType,
+    GraphQLSchema
+} from 'graphql'
 
 const schema = new GraphQLSchema({
     query: new GraphQLObjectType({
@@ -44,4 +44,4 @@ const schema = new GraphQLSchema({
     })
 })
 
-module.exports = schema
+export default schema

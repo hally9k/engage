@@ -1,4 +1,4 @@
-const { GraphQLString, GraphQLInt, GraphQLObjectType } = require('graphql')
+import { GraphQLInt, GraphQLObjectType, GraphQLString } from 'graphql'
 
 const SubjectType = new GraphQLObjectType({
     name: 'Subject',
@@ -15,4 +15,4 @@ const SubjectType = new GraphQLObjectType({
     })
 })
 
-module.exports = SubjectType
+export default SubjectType

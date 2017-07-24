@@ -30,4 +30,4 @@ class Child {
     }
 }
 
-module.exports = Child
+export default Child

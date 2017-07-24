@@ -1,11 +1,11 @@
-const {
-    GraphQLString,
-    GraphQLInt,
-    GraphQLObjectType,
-    GraphQLList
-} = require('graphql')
+import ChildType from './child'
 
-const ChildType = require('./child')
+import {
+    GraphQLInt,
+    GraphQLList,
+    GraphQLObjectType,
+    GraphQLString
+} from 'graphql'
 
 const UserType = new GraphQLObjectType({
     name: 'User',
@@ -35,4 +35,4 @@ const UserType = new GraphQLObjectType({
     })
 })
 
-module.exports = UserType
+export default UserType

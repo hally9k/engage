@@ -1,11 +1,11 @@
-const {
-    GraphQLString,
-    GraphQLInt,
-    GraphQLObjectType,
-    GraphQLList
-} = require('graphql')
+import SubjectType from './subject'
 
-const SubjectType = require('./subject')
+import {
+    GraphQLInt,
+    GraphQLList,
+    GraphQLObjectType,
+    GraphQLString
+} from 'graphql'
 
 const ChildType = new GraphQLObjectType({
     name: 'Child',
@@ -31,4 +31,4 @@ const ChildType = new GraphQLObjectType({
     })
 })
 
-module.exports = ChildType
+export default ChildType

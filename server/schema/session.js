@@ -1,8 +1,8 @@
-const { GraphQLString, GraphQLInt, GraphQLObjectType } = require('graphql')
+import ActivityType from './activity'
+import ChildType from './child'
+import UserType from './user'
 
-const ActivityType = require('./activity')
-const UserType = require('./user')
-const ChildType = require('./child')
+import { GraphQLInt, GraphQLObjectType, GraphQLString } from 'graphql'
 
 const SessionType = new GraphQLObjectType({
     name: 'Session',
@@ -43,4 +43,4 @@ const SessionType = new GraphQLObjectType({
     })
 })
 
-module.exports = SessionType
+export default SessionType

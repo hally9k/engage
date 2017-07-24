@@ -1,10 +1,10 @@
-const Koa = require('koa')
-const mount = require('koa-mount')
-const graphqlHTTP = require('koa-graphql')
+import Koa from 'koa'
+import mount from 'koa-mount'
+import graphqlHTTP from 'koa-graphql'
 
-const schema = require('./server/schema')
-const sql = require('./server/connector/sql')
-const { User, Child, Subject, Activity, Session } = require('./server/model')
+import schema from './server/schema'
+import sql from './server/connector/sql'
+import { Activity, Child, Session, Subject, User } from './server/model'
 
 const user = new User(sql)
 const child = new Child(sql)
