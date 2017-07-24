@@ -1,10 +1,8 @@
 const { GraphQLString, GraphQLInt, GraphQLObjectType } = require('graphql')
 
-const Activity = require('./activity')
-const User = require('./user')
-const Child = require('./child')
-
-const sql = require('../connector/sql')
+const ActivityType = require('./activity')
+const UserType = require('./user')
+const ChildType = require('./child')
 
 const SessionType = new GraphQLObjectType({
     name: 'Session',
@@ -28,37 +26,19 @@ const SessionType = new GraphQLObjectType({
             resolve: _ => _.created_at
         },
         activity: {
-            type: Activity,
+            type: ActivityType,
             description: 'The activity for a session.',
-            resolve: _ =>
-                sql
-                    .select()
-                    .from('activity')
-                    .where('id', _.activity_id)
-                    .first()
-                    .then(activity => activity)
+            resolve: (_, args, { activity }) => activity.one(_.activity_id)
         },
         user: {
-            type: User,
+            type: UserType,
             description: 'The user of a session.',
-            resolve: _ =>
-                sql
-                    .select()
-                    .from('user')
-                    .where('id', _.user_id)
-                    .first()
-                    .then(user => user)
+            resolve: (_, args, { user }) => user.one(_.user_id)
         },
         child: {
-            type: Child,
+            type: ChildType,
             description: 'The user of a session.',
-            resolve: _ =>
-                sql
-                    .select()
-                    .from('child')
-                    .where('id', _.child_id)
-                    .first()
-                    .then(child => child)
+            resolve: (_, args, { child }) => child.one(_.child_id)
         }
     })
 })

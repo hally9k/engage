@@ -5,9 +5,7 @@ const {
     GraphQLList
 } = require('graphql')
 
-const Child = require('./child')
-
-const sql = require('../connector/sql')
+const ChildType = require('./child')
 
 const UserType = new GraphQLObjectType({
     name: 'User',
@@ -30,16 +28,9 @@ const UserType = new GraphQLObjectType({
             description: 'The email address of a user.'
         },
         children: {
-            type: new GraphQLList(Child),
+            type: new GraphQLList(ChildType),
             description: 'The children of a user.',
-            resolve: _ => {
-                return sql
-                    .select()
-                    .from('user_child')
-                    .innerJoin('child', 'id', 'child_id')
-                    .where('user_id', _.id)
-                    .then(child => child)
-            }
+            resolve: (_, args, { user }) => user.children(_.id)
         }
     })
 })
