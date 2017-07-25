@@ -15,7 +15,7 @@
         "test": "mocha $(find . -name '*test.js' ! -ipath '*node_modules*')  --opts 'config/mocha/mocha.opts'",
         "lint": "eslint app/* server/* index/*",
         "format": "prettier-eslint \"server/**/*.{js,jsx}\" \"app/**/*.{js,jsx}\" \"index.js\" --write",
-        "precommit": "npm run lint",
+        "precommit": "npm run lint && npm run type-check",
         "prepush": "npm t",
         "type-check": "flow"
     },
