@@ -1,3 +1,5 @@
+// @flow
+
 import { GraphQLInt, GraphQLObjectType, GraphQLString } from 'graphql'
 
 const SubjectType = new GraphQLObjectType({

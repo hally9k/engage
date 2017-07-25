@@ -1,3 +1,5 @@
+// @flow
+
 import SubjectType from './subject'
 
 import {

@@ -1,9 +1,13 @@
+// @flow
+
 class User {
-    constructor(sql) {
+    sql: Knex$QueryBuilder
+
+    constructor(sql: Knex$QueryBuilder) {
         this.sql = sql
     }
 
-    one(id) {
+    one(id: Number) {
         return this.sql
             .select()
             .from('user')
@@ -16,11 +20,11 @@ class User {
         return this.sql.select().from('user').then(users => users)
     }
 
-    oneOrAll(id) {
+    oneOrAll(id: Number) {
         return id ? [this.one(id)] : this.all()
     }
 
-    children(id) {
+    children(id: Number) {
         return this.sql
             .select()
             .from('user_child')

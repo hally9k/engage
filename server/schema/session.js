@@ -1,3 +1,5 @@
+// @flow
+
 import ActivityType from './activity'
 import ChildType from './child'
 import UserType from './user'

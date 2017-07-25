@@ -1,3 +1,4 @@
+// @flow
 module.exports = require('knex')({
     client: 'pg',
     connection: {

@@ -1,3 +1,5 @@
+// @flow
+
 import ChildType from './child'
 
 import {

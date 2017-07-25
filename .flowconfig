@@ -1,6 +1,7 @@
 [ignore]
 .*/config/.*
-.*/node_modules/*
+.*/node_modules/koa-graphql
+.*/node_modules/express-graphql
 
 [include]
 
