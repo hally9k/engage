@@ -11,7 +11,8 @@
 	"extends": [
 		"eslint:recommended",
 		"plugin:jsx-a11y/recommended",
-		"plugin:react/recommended"
+		"plugin:react/recommended",
+    "plugin:flowtype/recommended"
 	],
 	"parser": "babel-eslint",
 	"parserOptions": {
@@ -22,7 +23,12 @@
 		},
 		"sourceType": "module"
 	},
-	"plugins": ["babel", "compat", "filenames", "import", "jsx-a11y", "react"],
+	"plugins": ["babel", "compat", "filenames", "import", "jsx-a11y", "react", "flowtype"],
+  "settings": {
+    "flowtype": {
+      "onlyFilesWithFlowAnnotation": true
+    }
+  },
 	"rules": {
 		"compat/compat": "error",
 		"jsx-a11y/anchor-is-valid": ["error"],
