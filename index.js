@@ -1,6 +1,7 @@
+import cors from 'koa-cors'
+import graphqlHTTP from 'koa-graphql'
 import Koa from 'koa'
 import mount from 'koa-mount'
-import graphqlHTTP from 'koa-graphql'
 
 import schema from './server/schema'
 import sql from './server/connector/sql'
@@ -15,6 +16,8 @@ const session = new Session(sql)
 const PORT = 8001
 
 const app = new Koa()
+
+app.use(cors())
 
 app.use(
     mount(

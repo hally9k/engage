@@ -39,7 +39,7 @@ export default {
         contentBase: paths.appPublic,
         historyApiFallback: true,
         hot: false,
-        https: true,
+        https: false,
         noInfo: true,
         publicPath: '/',
         watchOptions: {

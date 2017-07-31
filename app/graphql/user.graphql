@@ -1,0 +1,17 @@
+{
+  user {
+    id
+    firstName
+    lastName
+    email
+    children {
+      id
+      age
+      name
+      subjects {
+        id
+        title
+      }
+    }
+  }
+}
