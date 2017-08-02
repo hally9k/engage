@@ -2,13 +2,6 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
 export default class Root extends Component {
-    constructor() {
-        super()
-        this.state = {
-            users: []
-        }
-    }
-
     componentDidMount() {
         this.props.fetching()
     }
@@ -16,12 +9,13 @@ export default class Root extends Component {
     render() {
         return (
             <div>
-                {JSON.stringify(this.state.users)}
+                {JSON.stringify(this.props.users)}
             </div>
         )
     }
 }
 
 Root.propTypes = {
-    fetching: PropTypes.func.isRequired
+    fetching: PropTypes.func.isRequired,
+    users: PropTypes.object
 }

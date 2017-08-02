@@ -1,11 +1,11 @@
 import { connect } from 'react-redux'
 import { fetching } from 'duck'
 import Root from './root.jsx'
+import userSelector from 'selector/user'
 
-// eslint-disable-next-line
 function mapStateToProps(state) {
     return {
-        data: {}
+        users: userSelector(state, 1)
     }
 }
 

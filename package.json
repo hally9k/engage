@@ -7,7 +7,9 @@
     "license": "ISC",
     "repository": "git@github.com:hally9k/engage.git",
     "lint-staged": {
-        "*.js": ["eslint"]
+        "*.js": [
+            "eslint"
+        ]
     },
     "scripts": {
         "start": "concurrently \"nodemon index --exec babel-node\" \"webpack-dev-server\" --watch",
@@ -72,6 +74,7 @@
         "redux": "^3.7.2",
         "redux-logger": "^3.0.6",
         "redux-observable": "^0.14.1",
-        "redux-raven-middleware": "^1.2.0"
+        "redux-raven-middleware": "^1.2.0",
+        "reselect": "^3.0.1"
     }
 }

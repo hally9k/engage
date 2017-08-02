@@ -1,31 +1,25 @@
 import graphql from 'utility/graphql'
-import { Map } from 'immutable'
+import { normalize } from 'normalizr'
 import userQuery from 'graphql/user.graphql'
+import { userSchema } from 'schema'
 import { FETCHING, RECEIVED, received } from 'duck'
-import { normalize, schema } from 'normalizr'
-
-const subjectSchema = new schema.Entity('subject')
-const childSchema = new schema.Entity('child', {
-    subjects: [subjectSchema]
-})
-const userSchema = new schema.Entity('user', {
-    children: [childSchema]
-})
-
+import { fromJS, Map } from 'immutable'
 // Actions
 const PROCESSED = 'data/PROCESSED'
 const processed = payload => ({ type: PROCESSED, payload })
 
 // Reducer
 export const INITIAL_STATE = Map({
-    data: Map()
+    user: null,
+    subject: null,
+    child: null
 })
 
 export default (state = INITIAL_STATE, action) => {
     if (!action) return state
     switch (action.type) {
         case PROCESSED:
-            return state.set('data', action.payload)
+            return fromJS(action.payload.entities)
         default:
             return state
     }
