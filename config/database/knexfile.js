@@ -1,4 +1,4 @@
-module.exports = {
+export default {
     client: 'pg',
     connection: {
         host: '127.0.0.1',
@@ -7,9 +7,9 @@ module.exports = {
         database: 'engage'
     },
     migrations: {
-        directory: './migrations',
+        directory: './migrations'
     },
     seeds: {
-        directory: './seeds',
-    },
+        directory: './seeds'
+    }
 }
