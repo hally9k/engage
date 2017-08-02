@@ -1,6 +1,11 @@
 import { Map } from 'immutable'
 
-import { FETCHING, RECEIVED } from 'duck'
+// Actions
+const LOADING = 'meta/LOADING'
+const LOADED = 'meta/LOADED'
+
+export const loadingMeta = () => ({ type: LOADING })
+export const loadedMeta = () => ({ type: LOADED })
 
 // Reducer
 export const INITIAL_STATE = new Map({
@@ -10,15 +15,11 @@ export const INITIAL_STATE = new Map({
 export default (state = INITIAL_STATE, action) => {
     if (!action) return state
     switch (action.type) {
-        case FETCHING:
+        case LOADING:
             return state.set('fetching', true)
-        case RECEIVED:
+        case LOADED:
             return state.set('fetching', false)
         default:
             return state
     }
 }
-
-// Action Creators
-export const fetching = () => ({ type: FETCHING })
-export const received = data => ({ type: RECEIVED, payload: data })

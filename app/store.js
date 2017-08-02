@@ -1,4 +1,5 @@
 import batchMiddleware from 'middleware/batch'
+import metaMiddleware from 'middleware/meta'
 import { createEpicMiddleware } from 'redux-observable'
 import createRavenMiddleware from 'middleware/raven'
 import loggerMiddleware from 'middleware/logger'
@@ -13,6 +14,7 @@ const ravenMiddleware = createRavenMiddleware()
 const enhancer = composeEnhancers(
     applyMiddleware(
         batchMiddleware,
+        metaMiddleware,
         ravenMiddleware,
         epicMiddleware,
         loggerMiddleware

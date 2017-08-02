@@ -3,7 +3,9 @@ import { denormalize } from 'normalizr'
 import getData from 'selector/data'
 import { userSchema } from 'schema'
 
-const getUser = (state, id) => state.data.getIn(['user', id.toString()])
+const getUser = (state, id) => {
+    return state.data.getIn(['user', id.toString()])
+}
 
 const userSelector = createSelector(
     [getData, getUser],
