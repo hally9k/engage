@@ -2,6 +2,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import paths from './config/path'
 
 export default {
+    devtool: 'source-map',
     entry: paths.appIndexJs,
     output: paths.appBuild,
     plugins: [
@@ -32,7 +33,8 @@ export default {
         ]
     },
     resolve: {
-        modules: [paths.appSrc, 'node_modules']
+        modules: [paths.appSrc, 'node_modules'],
+        extensions: ['.js', '.jsx']
     },
     devServer: {
         compress: true,

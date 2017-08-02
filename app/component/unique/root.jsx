@@ -1,11 +1,5 @@
-import { GraphQLClient } from 'graphql-request'
-import userQuery from 'graphql/user.graphql'
+import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-// import PropTypes from 'prop-types'
-
-const client = new GraphQLClient('http://localhost:8001/graphql', {
-    mode: 'cors'
-})
 
 export default class Root extends Component {
     constructor() {
@@ -16,11 +10,7 @@ export default class Root extends Component {
     }
 
     componentDidMount() {
-        client.request(userQuery).then(users => {
-            this.setState({
-                users
-            })
-        })
+        this.props.fetching()
     }
 
     render() {
@@ -32,6 +22,6 @@ export default class Root extends Component {
     }
 }
 
-// Root.propTypes = {
-//
-// }
+Root.propTypes = {
+    fetching: PropTypes.func.isRequired
+}
