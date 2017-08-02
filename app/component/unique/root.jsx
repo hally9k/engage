@@ -7,9 +7,11 @@ export default class Root extends Component {
     }
 
     render() {
+        const { user, meta: { fetching } } = this.props
+
         return (
             <div>
-                {JSON.stringify(this.props.users)}
+                {(fetching && 'loading...') || JSON.stringify(user)}
             </div>
         )
     }
@@ -17,5 +19,6 @@ export default class Root extends Component {
 
 Root.propTypes = {
     fetching: PropTypes.func.isRequired,
-    users: PropTypes.object
+    meta: PropTypes.object.isRequired,
+    user: PropTypes.object
 }

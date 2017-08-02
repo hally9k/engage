@@ -1,18 +1,16 @@
 import { connect } from 'react-redux'
 import { fetching } from 'duck'
+import metaSelector from 'selector/meta'
 import Root from './root.jsx'
 import userSelector from 'selector/user'
 
-function mapStateToProps(state) {
-    return {
-        users: userSelector(state, 1)
-    }
-}
+const mapStateToProps = state => ({
+    meta: metaSelector(state),
+    user: userSelector(state, 1)
+})
 
-function mapDispatchToProps(dispatch) {
-    return {
-        fetching: () => dispatch(fetching())
-    }
-}
+const mapDispatchToProps = dispatch => ({
+    fetching: () => dispatch(fetching())
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(Root)
