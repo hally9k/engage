@@ -1,3 +1,10 @@
 import { createSelector } from 'reselect'
 
-export default createSelector([state => state.meta], meta => meta.toJS())
+const getComponentMeta = (state, key) => {
+    return state.meta.getIn(['components', key])
+}
+
+export default createSelector(
+    [getComponentMeta],
+    meta => (meta ? meta.toJS() : {})
+)

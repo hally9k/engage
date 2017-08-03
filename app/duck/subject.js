@@ -15,9 +15,9 @@ const receivedSubject = payload => ({ type: RECEIVED, payload })
 export const fetchingSubjectEpic = action$ =>
     action$
         .ofType(FETCHING)
-        .mergeMap(() =>
+        .mergeMap(({ payload: id }) =>
             graphql
-                .request(subjectQuery)
+                .request(subjectQuery, { id })
                 .then(subject => [receivedSubject(subject)])
         )
 

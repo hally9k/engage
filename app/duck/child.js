@@ -8,15 +8,17 @@ import childQuery from 'graphql/child.graphql'
 const FETCHING = 'child/FETCHING'
 const RECEIVED = 'child/RECEIVED'
 
-export const fetchingChild = () => ({ type: FETCHING })
+export const fetchingChild = payload => ({ type: FETCHING, payload })
 const receivedChild = payload => ({ type: RECEIVED, payload })
 
 // Epics
 export const fetchingChildEpic = action$ =>
     action$
         .ofType(FETCHING)
-        .mergeMap(() =>
-            graphql.request(childQuery).then(child => [receivedChild(child)])
+        .mergeMap(({ payload: id }) =>
+            graphql
+                .request(childQuery, { id })
+                .then(child => [receivedChild(child)])
         )
 
 export const receivedChildEpic = action$ =>

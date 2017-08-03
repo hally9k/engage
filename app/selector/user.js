@@ -4,7 +4,9 @@ import getData from 'selector/data'
 import { userSchema } from 'schema'
 
 const getUser = (state, id) => {
-    return state.data.getIn(['user', id.toString()])
+    return id
+        ? state.data.getIn(['user', id.toString()])
+        : state.data.get('user')
 }
 
 const userSelector = createSelector(

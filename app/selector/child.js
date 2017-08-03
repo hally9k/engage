@@ -3,9 +3,8 @@ import { denormalize } from 'normalizr'
 import getData from 'selector/data'
 import { childSchema } from 'schema'
 
-const getChild = (state, id) => {
-    return state.data.getIn(['child', id.toString()])
-}
+const getChild = (state, id) =>
+    id ? state.data.getIn(['child', id.toString()]) : state.data.get('child')
 
 const childSelector = createSelector(
     [getData, getChild],

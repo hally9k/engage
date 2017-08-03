@@ -3,9 +3,10 @@ import { denormalize } from 'normalizr'
 import getData from 'selector/data'
 import { subjectSchema } from 'schema'
 
-const getSubject = (state, id) => {
-    return state.data.getIn(['subject', id.toString()])
-}
+const getSubject = (state, id) =>
+    id
+        ? state.data.getIn(['subject', id.toString()])
+        : state.data.get('subject')
 
 const subjectSelector = createSelector(
     [getData, getSubject],
