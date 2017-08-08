@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
+import Activities from './activities.container'
 
 export default class Root extends Component {
     handleFetchingChild = () => {
@@ -16,51 +17,10 @@ export default class Root extends Component {
     }
 
     render() {
-        const { user, child, subject, fetching } = this.props
+        // const { user, child, subject, fetching } = this.props
 
         return (
-            <div>
-                <button onClick={this.handleFetchingChild}>CHILD</button>
-                <input
-                    type="number"
-                    ref={childId => {
-                        this.childId = childId
-                    }}
-                />
-                <button onClick={this.handleFetchingSubject}>SUBJECT</button>
-                <input
-                    type="number"
-                    ref={subjectId => {
-                        this.subjectId = subjectId
-                    }}
-                />
-                <button onClick={this.handleFetchingUser}>USER</button>
-                <input
-                    type="number"
-                    ref={userId => {
-                        this.userId = userId
-                    }}
-                />
-
-                {(fetching && 'loading...') ||
-                    <div>
-                        {child &&
-                            <div>
-                                <h1>CHILD</h1>
-                                {JSON.stringify(child)}
-                            </div>}
-                        {subject &&
-                            <div>
-                                <h1>SUBJECT</h1>
-                                {JSON.stringify(subject)}
-                            </div>}
-                        {user &&
-                            <div>
-                                <h1>USER</h1>
-                                {JSON.stringify(user)}
-                            </div>}
-                    </div>}
-            </div>
+            <Activities subjectId="1" />
         )
     }
 }
