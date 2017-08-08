@@ -1,8 +1,9 @@
 import graphql from 'utility/graphql'
 import { normalize } from 'normalizr'
-import { processed } from 'duck'
+import { processed, PROCESSED } from 'duck'
 import userQuery from 'graphql/user.graphql'
 import { userSchema } from 'schema'
+import { fromJS, Map } from 'immutable'
 
 // Actions
 const FETCHING = 'user/FETCHING'
@@ -10,6 +11,19 @@ const RECEIVED = 'user/RECEIVED'
 
 export const fetchingUser = () => ({ type: FETCHING })
 const receivedUser = payload => ({ type: RECEIVED, payload })
+
+// Reducers
+const INITIAL_STATE = Map()
+
+export default (state = INITIAL_STATE, action) => {
+    if (!action) return state
+    switch (action.type) {
+        case PROCESSED:
+            return state.merge(fromJS(action.payload.entities.user))
+        default:
+            return state
+    }
+}
 
 // Epics
 export const fetchingUserEpic = action$ =>
