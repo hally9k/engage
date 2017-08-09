@@ -18,6 +18,15 @@ export default {
                 loader: 'babel-loader'
             },
             {
+                test: /\.css$/,
+                loader: 'style-loader!css-loader'
+                // options: {
+                //     config: {
+                //         path: `${paths.appRoot}/postcss.config.js`
+                //     }
+                // }
+            },
+            {
                 test: /\.(jpe?g|png|gif|svg|webp)$/,
                 loader: 'url-loader',
                 options: {
@@ -34,7 +43,7 @@ export default {
     },
     resolve: {
         modules: [paths.appSrc, 'node_modules'],
-        extensions: ['.js', '.jsx']
+        extensions: ['.js', '.jsx', '.css']
     },
     devServer: {
         compress: true,

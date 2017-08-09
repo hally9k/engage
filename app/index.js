@@ -5,6 +5,7 @@ import React from 'react'
 import { render } from 'react-dom'
 import './rxjs'
 import Root from 'component/unique/root.container'
+import './style/index.css'
 
 const store = configureStore()
 

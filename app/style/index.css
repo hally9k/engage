@@ -1,0 +1,12 @@
+.activities {
+    display: flex;
+    justify-content: space-between;
+}
+
+.activity {
+    text-align: center;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    background-color: lightblue;
+}

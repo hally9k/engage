@@ -23,6 +23,14 @@ class Subject {
     oneOrAll(id: Number) {
         return id ? [this.one(id)] : this.all()
     }
+
+    activities(id: Number) {
+        return this.sql
+            .select()
+            .from('activity')
+            .where('subject_id', id)
+            .then(subject => subject)
+    }
 }
 
 export default Subject

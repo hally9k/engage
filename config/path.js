@@ -8,6 +8,7 @@ function resolveApp(relativePath) {
 }
 
 module.exports = {
+    appRoot: resolveApp('.'),
     appBuild: resolveApp('public'),
     appHtmlTemplate: resolveApp('static/index.html'),
     appIndexJs: resolveApp('app/index.js'),

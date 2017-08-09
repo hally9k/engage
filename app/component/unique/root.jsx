@@ -19,9 +19,7 @@ export default class Root extends Component {
     render() {
         // const { user, child, subject, fetching } = this.props
 
-        return (
-            <Activities subjectId="1" />
-        )
+        return <Activities subjectId="1" />
     }
 }
 
