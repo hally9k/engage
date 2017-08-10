@@ -24,6 +24,15 @@ const subject = new Subject(sql)
 const activity = new Activity(sql)
 const session = new Session(sql)
 
+const context = {
+    user,
+    child,
+    comment,
+    subject,
+    activity,
+    session
+}
+
 const PORT = 8001
 
 const server = new Koa()
@@ -36,14 +45,7 @@ server.use(
         graphqlHTTP({
             schema,
             graphiql: true,
-            context: {
-                user,
-                child,
-                comment,
-                subject,
-                activity,
-                session
-            },
+            context,
             subscriptionsEndpoint: 'ws://localhost:8001/subscriptions'
         })
     )
@@ -54,13 +56,17 @@ server.use(
 const ws = createServer(server.callback())
 
 ws.listen(PORT, () => {
+    // eslint-disable-next-line no-console
     console.log(`Apollo Server is now running on http://localhost:${PORT}`)
     // eslint-disable-next-line no-new
     new SubscriptionServer(
         {
             execute,
             subscribe,
-            schema
+            schema,
+            onConnect: () => {
+                return context
+            }
         },
         {
             server: ws,

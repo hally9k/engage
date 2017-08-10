@@ -1,6 +1,0 @@
-subscription($userId: ID!, $message: String!) {
- newComment(userId: $userId, message: $message) {
-  	userId,
-  	message
-	}
-}

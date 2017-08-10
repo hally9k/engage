@@ -7,14 +7,37 @@ class Comment {
         this.sql = sql
     }
 
+    channel(channel: String) {
+        return this.sql
+            .select()
+            .from('comment')
+            .where('channel', channel)
+            .then(comments => {
+                return comments
+            })
+    }
+
     add(userId: Number, message: String) {
-        pubsub.publish('newComment', { userId, message })
+        return this.sql('comment')
+            .insert({ message, user_id: userId, channel: 'one' })
+            .then(() => {
+                return this.sql
+                    .select()
+                    .from('comment')
+                    .where('channel', 'one')
+                    .first()
+                    .then(comment => {
+                        pubsub.publish(
+                            'newComment',
+                            {
+                                newComment: comment
+                            },
+                            { user: { five: 'five' } }
+                        )
 
-        this.sql('comment')
-            .insert({ message, user_id: userId })
-            .then(comment => comment)
-
-        return { userId, message }
+                        return comment
+                    })
+            })
     }
 }
 

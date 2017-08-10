@@ -1,6 +1,6 @@
 // @flow
 
-import { PubSub } from 'graphql-subscriptions'
+import { PubSub, withFilter } from 'graphql-subscriptions'
 export const pubsub = new PubSub()
 
 import ActivityType from './activity'
@@ -25,16 +25,15 @@ const schema = new GraphQLSchema({
         fields: {
             newComment: {
                 type: CommentType,
-                args: {
-                    userId: { type: new GraphQLNonNull(GraphQLID) },
-                    message: { type: new GraphQLNonNull(GraphQLString) }
-                },
-                subscribe: () => {
-                    return pubsub.asyncIterator('newComment')
-                },
-                resolve: (_, x) => {
-                    return x
-                }
+                subscribe: withFilter(
+                    () => pubsub.asyncIterator('newComment'),
+                    // eslint-disable-next-line
+                    payload => {
+                        // The `messageAdded` channel includes events for all channels, so we filter to only
+                        // pass through events for the channel specified in the query
+                        return true
+                    }
+                )
             }
         }
     }),
@@ -64,6 +63,15 @@ const schema = new GraphQLSchema({
                 type: new GraphQLList(ChildType),
                 args: { id: { type: GraphQLID } },
                 resolve: (_, { id }, { child }) => child.oneOrAll(id)
+            },
+            comment: {
+                type: new GraphQLList(CommentType),
+                args: { id: { type: GraphQLID } },
+                resolve: (_, args, { comment }) => {
+                    const ttt = comment.channel('one')
+
+                    return ttt
+                }
             },
             subject: {
                 type: new GraphQLList(SubjectType),

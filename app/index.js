@@ -21,19 +21,19 @@ const wsClient = new SubscriptionClient('ws://localhost:8001/subscriptions')
 
 wsClient.subscribe(
     {
-        query: `subscription($userId: ID!, $message: String!) {
-             newComment(userId: $userId, message: $message) {
-              	userId,
-              	message
-            	}
-            }
-        `,
-        variables: {
-            userId: 1,
-            message: 'Hello!'
-        }
+        query: `
+            subscription {
+               newComment {
+                   user {
+                       id
+                       firstName
+                   }
+                   message
+               }
+           }
+        `
     },
-    (error, { newComment }) => {
-        store.dispatch({ type: 'NEW_COMMENT', payload: newComment })
+    (error, res) => {
+        store.dispatch({ type: 'NEW_COMMENT', payload: res.newComment })
     }
 )
