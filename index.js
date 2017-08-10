@@ -2,24 +2,35 @@ import cors from 'koa-cors'
 import graphqlHTTP from 'koa-graphql'
 import Koa from 'koa'
 import mount from 'koa-mount'
+import { createServer } from 'http'
+import { SubscriptionServer } from 'subscriptions-transport-ws'
+import { execute, subscribe } from 'graphql'
 
 import schema from './server/schema'
 import sql from './server/connector/sql'
-import { Activity, Child, Session, Subject, User } from './server/model'
+import {
+    Activity,
+    Child,
+    Comment,
+    Session,
+    Subject,
+    User
+} from './server/model'
 
 const user = new User(sql)
 const child = new Child(sql)
+const comment = new Comment(sql)
 const subject = new Subject(sql)
 const activity = new Activity(sql)
 const session = new Session(sql)
 
 const PORT = 8001
 
-const app = new Koa()
+const server = new Koa()
 
-app.use(cors())
+server.use(cors())
 
-app.use(
+server.use(
     mount(
         '/graphql',
         graphqlHTTP({
@@ -28,12 +39,32 @@ app.use(
             context: {
                 user,
                 child,
+                comment,
                 subject,
                 activity,
                 session
-            }
+            },
+            subscriptionsEndpoint: 'ws://localhost:8001/subscriptions'
         })
     )
 )
 
-app.listen(PORT)
+// server.listen(PORT)
+
+const ws = createServer(server.callback())
+
+ws.listen(PORT, () => {
+    console.log(`Apollo Server is now running on http://localhost:${PORT}`)
+    // eslint-disable-next-line no-new
+    new SubscriptionServer(
+        {
+            execute,
+            subscribe,
+            schema
+        },
+        {
+            server: ws,
+            path: '/subscriptions'
+        }
+    )
+})

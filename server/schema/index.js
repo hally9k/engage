@@ -1,19 +1,57 @@
 // @flow
 
+import { PubSub } from 'graphql-subscriptions'
+export const pubsub = new PubSub()
+
 import ActivityType from './activity'
 import ChildType from './child'
+import CommentType from './comment'
 import SessionType from './session'
 import SubjectType from './subject'
 import UserType from './user'
 
 import {
+    GraphQLNonNull,
     GraphQLID,
+    GraphQLString,
     GraphQLList,
     GraphQLObjectType,
     GraphQLSchema
 } from 'graphql'
 
 const schema = new GraphQLSchema({
+    subscription: new GraphQLObjectType({
+        name: 'RootSubscriptionType',
+        fields: {
+            newComment: {
+                type: CommentType,
+                args: {
+                    userId: { type: new GraphQLNonNull(GraphQLID) },
+                    message: { type: new GraphQLNonNull(GraphQLString) }
+                },
+                subscribe: () => {
+                    return pubsub.asyncIterator('newComment')
+                },
+                resolve: (_, x) => {
+                    return x
+                }
+            }
+        }
+    }),
+    mutation: new GraphQLObjectType({
+        name: 'RootMutationType',
+        fields: {
+            comment: {
+                type: CommentType,
+                args: {
+                    userId: { type: new GraphQLNonNull(GraphQLID) },
+                    message: { type: new GraphQLNonNull(GraphQLString) }
+                },
+                resolve: (_, { userId, message }, { comment }) =>
+                    comment.add(userId, message)
+            }
+        }
+    }),
     query: new GraphQLObjectType({
         name: 'RootQueryType',
         fields: {

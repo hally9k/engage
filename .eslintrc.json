@@ -172,7 +172,7 @@
                 "allowSingleLine": true
             }
         ],
-        "camelcase": "error",
+        "camelcase": "off",
         "comma-spacing": [
             "error",
             {
