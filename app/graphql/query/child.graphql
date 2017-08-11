@@ -1,0 +1,11 @@
+query($id: ID) {
+    child(id: $id) {
+        id
+        age
+        name
+        subjects {
+            id
+            title
+        }
+    }
+}

@@ -4,7 +4,7 @@ import getData from 'selector/data'
 import { childSchema } from 'schema'
 
 const getChild = (state, id) =>
-    id ? state.data.getIn(['child', id.toString()]) : state.data.get('child')
+    id ? state.getIn(['data', 'child', id.toString()]) : state.getIn(['data', 'child'])
 
 const childSelector = createSelector(
     [getData, getChild],

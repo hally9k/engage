@@ -117,6 +117,42 @@ CREATE TABLE child_subject (
 ALTER TABLE child_subject OWNER TO postgres;
 
 --
+-- Name: comment; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE comment (
+    id integer NOT NULL,
+    user_id integer,
+    message text,
+    channel text,
+    created_at text DEFAULT date_part('epoch'::text, now())
+);
+
+
+ALTER TABLE comment OWNER TO postgres;
+
+--
+-- Name: comment_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE comment_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE comment_id_seq OWNER TO postgres;
+
+--
+-- Name: comment_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE comment_id_seq OWNED BY comment.id;
+
+
+--
 -- Name: session; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -127,7 +163,7 @@ CREATE TABLE session (
     notes text,
     user_id integer,
     child_id integer,
-    created_at timestamp without time zone DEFAULT now()
+    created_at text DEFAULT date_part('epoch'::text, now())
 );
 
 
@@ -249,6 +285,13 @@ ALTER TABLE ONLY child ALTER COLUMN id SET DEFAULT nextval('child_id_seq'::regcl
 
 
 --
+-- Name: comment id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY comment ALTER COLUMN id SET DEFAULT nextval('comment_id_seq'::regclass);
+
+
+--
 -- Name: session id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -270,110 +313,6 @@ ALTER TABLE ONLY "user" ALTER COLUMN id SET DEFAULT nextval('user_id_seq'::regcl
 
 
 --
--- Data for Name: activity; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY activity (id, subject_id, difficulty, hint, description) FROM stdin;
-1	1	1	At first, use your fingers together and count along with your child promting them when hesitant. When the can do it alone without your help they're ready to move on.	Counting to ten.
-\.
-
-
---
--- Name: activity_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('activity_id_seq', 1, true);
-
-
---
--- Data for Name: child; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY child (id, name, age) FROM stdin;
-1	Aniela	3
-\.
-
-
---
--- Name: child_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('child_id_seq', 1, true);
-
-
---
--- Data for Name: child_subject; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY child_subject (child_id, subject_id) FROM stdin;
-1	1
-\.
-
-
---
--- Data for Name: session; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY session (id, activity_id, score, notes, user_id, child_id, created_at) FROM stdin;
-1	1	75	Getting better!	1	1	2017-07-22 21:57:11.758383
-3	1	80	No fingers!	1	1	2017-07-22 22:02:07.288529
-\.
-
-
---
--- Name: session_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('session_id_seq', 3, true);
-
-
---
--- Data for Name: subject; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY subject (id, title) FROM stdin;
-1	Numbers
-2	Shapes
-3	Nature
-4	Words
-5	Colors
-\.
-
-
---
--- Name: subject_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('subject_id_seq', 5, true);
-
-
---
--- Data for Name: user; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY "user" (id, email, "firstName", "lastName") FROM stdin;
-1	hally9k@gmail.com	Hal	Smith Stevens
-2	k.shrosbree@gmail.com	Kirsty	Smith Stevens
-\.
-
-
---
--- Data for Name: user_child; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY user_child (user_id, child_id) FROM stdin;
-1	1
-\.
-
-
---
--- Name: user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('user_id_seq', 2, true);
-
-
---
 -- Name: activity activity_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -387,6 +326,14 @@ ALTER TABLE ONLY activity
 
 ALTER TABLE ONLY child
     ADD CONSTRAINT child_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: comment comment_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY comment
+    ADD CONSTRAINT comment_pkey PRIMARY KEY (id);
 
 
 --
@@ -443,6 +390,14 @@ ALTER TABLE ONLY child_subject
 
 ALTER TABLE ONLY session
     ADD CONSTRAINT child_fkey FOREIGN KEY (child_id) REFERENCES child(id);
+
+
+--
+-- Name: comment comment_user; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY comment
+    ADD CONSTRAINT comment_user FOREIGN KEY (user_id) REFERENCES "user"(id);
 
 
 --

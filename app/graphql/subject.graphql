@@ -1,6 +1,0 @@
-query($id: ID) {
-  subject(id: $id) {
-    id
-    title
-  }
-}

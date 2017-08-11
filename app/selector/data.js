@@ -1,1 +1,1 @@
-export default state => state.data
+export default state => state.get('data')
