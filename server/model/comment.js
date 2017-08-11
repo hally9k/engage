@@ -2,9 +2,19 @@
 import { pubsub } from '../schema'
 class Comment {
     sql: Knex$Knex
+    redis: RedisConnector
 
-    constructor(sql: Knex$Knex) {
+    constructor(sql: Knex$Knex, redis: RedisConnector) {
         this.sql = sql
+        this.redis = redis
+
+        this.redis.sub.on('message', function(channel, comment) {
+            pubsub.publish('newComment', {
+                newComment: JSON.parse(comment),
+            })
+        })
+
+        this.redis.sub.subscribe('newComment')
     }
 
     channel(channel: String) {
@@ -29,9 +39,10 @@ class Comment {
                     .where('id', commentId[0])
                     .first()
                     .then(comment => {
-                        pubsub.publish('newComment', {
-                            newComment: comment,
-                        })
+                        this.redis.pub.publish(
+                            'newComment',
+                            JSON.stringify(comment),
+                        )
 
                         return comment
                     })

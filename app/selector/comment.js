@@ -12,8 +12,11 @@ const commentsSelector = createSelector(
     [getData, getComments],
     (data, comments) =>
         comments
-            ? denormalize(comments, [commentSchema], data).toList().toJS()
-            : null
+            ? denormalize(comments, [commentSchema], data)
+                .toList()
+                .sort((a, b) => a.createdAt > b.createdAt)
+                .toJS()
+            : null,
 )
 
 export default commentsSelector

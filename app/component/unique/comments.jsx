@@ -1,5 +1,8 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
+import { ago } from 'utility/time'
+
+const ONE_THOUSAND = 1000
 
 export default class Activities extends Component {
     componentWillMount() {
@@ -29,7 +32,10 @@ export default class Activities extends Component {
                     <p>
                         {comment.message}
                     </p>
-                </div>
+                    <p className="time-stamp">
+                        {ago(parseFloat(comment.createdAt) * ONE_THOUSAND)}
+                    </p>
+                </div>,
             )}
         </div>
 
@@ -44,5 +50,5 @@ Activities.propTypes = {
     comments: PropTypes.array,
     currentUserId: PropTypes.number.isRequired,
     fetchingCommentHistory: PropTypes.func.isRequired,
-    sendingNewComment: PropTypes.func.isRequired
+    sendingNewComment: PropTypes.func.isRequired,
 }

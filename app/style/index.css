@@ -10,3 +10,7 @@
     height: 200px;
     background-color: lightblue;
 }
+
+.comment .time-stamp {
+    color: silver;
+}

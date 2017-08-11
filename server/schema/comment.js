@@ -30,6 +30,11 @@ const CommentType = new GraphQLObjectType({
             type: GraphQLString,
             description: 'The channel that a comment belongs to.',
         },
+        createdAt: {
+            type: GraphQLString,
+            description: 'The date and time that comment was made.',
+            resolve: obj => obj.created_at,
+        },
     }),
 })
 
