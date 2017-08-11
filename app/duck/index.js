@@ -6,6 +6,7 @@ import meta from 'duck/meta'
 import { epics as childEpics } from 'duck/child'
 import { epics as subjectEpics } from 'duck/subject'
 import { epics as userEpics } from 'duck/user'
+import { epics as commentEpics } from 'duck/comment'
 
 // Data Actions
 export const PROCESSED = 'data/PROCESSED'
@@ -34,5 +35,6 @@ export const reducers = combineReducers({
 export const epics = combineEpics(
     ...Object.values(childEpics),
     ...Object.values(subjectEpics),
-    ...Object.values(userEpics)
+    ...Object.values(userEpics),
+    ...Object.values(commentEpics)
 )

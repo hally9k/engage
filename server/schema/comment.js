@@ -20,10 +20,7 @@ const CommentType = new GraphQLObjectType({
         user: {
             type: UserType,
             description: 'The commenting user.',
-            resolve: (obj, args, ctx) => {
-                // TODO: fix this snake case issue.
-                return ctx.user.one(obj.user_id ? obj.user_id : obj.userId)
-            }
+            resolve: (obj, args, ctx) => ctx.user.one(obj.user_id)
         },
         message: {
             type: new GraphQLNonNull(GraphQLString),

@@ -14,6 +14,7 @@ export const updateComponentState = payload => ({
 
 // Reducer
 export const INITIAL_STATE = new Map({
+    currentUser: 1,
     fetching: false
 })
 

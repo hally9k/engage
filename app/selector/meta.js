@@ -8,3 +8,6 @@ export default createSelector(
     [getComponentMeta],
     meta => (meta ? meta.toJS() : {})
 )
+
+export const currentUserIdSelector = state =>
+    state.getIn(['meta', 'currentUser'])

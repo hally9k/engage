@@ -7,7 +7,7 @@ import subjectSelector from 'selector/subject'
 import fetchingSelector from 'selector/fetching'
 import { fetchingSubject } from 'duck/subject'
 
-import Activities from './activities.jsx'
+import Activities from './activities'
 
 const mapStateToProps = (state, ownProps) => ({
     fetching: fetchingSelector(state),

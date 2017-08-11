@@ -11,7 +11,7 @@ import subjectSelector from 'selector/subject'
 import userSelector from 'selector/user'
 import fetchingSelector from 'selector/fetching'
 
-import Root from './root.jsx'
+import Root from './root'
 
 const mapStateToProps = state => ({
     fetching: fetchingSelector(state),
