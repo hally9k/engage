@@ -1,7 +1,7 @@
 import graphql from 'utility/graphql'
 import { normalize } from 'normalizr'
 import { processed } from 'duck'
-import userQuery from 'graphql/user.graphql'
+import userQuery from 'graphql/query/user.graphql'
 import { userSchema } from 'schema'
 
 // Actions

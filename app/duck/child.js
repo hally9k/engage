@@ -2,7 +2,7 @@ import graphql from 'utility/graphql'
 import { normalize } from 'normalizr'
 import { processed } from 'duck'
 import { childSchema } from 'schema'
-import childQuery from 'graphql/child.graphql'
+import childQuery from 'graphql/query/child.graphql'
 
 // Actions
 const FETCHING = 'child/FETCHING'

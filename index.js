@@ -51,13 +51,11 @@ server.use(
     )
 )
 
-// server.listen(PORT)
-
 const ws = createServer(server.callback())
 
 ws.listen(PORT, () => {
     // eslint-disable-next-line no-console
-    console.log(`Apollo Server is now running on http://localhost:${PORT}`)
+    console.log(`Engage Server is now running on http://localhost:${PORT}`)
     // eslint-disable-next-line no-new
     new SubscriptionServer(
         {

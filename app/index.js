@@ -6,6 +6,7 @@ import { render } from 'react-dom'
 import './rxjs'
 import Root from 'component/unique/root.container'
 import { SubscriptionClient } from 'subscriptions-transport-ws'
+import commentSubscription from 'graphql/subscription/comment'
 import './style/index.css'
 
 const store = configureStore()
@@ -21,17 +22,7 @@ const wsClient = new SubscriptionClient('ws://localhost:8001/subscriptions')
 
 wsClient.subscribe(
     {
-        query: `
-            subscription {
-               newComment {
-                   user {
-                       id
-                       firstName
-                   }
-                   message
-               }
-           }
-        `
+        query: commentSubscription
     },
     (error, res) => {
         store.dispatch({ type: 'NEW_COMMENT', payload: res.newComment })

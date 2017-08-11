@@ -43,7 +43,7 @@ export default {
     },
     resolve: {
         modules: [paths.appSrc, 'node_modules'],
-        extensions: ['.js', '.jsx', '.css']
+        extensions: ['.js', '.jsx', '.css', '.graphql']
     },
     devServer: {
         compress: true,

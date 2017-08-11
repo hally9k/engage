@@ -20,20 +20,17 @@ class Comment {
     add(userId: Number, message: String) {
         return this.sql('comment')
             .insert({ message, user_id: userId, channel: 'one' })
-            .then(() => {
+            .returning('id')
+            .then(commentId => {
                 return this.sql
                     .select()
                     .from('comment')
-                    .where('channel', 'one')
+                    .where('id', commentId[0])
                     .first()
                     .then(comment => {
-                        pubsub.publish(
-                            'newComment',
-                            {
-                                newComment: comment
-                            },
-                            { user: { five: 'five' } }
-                        )
+                        pubsub.publish('newComment', {
+                            newComment: comment
+                        })
 
                         return comment
                     })

@@ -1,0 +1,11 @@
+query($id: ID) {
+    subject(id: $id) {
+        id
+        title
+        activities {
+            difficulty
+            hint
+            description
+        }
+    }
+}

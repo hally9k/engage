@@ -1,0 +1,9 @@
+subscription {
+    newComment {
+        user {
+            id
+            firstName
+        }
+        message
+    }
+}

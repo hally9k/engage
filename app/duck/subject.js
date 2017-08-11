@@ -1,7 +1,7 @@
 import graphql from 'utility/graphql'
 import { normalize } from 'normalizr'
 import { processed } from 'duck'
-import subjectQuery from 'graphql/subject.graphql'
+import subjectQuery from 'graphql/query/subject.graphql'
 import { subjectSchema } from 'schema'
 
 // Actions
