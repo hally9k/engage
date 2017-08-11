@@ -12,6 +12,7 @@ class Comment {
             .select()
             .from('comment')
             .where('channel', channel)
+            .orderBy('created_at', 'asc')
             .then(comments => {
                 return comments
             })
@@ -29,7 +30,7 @@ class Comment {
                     .first()
                     .then(comment => {
                         pubsub.publish('newComment', {
-                            newComment: comment
+                            newComment: comment,
                         })
 
                         return comment
