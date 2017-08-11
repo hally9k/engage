@@ -1,8 +1,9 @@
 mutation($userId: ID!, $message: String!) {
     comment(userId: $userId, message: $message) {
+        id
         user {
+            id
             firstName
-            lastName
         }
         message
     }

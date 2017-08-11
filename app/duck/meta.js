@@ -1,4 +1,5 @@
 import { fromJS, Map } from 'immutable'
+import { createReducer } from 'redux-immutablejs'
 
 // Actions
 const LOADING = 'meta/LOADING'
@@ -18,19 +19,12 @@ export const INITIAL_STATE = new Map({
     fetching: false
 })
 
-export default (state = INITIAL_STATE, action) => {
-    if (!action) return state
-    switch (action.type) {
-        case LOADING:
-            return state.set('fetching', true)
-        case LOADED:
-            return state.set('fetching', false)
-        case UPDATE_COMPONENT_STATE:
-            return state.mergeIn(
-                ['components', action.payload.key],
-                fromJS(action.payload.value)
-            )
-        default:
-            return state
-    }
-}
+export default createReducer(INITIAL_STATE, {
+    [LOADING]: state => state.set('fetching', true),
+    [LOADED]: state => state.set('fetching', false),
+    [UPDATE_COMPONENT_STATE]: (state, { payload }) =>
+        state.mergeIn(
+            ['components', payload.key],
+            fromJS(payload.value)
+        )
+})

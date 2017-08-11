@@ -5,8 +5,8 @@ import { subjectSchema } from 'schema'
 
 const getSubject = (state, id) =>
     id
-        ? state.data.getIn(['subject', id.toString()])
-        : state.data.get('subject')
+        ? state.getIn(['data', 'subject', id.toString()])
+        : state.getIn(['data', 'subject'])
 
 const subjectSelector = createSelector(
     [getData, getSubject],

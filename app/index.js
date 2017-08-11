@@ -25,6 +25,9 @@ wsClient.subscribe(
         query: commentSubscription
     },
     (error, res) => {
-        store.dispatch({ type: 'NEW_COMMENT', payload: res.newComment })
+        store.dispatch({
+            type: 'comment/RECEIVED_NEW_COMMENT',
+            payload: res.newComment
+        })
     }
 )
