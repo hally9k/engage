@@ -6,6 +6,7 @@ const ONE_THOUSAND = 1000
 
 export default class Activities extends Component {
     componentWillMount() {
+        this.props.subscribeToNewComments()
         this.props.fetchingCommentHistory()
     }
 
@@ -51,4 +52,5 @@ Activities.propTypes = {
     currentUserId: PropTypes.number.isRequired,
     fetchingCommentHistory: PropTypes.func.isRequired,
     sendingNewComment: PropTypes.func.isRequired,
+    subscribeToNewComments: PropTypes.func.isRequired,
 }

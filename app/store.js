@@ -3,6 +3,7 @@ import metaMiddleware from 'middleware/meta'
 import { createEpicMiddleware } from 'redux-observable'
 import createRavenMiddleware from 'middleware/raven'
 import loggerMiddleware from 'middleware/logger'
+import graphQLSubscriptionsMiddleware from 'middleware/subscriptions'
 import { applyMiddleware, compose, createStore } from 'redux'
 import { epics, reducers } from 'duck'
 
@@ -17,8 +18,9 @@ const enhancer = composeEnhancers(
         metaMiddleware,
         ravenMiddleware,
         epicMiddleware,
-        loggerMiddleware
-    )
+        loggerMiddleware,
+        graphQLSubscriptionsMiddleware,
+    ),
 )
 
 let store

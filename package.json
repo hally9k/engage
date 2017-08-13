@@ -79,6 +79,7 @@
         "react-redux": "^5.0.5",
         "redis": "^2.8.0",
         "redux": "^3.7.2",
+        "redux-graphql-subscriptions": "0.0.1",
         "redux-immutablejs": "0.0.8",
         "redux-logger": "^3.0.6",
         "redux-observable": "^0.14.1",
