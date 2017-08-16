@@ -4,10 +4,14 @@ import { ago } from 'utility/time'
 
 const ONE_THOUSAND = 1000
 
-export default class Activities extends Component {
+export default class Comments extends Component {
     componentWillMount() {
         this.props.subscribeToNewComments()
         this.props.fetchingCommentHistory()
+    }
+
+    componentWillUnMount() {
+        this.props.unsubscribeFromNewComments()
     }
 
     handleSendingNewComment = () =>
@@ -47,10 +51,11 @@ export default class Activities extends Component {
     }
 }
 
-Activities.propTypes = {
+Comments.propTypes = {
     comments: PropTypes.array,
     currentUserId: PropTypes.number.isRequired,
     fetchingCommentHistory: PropTypes.func.isRequired,
     sendingNewComment: PropTypes.func.isRequired,
     subscribeToNewComments: PropTypes.func.isRequired,
+    unsubscribeFromNewComments: PropTypes.func.isRequired,
 }

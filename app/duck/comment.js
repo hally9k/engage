@@ -6,7 +6,7 @@ import commentQuery from 'graphql/query/comment'
 import commentMutation from 'graphql/mutation/comment'
 import newCommentSubscription from 'graphql/subscription/new-comment'
 import { fromJS, Map } from 'immutable'
-import { subscribe } from 'redux-graphql-subscriptions'
+import { subscribe, unsubscribe } from 'redux-graphql-subscriptions'
 
 // Actions
 const FETCHING_COMMENT_HISTORY = 'comment/FETCHING_COMMENT_HISTORY'
@@ -46,8 +46,10 @@ export const receivedNewCommentWithErrors = payload => ({
 
 export const subscribeToNewComments = () => subscribe(newComment)
 
+export const unsubscribeFromNewComments = () => unsubscribe(newComment.id)
+
 // Subscriptions
-export const newComment = {
+const newComment = {
     id: 'newComment',
     query: newCommentSubscription,
     success: receivedNewComment,

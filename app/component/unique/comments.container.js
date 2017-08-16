@@ -6,6 +6,7 @@ import {
     fetchingCommentHistory,
     sendingNewComment,
     subscribeToNewComments,
+    unsubscribeFromNewComments,
 } from 'duck/comment'
 
 import Comments from './comments'
@@ -20,6 +21,7 @@ const mapDispatchToProps = dispatch => ({
     sendingNewComment: (message, userId) =>
         dispatch(sendingNewComment(message, userId)),
     subscribeToNewComments: () => dispatch(subscribeToNewComments()),
+    unsubscribeFromNewComments: () => dispatch(unsubscribeFromNewComments()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Comments)
