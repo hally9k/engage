@@ -57,3 +57,6 @@ typings/
 
 # dotenv environment variables file
 .env
+
+# e2e testing
+e2e/reports
