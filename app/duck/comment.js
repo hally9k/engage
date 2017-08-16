@@ -4,13 +4,17 @@ import { processed, PROCESSED } from 'duck'
 import { commentSchema } from 'schema'
 import commentQuery from 'graphql/query/comment'
 import commentMutation from 'graphql/mutation/comment'
+import newCommentSubscription from 'graphql/subscription/new-comment'
 import { fromJS, Map } from 'immutable'
+import { subscribe, unsubscribe } from 'redux-graphql-subscriptions'
 
 // Actions
 const FETCHING_COMMENT_HISTORY = 'comment/FETCHING_COMMENT_HISTORY'
 const RECEIVED_COMMENT_HISTORY = 'comment/RECEIVED_COMMENT_HISTORY'
 const SENDING_NEW_COMMENT = 'comment/SENDING_NEW_COMMENT'
 const RECEIVED_NEW_COMMENT = 'comment/RECEIVED_NEW_COMMENT'
+const RECEIVED_NEW_COMMENT_WITH_ERRORS =
+    'comment/RECEIVED_NEW_COMMENT_WITH_ERRORS'
 
 export const fetchingCommentHistory = payload => ({
     type: FETCHING_COMMENT_HISTORY,
@@ -34,6 +38,23 @@ export const receivedNewComment = payload => ({
     type: RECEIVED_NEW_COMMENT,
     payload,
 })
+
+export const receivedNewCommentWithErrors = payload => ({
+    type: RECEIVED_NEW_COMMENT_WITH_ERRORS,
+    payload,
+})
+
+export const subscribeToNewComments = () => subscribe(newComment)
+
+export const unsubscribeFromNewComments = () => unsubscribe(newComment.id)
+
+// Subscriptions
+const newComment = {
+    id: 'newComment',
+    query: newCommentSubscription,
+    success: receivedNewComment,
+    failure: receivedNewCommentWithErrors,
+}
 
 // Reducers
 const INITIAL_STATE = Map()
@@ -63,9 +84,9 @@ export const fetchingCommentHistoryEpic = action$ =>
 export const receivedCommentHistoryEpic = action$ =>
     action$
         .ofType(RECEIVED_COMMENT_HISTORY)
-        .mergeMap(({ payload: { comment: commentHistory } }) => {
-            return [processed(normalize(commentHistory, [commentSchema]))]
-        })
+        .mergeMap(({ payload: { comment: commentHistory } }) => [
+            processed(normalize(commentHistory, [commentSchema])),
+        ])
 
 export const sendingNewCommentEpic = action$ =>
     action$
@@ -73,15 +94,15 @@ export const sendingNewCommentEpic = action$ =>
         .mergeMap(({ payload: { message, userId } }) =>
             graphql
                 .request(commentMutation, { message, userId })
-                .then(({ comment }) => {
-                    return [receivedNewComment(comment)]
-                }),
+                .then(({ comment }) => [receivedNewComment(comment)]),
         )
 
 export const receivedNewCommentEpic = action$ =>
-    action$.ofType(RECEIVED_NEW_COMMENT).mergeMap(({ payload: comment }) => {
-        return [processed(normalize(comment, commentSchema))]
-    })
+    action$
+        .ofType(RECEIVED_NEW_COMMENT)
+        .mergeMap(({ payload: comment }) => [
+            processed(normalize(comment, commentSchema)),
+        ])
 
 export const epics = {
     fetchingCommentHistoryEpic,
