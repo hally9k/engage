@@ -7,14 +7,13 @@
     "license": "ISC",
     "repository": "git@github.com:hally9k/engage.git",
     "lint-staged": {
-        "*.js": [
-            "eslint"
-        ]
+        "*.js": ["eslint"]
     },
     "scripts": {
         "start": "docker-compose up -d && concurrently \"nodemon index --exec babel-node --inspect\" \"webpack-dev-server\" --watch",
         "test": "mocha $(find . -name '*test.js' ! -ipath '*node_modules*')  --opts 'config/mocha/mocha.opts'",
         "e2e": "./node_modules/nightwatch/bin/nightwatch --config ./config/nightwatch/nightwatch.conf.js",
+        "e2e-local": "./node_modules/nightwatch/bin/nightwatch --config ./config/nightwatch/nightwatch.conf.js -e local",
         "lint": "eslint app/* server/* index/*",
         "format": "prettier-eslint \"server/**/*.{js,jsx}\" \"app/**/*.{js,jsx}\" \"index.js\" --write",
         "precommit": "npm run lint && npm run type-check",
