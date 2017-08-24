@@ -3,7 +3,7 @@ const ONE_THOUSAND = 1000
 let mainCommands = {
     mainLoad: function() {
         return this.waitForElementVisible('@activities', ONE_THOUSAND)
-    },
+    }
 }
 
 module.exports = {
@@ -13,11 +13,10 @@ module.exports = {
     },
     elements: {
         activities: {
-            selector: '.activities',
-            locateStrategy: 'css',
+            selector: '.activities'
         },
         error: {
-            selector: '.error',
-        },
-    },
+            selector: '.error'
+        }
+    }
 }

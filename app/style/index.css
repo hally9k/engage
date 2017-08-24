@@ -14,3 +14,17 @@
 .comment .time-stamp {
     color: silver;
 }
+
+.modal {
+}
+
+.modal-body {
+}
+
+.modal-header {
+    display: flex;
+}
+
+.close-button {
+    margin-left: auto;
+}
