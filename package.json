@@ -7,7 +7,9 @@
     "license": "ISC",
     "repository": "git@github.com:hally9k/engage.git",
     "lint-staged": {
-        "*.js": ["eslint"]
+        "*.js": [
+            "eslint"
+        ]
     },
     "scripts": {
         "start": "docker-compose up -d && concurrently \"nodemon index --exec babel-node --inspect\" \"webpack-dev-server\" --watch",
@@ -75,6 +77,7 @@
         "koa-cors": "0.0.16",
         "koa-graphql": "^0.7.1",
         "koa-mount": "^3.0.0",
+        "koa-static": "^4.0.1",
         "normalizr": "^3.2.3",
         "pg": "^7.0.2",
         "react": "^15.6.1",
