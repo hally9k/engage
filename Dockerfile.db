@@ -1,0 +1,7 @@
+FROM postgres
+
+WORKDIR /usr/src/db
+
+COPY ./config/database/engage.sql .
+
+EXPOSE 5432
