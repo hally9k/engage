@@ -9,6 +9,7 @@ import { execute, subscribe } from 'graphql'
 import schema from './server/schema'
 import sql from './server/connector/sql'
 import redis from './server/connector/redis'
+import staticFiles from 'koa-static'
 import {
     Activity,
     Child,
@@ -34,11 +35,13 @@ const context = {
     session,
 }
 
-const PORT = 8001
+const PORT = process.env.PORT || 8001
 
 const server = new Koa()
 
 server.use(cors())
+
+server.use(staticFiles('public'))
 
 server.use(
     mount(

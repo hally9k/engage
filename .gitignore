@@ -60,3 +60,6 @@ typings/
 
 # e2e testing
 e2e/reports
+
+# webpack build
+public
