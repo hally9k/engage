@@ -1,4 +1,0 @@
-FROM postgres
-
-COPY ./config/database/a_initi_db.sh ./docker-entrypoint-initdb.d/a_initi_db.sh
-COPY ./config/database/engage.sql ./docker-entrypoint-initdb.d/engage.sql

@@ -1,9 +1,9 @@
 version: "2"
 services:
   db:
-    build:
-      context: .
-      dockerfile: Dockerfile.db
+    image: postgres
+    volumes:
+      - ./config/database/init:/docker-entrypoint-initdb.d
     ports:
       - "5432:5432"
   redis:
@@ -11,9 +11,7 @@ services:
     ports:
      - "6379:6379"
   web:
-    build:
-      context: .
-      dockerfile: Dockerfile.web
+    build: .
     ports:
       - "8080:8080"
     depends_on:
