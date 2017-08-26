@@ -35,7 +35,7 @@ const context = {
     session,
 }
 
-const PORT = process.env.PORT || 8001
+const PORT = process.env.PORT || 8080
 
 const server = new Koa()
 

@@ -1,6 +1,6 @@
 import redis from 'redis'
 
 export default {
-    sub: redis.createClient(),
-    pub: redis.createClient(),
+    sub: redis.createClient({ host: 'redis' }),
+    pub: redis.createClient({ host: 'redis' }),
 }

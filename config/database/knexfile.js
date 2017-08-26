@@ -1,15 +1,16 @@
-export default {
+module.exports = {
     client: 'pg',
     connection: {
-        host: '127.0.0.1',
+        host: 'db',
         user: 'postgres',
         password: '',
-        database: 'engage'
+        database: 'engage',
+        multipleStatements: true, // TODO: Make this only in local and stagong
     },
     migrations: {
-        directory: './migrations'
+        directory: './migrations',
     },
     seeds: {
-        directory: './seeds'
-    }
+        directory: './seeds',
+    },
 }

@@ -1,18 +1,22 @@
 version: "2"
 services:
-  web:
-    build:
-      context: .
-      dockerfile: Dockerfile.web
-    ports:
-      - "8080"
   db:
     build:
       context: .
       dockerfile: Dockerfile.db
     ports:
-      - "5444"
+      - "5432:5432"
   redis:
     image: redis
     ports:
-     - "6379"
+     - "6379:6379"
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    ports:
+      - "8080:8080"
+    depends_on:
+      - "redis"
+      - "db"
+    restart: unless-stopped

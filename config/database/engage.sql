@@ -313,6 +313,140 @@ ALTER TABLE ONLY "user" ALTER COLUMN id SET DEFAULT nextval('user_id_seq'::regcl
 
 
 --
+-- Data for Name: activity; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY activity (id, subject_id, difficulty, hint, description) FROM stdin;
+1	1	1	At first, use your fingers together and count along with your child promting them when hesitant. When the can do it alone without your help they're ready to move on.	Counting to ten.
+2	1	6	Count backwards from 100. Try to maintain the rhythm over the decimal barriers. 	Counting backwards from 100.
+3	1	2	At first, use your fingers together and count along with your child promting them when hesitant. When the can do it alone without your help they're ready to move on.	Counting to twenty.
+4	1	3	At first, use your fingers together and count along with your child promting them when hesitant. When the can do it alone without your help they're ready to move on.	Counting backwards from ten.
+5	1	4	At first, use your fingers together and count along with your child promting them when hesitant. When the can do it alone without your help they're ready to move on.	Counting backwards from twenty.
+6	1	5	At first, use your fingers together and count along with your child promting them when hesitant. When the can do it alone without your help they're ready to move on.	Counting in twos.
+\.
+
+
+--
+-- Name: activity_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('activity_id_seq', 1, true);
+
+
+--
+-- Data for Name: child; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY child (id, name, age) FROM stdin;
+1	Aniela	3
+2	Bella	6
+\.
+
+
+--
+-- Name: child_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('child_id_seq', 1, true);
+
+
+--
+-- Data for Name: child_subject; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY child_subject (child_id, subject_id) FROM stdin;
+1	1
+2	2
+\.
+
+
+--
+-- Data for Name: comment; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY comment (id, user_id, message, channel, created_at) FROM stdin;
+196	1	sdvwer	one	1502680710.05831
+197	1	,jgjk	one	1502770718.6461
+198	1	dfgwgr	one	1502770727.8976
+199	1	Boot bang	one	1502775931.9263
+194	1	Boom!	one	1502617686.11031
+195	1	Zing!	one	1502617692.18114
+\.
+
+
+--
+-- Name: comment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('comment_id_seq', 199, true);
+
+
+--
+-- Data for Name: session; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY session (id, activity_id, score, notes, user_id, child_id, created_at) FROM stdin;
+1	1	75	Getting better!	1	1	2017-07-22 21:57:11.758383
+3	1	80	No fingers!	1	1	2017-07-22 22:02:07.288529
+4	2	100	Awesome work!	2	2	2017-08-03 13:17:04.819873
+\.
+
+
+--
+-- Name: session_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('session_id_seq', 3, true);
+
+
+--
+-- Data for Name: subject; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY subject (id, title) FROM stdin;
+1	Numbers
+2	Shapes
+3	Nature
+4	Words
+5	Colors
+\.
+
+
+--
+-- Name: subject_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('subject_id_seq', 5, true);
+
+
+--
+-- Data for Name: user; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY "user" (id, email, "firstName", "lastName") FROM stdin;
+1	hally9k@gmail.com	Hal	Smith Stevens
+2	k.shrosbree@gmail.com	Kirsty	Smith Stevens
+\.
+
+
+--
+-- Data for Name: user_child; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY user_child (user_id, child_id) FROM stdin;
+1	1
+2	2
+\.
+
+
+--
+-- Name: user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('user_id_seq', 2, true);
+
+
+--
 -- Name: activity activity_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
