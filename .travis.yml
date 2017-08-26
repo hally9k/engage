@@ -6,7 +6,7 @@ services:
 language: node_js
 node_js:
   - "node"
-  - "8.1.2"
+  - "latest"
 
 addons:
   sauce_connect: true
