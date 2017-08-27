@@ -23,7 +23,7 @@ module.exports = {
     test_settings: {
         default: {
             launch_url: 'http://ondemand.saucelabs.com:8080',
-            selenium_port: 8080,
+            selenium_port: 80,
             selenium_host: 'ondemand.saucelabs.com',
             silent: true,
             username: process.env.SAUCE_USERNAME,
