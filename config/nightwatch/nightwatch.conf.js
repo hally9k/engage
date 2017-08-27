@@ -51,7 +51,7 @@ module.exports = {
             },
         },
         local: {
-            launch_url: 'http://localhost:8080',
+            launch_url: 'http://localhost:8000',
             selenium_host: '127.0.0.1',
             selenium_port: 4444,
             pathname: '/wd/hub',
