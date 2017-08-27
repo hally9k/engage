@@ -11,9 +11,10 @@ addons:
   sauce_connect: true
 
 before_script:
-  - docker-compose up --build &
+  - docker-compose up --build -d
 
 script:
+  - sleep 30
   - npm test
   - npm run lint
   - npm run type-check
