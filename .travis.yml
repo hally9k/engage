@@ -11,10 +11,10 @@ node_js:
 addons:
   sauce_connect: true
 
-script:
-  - docker-compose ps
-  - docker-compose down
+before_script:
   - docker-compose up --build -d
+
+script:
   - npm test
   - npm run lint
   - npm run type-check
