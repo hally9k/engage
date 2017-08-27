@@ -1,9 +1,9 @@
-const ONE_THOUSAND = 1000
+const TEN_SECONDS = 10000
 
 let mainCommands = {
     mainLoad: function() {
-        return this.waitForElementVisible('@activities', ONE_THOUSAND)
-    }
+        return this.waitForElementVisible('@activities', TEN_SECONDS)
+    },
 }
 
 module.exports = {
@@ -13,10 +13,10 @@ module.exports = {
     },
     elements: {
         activities: {
-            selector: '.activities'
+            selector: '.activities',
         },
         error: {
-            selector: '.error'
-        }
-    }
+            selector: '.error',
+        },
+    },
 }
