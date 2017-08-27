@@ -35,7 +35,7 @@ const context = {
     session,
 }
 
-const DEFAULT_PORT = 8000
+const DEFAULT_PORT = 80
 
 const PORT = process.env.PORT || DEFAULT_PORT
 

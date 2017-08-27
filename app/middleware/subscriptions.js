@@ -1,6 +1,6 @@
 import createGraphQLSubscriptionsMiddleware from 'redux-graphql-subscriptions'
 
-const url = 'ws://localhost:8000/subscriptions'
+const url = 'ws://localhost:80/subscriptions'
 const options = {
     reconnect: true,
     reconnectionAttempts: 20,

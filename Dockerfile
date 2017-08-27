@@ -6,6 +6,6 @@ COPY . .
 
 RUN npm i && ./node_modules/.bin/webpack
 
-EXPOSE 8000
+EXPOSE 80
 
 CMD ["npm", "start"]
