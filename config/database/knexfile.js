@@ -2,6 +2,7 @@ module.exports = {
     client: 'pg',
     connection: {
         host: 'db',
+        port: '9966',
         user: 'postgres',
         password: '',
         database: 'engage',
