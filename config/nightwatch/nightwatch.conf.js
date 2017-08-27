@@ -22,7 +22,7 @@ module.exports = {
 
     test_settings: {
         default: {
-            launch_url: 'http://localhost:8000',
+            launch_url: 'http://ondemand.saucelabs.com:80',
             selenium_port: 80,
             selenium_host: 'ondemand.saucelabs.com',
             silent: true,
@@ -37,7 +37,7 @@ module.exports = {
             },
             desiredCapabilities: {
                 build: `build-${process.env.TRAVIS_JOB_NUMBER || 'local'}`,
-                tunnelIdentifier: process.env.TRAVIS_JOB_NUMBER || 'local',
+                tunnelIdentifier: `${process.env.TRAVIS_JOB_NUMBER || 'local'}`,
                 acceptSslCerts: true,
                 browserName: 'chrome',
                 javascriptEnabled: true,
