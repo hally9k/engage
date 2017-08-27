@@ -13,7 +13,7 @@
         "start:local": "docker-compose up -d && concurrently \"nodemon index --exec babel-node --inspect\" \"webpack-dev-server\" --watch",
         "start": "./node_modules/.bin/knex migrate:latest --knexfile ./config/database/knexfile.js && ./node_modules/.bin/nodemon index --exec babel-node",
         "test": "./node_modules/.bin/mocha $(find . -name '*test.js' ! -ipath '*node_modules*')  --opts 'config/mocha/mocha.opts'",
-        "e2e": "./node_modules/nightwatch/bin/nightwatch --config ./config/nightwatch/nightwatch.conf.js -env chrome",
+        "e2e": "./node_modules/nightwatch/bin/nightwatch --config ./config/nightwatch/nightwatch.conf.js",
         "e2e:local": "./node_modules/nightwatch/bin/nightwatch --config ./config/nightwatch/nightwatch.conf.js -e local",
         "lint": "./node_modules/.bin/eslint app/* server/* index.js",
         "format": "./node_modules/.bin/prettier-eslint \"server/**/*.{js,jsx}\" \"app/**/*.{js,jsx}\" \"index.js\" --write",

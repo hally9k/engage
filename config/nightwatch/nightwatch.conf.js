@@ -38,11 +38,11 @@ module.exports = {
             desiredCapabilities: {
                 build: `build-${process.env.TRAVIS_JOB_NUMBER}`,
                 'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
-            },
-            chrome: {
-                desiredCapabilities: {
-                    browserName: 'chrome',
-                },
+                acceptSslCerts: true,
+                browserName: 'chrome',
+                javascriptEnabled: true,
+                name: 'Main',
+                platform: 'ANY',
             },
         },
         // local: {
