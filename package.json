@@ -18,7 +18,7 @@
         "lint": "./node_modules/.bin/eslint app/* server/* index.js",
         "format": "./node_modules/.bin/prettier-eslint \"server/**/*.{js,jsx}\" \"app/**/*.{js,jsx}\" \"index.js\" --write",
         "precommit": "npm run lint && npm run type-check",
-        "prepush": "npm t",
+        "prepush": "npm t && npm run e2e:local",
         "type-check": "./node_modules/.bin/flow"
     },
     "devDependencies": {
