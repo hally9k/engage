@@ -35,16 +35,13 @@ module.exports = {
             globals: {
                 waitForConditionTimeout: 10000,
             },
+            desiredCapabilities: {
+                build: `build-${process.env.TRAVIS_JOB_NUMBER}`,
+                'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
+            },
             chrome: {
                 desiredCapabilities: {
                     browserName: 'chrome',
-                    'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
-                },
-            },
-            ie11: {
-                desiredCapabilities: {
-                    browserName: 'internet explorer',
-                    'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
                 },
             },
         },
