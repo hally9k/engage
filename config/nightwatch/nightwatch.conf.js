@@ -36,8 +36,8 @@ module.exports = {
                 waitForConditionTimeout: 10000,
             },
             desiredCapabilities: {
-                build: `build-${process.env.TRAVIS_JOB_NUMBER}`,
-                'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
+                build: `build-${process.env.TRAVIS_JOB_NUMBER || 'local'}`,
+                tunnelIdentifier: process.env.TRAVIS_JOB_NUMBER || 'local',
                 acceptSslCerts: true,
                 browserName: 'chrome',
                 javascriptEnabled: true,
