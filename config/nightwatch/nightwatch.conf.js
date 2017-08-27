@@ -38,16 +38,12 @@ module.exports = {
             chrome: {
                 desiredCapabilities: {
                     browserName: 'chrome',
-                    platform: 'OS X 10.11',
-                    version: '47',
                     'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
                 },
             },
             ie11: {
                 desiredCapabilities: {
-                    browserName: 'internet explore',
-                    platform: 'Windows 10',
-                    version: '11.0',
+                    browserName: 'internet explorer',
                     'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
                 },
             },
