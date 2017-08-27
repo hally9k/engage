@@ -1,4 +1,4 @@
-let seleniumServer = require('selenium-server')
+// let seleniumServer = require('selenium-server')
 
 module.exports = {
     src_folders: ['./e2e/tests'],
@@ -40,6 +40,7 @@ module.exports = {
                     browserName: 'chrome',
                     platform: 'OS X 10.11',
                     version: '47',
+                    'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
                 },
             },
             ie11: {
@@ -47,6 +48,7 @@ module.exports = {
                     browserName: 'internet explore',
                     platform: 'Windows 10',
                     version: '11.0',
+                    'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
                 },
             },
         },
