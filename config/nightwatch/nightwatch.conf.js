@@ -9,25 +9,16 @@ module.exports = {
     test_workers: false, // true will to run tests in parallel (http://nightwatchjs.org/guide#parallel-running)
     globals_path: '',
 
-    // selenium: {
-    //     start_process: true,
-    //     server_path: seleniumServer.path,
-    //     host: '127.0.0.1',
-    //     port: 4444,
-    //     cli_args: {
-    //         'webdriver.chrome.driver': 'config/nightwatch/drivers/chromedriver',
-    //         'webdriver.gecko.driver': 'config/nightwatch/drivers/geckodriver',
-    //     },
-    // },
+    selenium: {
+        start_process: false,
+        host: 'hub-cloud.browserstack.com',
+        port: 80,
+    },
 
     test_settings: {
         default: {
-            launch_url: 'http://ondemand.saucelabs.com:80',
-            selenium_port: 80,
-            selenium_host: 'ondemand.saucelabs.com',
+            launch_url: 'http://localhost:8000',
             silent: true,
-            username: process.env.SAUCE_USERNAME,
-            access_key: process.env.SAUCE_ACCESS_KEY,
             screenshots: {
                 enabled: false,
                 path: '',
@@ -36,12 +27,16 @@ module.exports = {
                 waitForConditionTimeout: 10000,
             },
             desiredCapabilities: {
-                build: `build-${process.env.TRAVIS_JOB_NUMBER || 'local'}`,
-                tunnelIdentifier: `${process.env.TRAVIS_JOB_NUMBER || 'local'}`,
-                acceptSslCerts: true,
-                browserName: 'chrome',
-                javascriptEnabled: true,
-                name: 'Main',
+                build: `build-${process.env.BUILDKITE_BUILD_NUMBER || 'local'}`,
+                'browserstack.user':
+                    process.env.BROWSERSTACK_USERNAME ||
+                    'BROWSERSTACK_USERNAME',
+                'browserstack.key':
+                    process.env.BROWSERSTACK_ACCESS_KEY ||
+                    'BROWSERSTACK_ACCESS_KEY',
+                'browserstack.debug': true,
+                browser: 'chrome',
+                name: 'Engage',
                 platform: 'ANY',
             },
         },
