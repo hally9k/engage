@@ -1,3 +1,11 @@
 steps:
-  - label: Example Test
-    command: node -v && npm -v && echo "Let's go!"
+  - label: Install Dependencies
+    command: npm i
+  - label: Linting
+    command: npm run lint
+  - label: Type Checking
+    command: npm run type-check
+  - label: Unit Testing
+    command: npm t
+  - label: End 2 End Tests
+    command: npm run e2e
