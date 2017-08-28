@@ -11,6 +11,8 @@ services:
     ports:
      - "6379"
   web:
+    volumes:
+      - .:/usr/src/app
     build: .
     ports:
       - "8000:8000"
