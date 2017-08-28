@@ -16,7 +16,7 @@ import {
     GraphQLString,
     GraphQLList,
     GraphQLObjectType,
-    GraphQLSchema
+    GraphQLSchema,
 } from 'graphql'
 
 const schema = new GraphQLSchema({
@@ -32,10 +32,10 @@ const schema = new GraphQLSchema({
                         // The `messageAdded` channel includes events for all channels, so we filter to only
                         // pass through events for the channel specified in the query
                         return true
-                    }
-                )
-            }
-        }
+                    },
+                ),
+            },
+        },
     }),
     mutation: new GraphQLObjectType({
         name: 'RootMutationType',
@@ -44,12 +44,12 @@ const schema = new GraphQLSchema({
                 type: CommentType,
                 args: {
                     userId: { type: new GraphQLNonNull(GraphQLID) },
-                    message: { type: new GraphQLNonNull(GraphQLString) }
+                    message: { type: new GraphQLNonNull(GraphQLString) },
                 },
                 resolve: (_, { userId, message }, { comment }) =>
-                    comment.add(userId, message)
-            }
-        }
+                    comment.add(userId, message),
+            },
+        },
     }),
     query: new GraphQLObjectType({
         name: 'RootQueryType',
@@ -57,12 +57,12 @@ const schema = new GraphQLSchema({
             user: {
                 type: new GraphQLList(UserType),
                 args: { id: { type: GraphQLID } },
-                resolve: (_, { id }, { user }) => user.oneOrAll(id)
+                resolve: (_, { id }, { user }) => user.oneOrAll(id),
             },
             child: {
                 type: new GraphQLList(ChildType),
                 args: { id: { type: GraphQLID } },
-                resolve: (_, { id }, { child }) => child.oneOrAll(id)
+                resolve: (_, { id }, { child }) => child.oneOrAll(id),
             },
             comment: {
                 type: new GraphQLList(CommentType),
@@ -71,25 +71,25 @@ const schema = new GraphQLSchema({
                     const ttt = comment.channel('one')
 
                     return ttt
-                }
+                },
             },
             subject: {
                 type: new GraphQLList(SubjectType),
                 args: { id: { type: GraphQLID } },
-                resolve: (_, { id }, { subject }) => subject.oneOrAll(id)
+                resolve: (_, { id }, { subject }) => subject.oneOrAll(id),
             },
             activity: {
                 type: new GraphQLList(ActivityType),
                 args: { id: { type: GraphQLID } },
-                resolve: (_, { id }, { activity }) => activity.oneOrAll(id)
+                resolve: (_, { id }, { activity }) => activity.oneOrAll(id),
             },
             session: {
                 type: new GraphQLList(SessionType),
                 args: { id: { type: GraphQLID } },
-                resolve: (_, { id }, { session }) => session.oneOrAll(id)
-            }
-        }
-    })
+                resolve: (_, { id }, { session }) => session.oneOrAll(id),
+            },
+        },
+    }),
 })
 
 export default schema
