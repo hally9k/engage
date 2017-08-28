@@ -8,4 +8,4 @@ steps:
   - label: Unit Testing
     command: npm t
   - label: End 2 End Tests
-    command: npm run e2e
+    command: docker-compose up --build -d && npm run e2e
