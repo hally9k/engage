@@ -1,0 +1,22 @@
+sudo: required
+
+services:
+  - docker
+
+language: node_js
+node_js:
+  - "8.4.0"
+
+addons:
+  browserstack:
+    username: "halsmithstevens1"
+    access_key: "tCHVKyTqKyzzDXKcpfjn"
+
+before_script:
+  - docker-compose up --build -d
+
+script:
+  - npm test
+  - npm run lint
+  - npm run type-check
+  - npm run e2e
