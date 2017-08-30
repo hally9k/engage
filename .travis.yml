@@ -12,11 +12,12 @@ addons:
 
 before_script:
   - docker-compose up --build -d
-  - sleep 60
+  - sleep 40
 
 script:
   # - npm test
   # - npm run lint
   # - npm run type-check
+  - docker-compose ps
   - curl http://localhost:8080
   - npm run e2e
