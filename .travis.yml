@@ -11,20 +11,8 @@ addons:
   sauce_connect: true
 
 before_script:
-  - docker-compose up --build -d
-  - sleep 10
-  - docker-compose ps
-  - curl http://localhost:8080
-  - sleep 10
-  - docker-compose ps
-  - curl http://localhost:8080
-  - sleep 10
-  - docker-compose ps
-  - curl http://localhost:8080
-  - sleep 10
-  - docker-compose ps
-  - curl http://localhost:8080
-  - sleep 10
+  - docker-compose up --build
+  - sleep 30
 
 script:
   # - npm test
