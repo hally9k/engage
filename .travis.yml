@@ -8,15 +8,15 @@ node_js:
   - "8.4.0"
 
 addons:
-  browserstack:
-    username: "halsmithstevens1"
-    access_key: "tCHVKyTqKyzzDXKcpfjn"
+  sauce_connect: true
 
 before_script:
   - docker-compose up --build -d
+  - sleep 10
 
 script:
-  - npm test
-  - npm run lint
-  - npm run type-check
+  # - npm test
+  # - npm run lint
+  # - npm run type-check
+  - curl http://localhost:8080
   - npm run e2e

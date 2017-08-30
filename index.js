@@ -35,7 +35,7 @@ const context = {
     session,
 }
 
-const DEFAULT_PORT = 8000
+const DEFAULT_PORT = 8080
 
 const PORT = process.env.PORT || DEFAULT_PORT
 
@@ -52,7 +52,7 @@ server.use(
             schema,
             graphiql: true,
             context,
-            subscriptionsEndpoint: 'ws://localhost:8000/subscriptions',
+            subscriptionsEndpoint: `ws://localhost:${PORT}/subscriptions`,
         }),
     ),
 )
