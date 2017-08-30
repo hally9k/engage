@@ -12,7 +12,7 @@ addons:
 
 before_script:
   - docker-compose up --build -d
-  - sleep 10
+  - sleep 30
 
 script:
   # - npm test
