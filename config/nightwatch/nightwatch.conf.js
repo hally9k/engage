@@ -37,6 +37,8 @@ module.exports = {
             },
             desiredCapabilities: {
                 browserName: 'chrome',
+                build: `build-${process.env.TRAVIS_JOB_NUMBER}`,
+                'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
                 chromeOptions: {
                     // "args" : ["headless", "no-sandbox", "disable-gpu"] //Enabling  this will start chrome in headless mode
                 },
