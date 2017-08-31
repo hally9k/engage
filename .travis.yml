@@ -19,7 +19,7 @@ script:
   # - npm test
   # - npm run lint
   # - npm run type-check
-  - docker-compose ps
+  # - docker-compose ps
   - curl http://localhost:8080
   - npm run e2e
   - docker-compose ps
