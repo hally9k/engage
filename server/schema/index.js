@@ -5,7 +5,7 @@ export const pubsub = new PubSub()
 
 import ActivityType from './activity'
 import ChildType from './child'
-import CommentType from './comment'
+import ConversationType from './conversation'
 import SessionType from './session'
 import SubjectType from './subject'
 import UserType from './user'
@@ -23,10 +23,10 @@ const schema = new GraphQLSchema({
     subscription: new GraphQLObjectType({
         name: 'RootSubscriptionType',
         fields: {
-            newComment: {
-                type: CommentType,
+            conversation: {
+                type: ConversationType,
                 subscribe: withFilter(
-                    () => pubsub.asyncIterator('newComment'),
+                    channel => pubsub.asyncIterator(channel),
                     // eslint-disable-next-line
                     payload => {
                         // The `messageAdded` channel includes events for all channels, so we filter to only
@@ -41,13 +41,13 @@ const schema = new GraphQLSchema({
         name: 'RootMutationType',
         fields: {
             comment: {
-                type: CommentType,
+                type: ConversationType,
                 args: {
                     userId: { type: new GraphQLNonNull(GraphQLID) },
                     message: { type: new GraphQLNonNull(GraphQLString) },
                 },
-                resolve: (_, { userId, message }, { comment }) =>
-                    comment.add(userId, message),
+                resolve: (_, { userId, message }, { conversation }) =>
+                    conversation.add(userId, message),
             },
         },
     }),
@@ -64,11 +64,11 @@ const schema = new GraphQLSchema({
                 args: { id: { type: GraphQLID } },
                 resolve: (_, { id }, { child }) => child.oneOrAll(id),
             },
-            comment: {
-                type: new GraphQLList(CommentType),
+            conversation: {
+                type: ConversationType,
                 args: { id: { type: GraphQLID } },
-                resolve: (_, args, { comment }) => {
-                    const ttt = comment.channel('one')
+                resolve: (_, args, { conversation }) => {
+                    const ttt = conversation.channel('one')
 
                     return ttt
                 },

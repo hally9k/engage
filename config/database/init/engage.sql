@@ -2,11 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Select the engage db
-\c engage
-
--- Dumped from database version 9.6.3
--- Dumped by pg_dump version 9.6.3
+-- Dumped from database version 9.6.4
+-- Dumped by pg_dump version 9.6.4
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -18,14 +15,14 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner:
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
 --
 
 CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner:
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
 --
 
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
@@ -120,19 +117,19 @@ CREATE TABLE child_subject (
 ALTER TABLE child_subject OWNER TO postgres;
 
 --
--- Name: comment; Type: TABLE; Schema: public; Owner: postgres
+-- Name: message; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE comment (
+CREATE TABLE message (
     id integer NOT NULL,
-    user_id integer,
+    conversation_id integer,
     message text,
     channel text,
     created_at text DEFAULT date_part('epoch'::text, now())
 );
 
 
-ALTER TABLE comment OWNER TO postgres;
+ALTER TABLE message OWNER TO postgres;
 
 --
 -- Name: comment_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -152,8 +149,53 @@ ALTER TABLE comment_id_seq OWNER TO postgres;
 -- Name: comment_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE comment_id_seq OWNED BY comment.id;
+ALTER SEQUENCE comment_id_seq OWNED BY message.id;
 
+
+--
+-- Name: conversation; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE conversation (
+    id integer NOT NULL,
+    channel text
+);
+
+
+ALTER TABLE conversation OWNER TO postgres;
+
+--
+-- Name: conversation_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE conversation_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE conversation_id_seq OWNER TO postgres;
+
+--
+-- Name: conversation_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE conversation_id_seq OWNED BY conversation.id;
+
+
+--
+-- Name: conversation_user; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE conversation_user (
+    user_id integer,
+    conversation_id integer
+);
+
+
+ALTER TABLE conversation_user OWNER TO postgres;
 
 --
 -- Name: session; Type: TABLE; Schema: public; Owner: postgres
@@ -288,10 +330,17 @@ ALTER TABLE ONLY child ALTER COLUMN id SET DEFAULT nextval('child_id_seq'::regcl
 
 
 --
--- Name: comment id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: conversation id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY comment ALTER COLUMN id SET DEFAULT nextval('comment_id_seq'::regclass);
+ALTER TABLE ONLY conversation ALTER COLUMN id SET DEFAULT nextval('conversation_id_seq'::regclass);
+
+
+--
+-- Name: message id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY message ALTER COLUMN id SET DEFAULT nextval('comment_id_seq'::regclass);
 
 
 --
@@ -364,24 +413,41 @@ COPY child_subject (child_id, subject_id) FROM stdin;
 
 
 --
--- Data for Name: comment; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY comment (id, user_id, message, channel, created_at) FROM stdin;
-196	1	sdvwer	one	1502680710.05831
-197	1	,jgjk	one	1502770718.6461
-198	1	dfgwgr	one	1502770727.8976
-199	1	Boot bang	one	1502775931.9263
-194	1	Boom!	one	1502617686.11031
-195	1	Zing!	one	1502617692.18114
-\.
-
-
---
 -- Name: comment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('comment_id_seq', 199, true);
+
+
+--
+-- Data for Name: conversation; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY conversation (id, channel) FROM stdin;
+\.
+
+
+--
+-- Name: conversation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('conversation_id_seq', 1, false);
+
+
+--
+-- Data for Name: conversation_user; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY conversation_user (user_id, conversation_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: message; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY message (id, conversation_id, message, channel, created_at) FROM stdin;
+\.
 
 
 --
@@ -466,11 +532,19 @@ ALTER TABLE ONLY child
 
 
 --
--- Name: comment comment_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: message comment_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY comment
+ALTER TABLE ONLY message
     ADD CONSTRAINT comment_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: conversation conversation_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY conversation
+    ADD CONSTRAINT conversation_pkey PRIMARY KEY (id);
 
 
 --
@@ -530,11 +604,19 @@ ALTER TABLE ONLY session
 
 
 --
--- Name: comment comment_user; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: conversation_user conversation_conversation_user; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY comment
-    ADD CONSTRAINT comment_user FOREIGN KEY (user_id) REFERENCES "user"(id);
+ALTER TABLE ONLY conversation_user
+    ADD CONSTRAINT conversation_conversation_user FOREIGN KEY (conversation_id) REFERENCES conversation(id);
+
+
+--
+-- Name: message message_conversation; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY message
+    ADD CONSTRAINT message_conversation FOREIGN KEY (conversation_id) REFERENCES conversation(id);
 
 
 --
@@ -551,6 +633,14 @@ ALTER TABLE ONLY child_subject
 
 ALTER TABLE ONLY activity
     ADD CONSTRAINT subject_fkey FOREIGN KEY (subject_id) REFERENCES subject(id);
+
+
+--
+-- Name: conversation_user user_conversation_user; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY conversation_user
+    ADD CONSTRAINT user_conversation_user FOREIGN KEY (user_id) REFERENCES "user"(id);
 
 
 --
@@ -572,3 +662,4 @@ ALTER TABLE ONLY session
 --
 -- PostgreSQL database dump complete
 --
+

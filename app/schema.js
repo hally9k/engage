@@ -10,6 +10,6 @@ export const userSchema = new schema.Entity('user', {
     children: [childSchema],
 })
 
-export const commentSchema = new schema.Entity('comment', {
+export const conversationSchema = new schema.Entity('conversation', {
     user: userSchema,
 })

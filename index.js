@@ -13,7 +13,7 @@ import staticFiles from 'koa-static'
 import {
     Activity,
     Child,
-    Comment,
+    Conversation,
     Session,
     Subject,
     User,
@@ -21,7 +21,7 @@ import {
 
 const user = new User(sql)
 const child = new Child(sql)
-const comment = new Comment(sql, redis)
+const conversation = new Conversation(sql, redis)
 const subject = new Subject(sql)
 const activity = new Activity(sql)
 const session = new Session(sql)
@@ -29,7 +29,7 @@ const session = new Session(sql)
 const context = {
     user,
     child,
-    comment,
+    conversation,
     subject,
     activity,
     session,
