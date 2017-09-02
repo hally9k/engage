@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import Activities from './activities.container'
-import Comments from './comments.container'
+import Messenger from './messenger'
 
 export default class Root extends Component {
     handleFetchingChild = () => {
@@ -23,7 +23,7 @@ export default class Root extends Component {
         return (
             <div>
                 <Activities subjectId="1" />
-                <Comments />
+                <Messenger />
             </div>
         )
     }
@@ -38,5 +38,5 @@ Root.propTypes = {
     meta: PropTypes.object,
     subject: PropTypes.object,
     updateComponentState: PropTypes.func.isRequired,
-    user: PropTypes.object
+    user: PropTypes.object,
 }

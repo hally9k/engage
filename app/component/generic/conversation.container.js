@@ -1,6 +1,5 @@
 import { connect } from 'react-redux'
 
-import conversationSelector from 'selector/conversation'
 import { currentUserIdSelector } from 'selector/meta'
 import {
     fetchingConversation,
@@ -12,7 +11,6 @@ import {
 import Conversation from './conversation'
 
 const mapStateToProps = state => ({
-    conversation: conversationSelector(state),
     currentUserId: currentUserIdSelector(state),
 })
 
