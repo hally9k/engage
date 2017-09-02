@@ -1,7 +1,12 @@
+import config from '../../config'
+
+const { service: { postgres } } = config
+
 module.exports = {
     client: 'pg',
     connection: {
-        host: 'db',
+        host: postgres.host,
+        port: postgres.port,
         user: 'postgres',
         password: '',
         database: 'engage',

@@ -9,7 +9,7 @@ class Comment {
         this.redis = redis
 
         this.redis.sub.on('message', function(channel, comment) {
-            pubsub.publish('newComment', {
+            pubsub.publish(channel, {
                 newComment: JSON.parse(comment),
             })
         })
