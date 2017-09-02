@@ -1,0 +1,11 @@
+mutation($userId: ID!, $message: String!) {
+    comment(userId: $userId, message: $message) {
+        id
+        createdAt
+        user {
+            id
+            firstName
+        }
+        message
+    }
+}

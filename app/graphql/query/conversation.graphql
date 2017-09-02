@@ -1,0 +1,11 @@
+query {
+    comment {
+        id
+        createdAt
+        user {
+            id
+            firstName
+        }
+        message
+    }
+}
