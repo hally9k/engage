@@ -1,0 +1,11 @@
+mutation($userId: ID!, $channel: String!, $message: String!) {
+    message(userId: $userId, channel: $channel, message: $message) {
+        id
+        createdAt
+        user {
+            id
+            firstName
+        }
+        content
+    }
+}
