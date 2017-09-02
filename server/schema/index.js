@@ -40,14 +40,14 @@ const schema = new GraphQLSchema({
     mutation: new GraphQLObjectType({
         name: 'RootMutationType',
         fields: {
-            comment: {
+            conversation: {
                 type: ConversationType,
                 args: {
                     userId: { type: new GraphQLNonNull(GraphQLID) },
-                    message: { type: new GraphQLNonNull(GraphQLString) },
+                    channel: { type: new GraphQLNonNull(GraphQLString) },
                 },
-                resolve: (_, { userId, message }, { conversation }) =>
-                    conversation.add(userId, message),
+                resolve: (_, { userId, channel }, { conversation }) =>
+                    conversation.add(userId, channel),
             },
         },
     }),
@@ -65,13 +65,10 @@ const schema = new GraphQLSchema({
                 resolve: (_, { id }, { child }) => child.oneOrAll(id),
             },
             conversation: {
-                type: ConversationType,
-                args: { id: { type: GraphQLID } },
-                resolve: (_, args, { conversation }) => {
-                    const ttt = conversation.channel('one')
-
-                    return ttt
-                },
+                type: new GraphQLList(ConversationType),
+                args: { userId: { type: GraphQLID } },
+                resolve: (_, { userId }, { conversation }) =>
+                    conversation.all(userId),
             },
             subject: {
                 type: new GraphQLList(SubjectType),

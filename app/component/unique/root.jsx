@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import Activities from './activities.container'
-import Messenger from './messenger'
+import Messenger from './messenger.container'
 
 export default class Root extends Component {
     handleFetchingChild = () => {

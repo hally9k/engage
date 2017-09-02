@@ -3,7 +3,7 @@ import paths from './config/path'
 import webpack from 'webpack'
 
 export default {
-    devtool: 'source-map',
+    devtool: 'cheap-module-eval-source-map',
     entry: paths.appIndexJs,
     output: {
         path: paths.appBuild,

@@ -15,7 +15,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    fetchingConversation: () => dispatch(fetchingConversation()),
+    fetchingConversation: userId => dispatch(fetchingConversation(userId)),
     sendingNewMessage: (message, userId) =>
         dispatch(sendingNewMessage(message, userId)),
     subscribeToConversation: () => dispatch(subscribeToConversation()),

@@ -18,20 +18,23 @@ const ConversationType = new GraphQLObjectType({
             type: GraphQLInt,
             description: 'The conversation\'s ID.',
         },
-        users: {
-            type: new GraphQLList(UserType),
-            description: 'The users subscribed to the conversation.',
-            resolve: (obj, args, { conversation }) =>
-                conversation.allUsers(obj.id),
-        },
         messages: {
             type: new GraphQLList(MessageType),
             description: 'The messages in a conversation.',
-            resolve: (obj, args, { message }) => message.all(obj.id),
+            resolve: (obj, args, { message }) => {
+                return message.all(obj.id)
+            },
         },
         channel: {
             type: GraphQLString,
             description: 'The channel identifier.',
+        },
+        users: {
+            type: new GraphQLList(UserType),
+            description: 'The users subscribed to the conversation.',
+            resolve: (obj, args, { conversation }) => {
+                return conversation.allUsers(obj.id)
+            },
         },
     }),
 })

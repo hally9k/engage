@@ -15,6 +15,15 @@ export default class Conversation {
         })
     }
 
+    all(userId: Number) {
+        return this.sql
+            .select()
+            .from('conversation_user')
+            .where('user_id', userId)
+            .innerJoin('conversation', 'id', 'conversation_id')
+            .then(conversations => conversations)
+    }
+
     add(userId: Number, channel: String) {
         this.redis.sub.subscribe(channel)
 
@@ -31,9 +40,12 @@ export default class Conversation {
                 return this.sql('conversation')
                     .insert({ channel })
                     .returning('id')
-                    .then(conversationId =>
-                        this.addUser(userId, conversationId[0]),
-                    )
+                    .then(conversationId => {
+                        return this.addUser(
+                            userId,
+                            conversationId[0],
+                        ).then(() => ({ id: conversationId, channel }))
+                    })
             })
     }
 

@@ -56,6 +56,10 @@ server.use(
             graphiql: true,
             context,
             subscriptionsEndpoint: `ws://localhost:${PORT}/subscriptions`,
+            formatError: error => ({
+                message: error.message,
+                status: error.status,
+            }),
         }),
     ),
 )

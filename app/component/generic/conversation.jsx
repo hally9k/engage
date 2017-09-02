@@ -19,7 +19,6 @@ export default class Comments extends Component {
 
     renderMessageInput = () =>
         <div>
-            {this.renderConversation()}
             <input
                 ref={input => (this.input = input)}
                 className="comment-input"
@@ -27,27 +26,36 @@ export default class Comments extends Component {
             <button onClick={this.handleSendingNewComment}>Send</button>
         </div>
 
-    renderConversation = () =>
+    renderMessages = () =>
+        this.props.conversation.messages.map((message, index) =>
+            <div key={`message-${index}`} className="message">
+                <h5>
+                    {message.user.firstName}
+                </h5>
+                <p>
+                    {message.message}
+                </p>
+                <p className="time-stamp">
+                    {ago(parseFloat(message.createdAt) * ONE_THOUSAND)}
+                </p>
+            </div>,
+        )
+
+    renderConversation = channel =>
         <div className="conversation">
-            {this.props.conversation.messages.map((message, index) =>
-                <div key={`comment-${index}`} className="comment">
-                    <h5>
-                        {message.user.firstName}
-                    </h5>
-                    <p>
-                        {message.message}
-                    </p>
-                    <p className="time-stamp">
-                        {ago(parseFloat(message.createdAt) * ONE_THOUSAND)}
-                    </p>
-                </div>,
-            )}
+            <h5>
+                {channel}
+            </h5>
+            {this.renderMessages()}
+            {this.renderMessageInput()}
         </div>
 
     render() {
         const { conversation } = this.props
 
-        return conversation ? this.renderMessageInput() : null
+        return conversation
+            ? this.renderConversation(conversation.channel)
+            : null
     }
 }
 

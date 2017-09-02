@@ -3,10 +3,16 @@ import React, { Component } from 'react'
 import Conversation from 'component/generic/conversation.container'
 
 export default class Messenger extends Component {
-    handleCreateConversation() {
-        const { fetchingConverstion } = this.props
+    componentWillMount = () => {
+        const { fetchingConversation, currentUserId } = this.props
 
-        fetchingConverstion(this.channelInput.value)
+        fetchingConversation(currentUserId)
+    }
+
+    handleCreateConversation = () => {
+        const { creatingConversation, currentUserId } = this.props
+
+        creatingConversation(currentUserId, this.channelInput.value)
     }
 
     render() {
@@ -23,12 +29,13 @@ export default class Messenger extends Component {
                     <button onClick={this.handleCreateConversation}>
                         Create Channel
                     </button>
-                    {conversations.map(conversation =>
-                        <Conversation
-                            key={conversation.id}
-                            conversation={conversation}
-                        />,
-                    )}
+                    {conversations &&
+                        conversations.map(conversation =>
+                            <Conversation
+                                key={conversation.id}
+                                conversation={conversation}
+                            />,
+                        )}
                 </label>
             </div>
         )
@@ -36,6 +43,8 @@ export default class Messenger extends Component {
 }
 
 Messenger.propTypes = {
-    conversations: PropTypes.object,
-    fetchingConverstion: PropTypes.func.isRequired,
+    conversations: PropTypes.array,
+    creatingConversation: PropTypes.func.isRequired,
+    currentUserId: PropTypes.number.isRequired,
+    fetchingConversation: PropTypes.func.isRequired,
 }
