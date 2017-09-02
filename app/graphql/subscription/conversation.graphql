@@ -1,11 +1,6 @@
 subscription {
-    newComment {
+    conversation {
         id
-        createdAt
-        user {
-            id
-            firstName
-        }
-        message
+        channel
     }
 }

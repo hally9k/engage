@@ -21,20 +21,17 @@ const ConversationType = new GraphQLObjectType({
         users: {
             type: new GraphQLList(UserType),
             description: 'The users subscribed to the conversation.',
-            resolve: (obj, args, ctx) => ctx.user.one(obj.user_id),
+            resolve: (obj, args, { conversation }) =>
+                conversation.allUsers(obj.id),
         },
         messages: {
             type: new GraphQLList(MessageType),
-            description: 'The content of a comment.',
+            description: 'The messages in a conversation.',
+            resolve: (obj, args, { message }) => message.all(obj.id),
         },
         channel: {
             type: GraphQLString,
-            description: 'The channel that a comment belongs to.',
-        },
-        createdAt: {
-            type: GraphQLString,
-            description: 'The date and time that comment was made.',
-            resolve: obj => obj.created_at,
+            description: 'The channel identifier.',
         },
     }),
 })

@@ -14,6 +14,7 @@ import {
     Activity,
     Child,
     Conversation,
+    Message,
     Session,
     Subject,
     User,
@@ -22,6 +23,7 @@ import {
 const user = new User(sql)
 const child = new Child(sql)
 const conversation = new Conversation(sql, redis)
+const message = new Message(sql, redis)
 const subject = new Subject(sql)
 const activity = new Activity(sql)
 const session = new Session(sql)
@@ -30,6 +32,7 @@ const context = {
     user,
     child,
     conversation,
+    message,
     subject,
     activity,
     session,

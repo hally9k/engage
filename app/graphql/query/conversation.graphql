@@ -1,11 +1,6 @@
 query {
-    comment {
+    conversation {
         id
-        createdAt
-        user {
-            id
-            firstName
-        }
-        message
+        channel
     }
 }

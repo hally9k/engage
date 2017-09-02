@@ -1,11 +1,6 @@
-mutation($userId: ID!, $message: String!) {
-    comment(userId: $userId, message: $message) {
+mutation($userId: ID!, $channel: String!) {
+    conversation(userId: $userId, channel: $channel) {
         id
-        createdAt
-        user {
-            id
-            firstName
-        }
-        message
+        channel
     }
 }

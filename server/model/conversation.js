@@ -43,4 +43,13 @@ export default class Conversation {
             user_id: userId,
         })
     }
+
+    allUsers(conversationId: Number) {
+        return this.sql('conversation_user')
+            .where('conversation_id', conversationId)
+            .innerJoin('user', 'id', 'user_id')
+            .then(users => {
+                return users
+            })
+    }
 }

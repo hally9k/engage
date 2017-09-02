@@ -8,6 +8,15 @@ export default class Message {
         this.redis = redis
     }
 
+    all(conversationId: Number) {
+        return this.sql
+            .select()
+            .from('message')
+            .where('conversation_id', conversationId)
+            .orderBy('created_at', 'desc')
+            .then(messages => messages)
+    }
+
     add(
         userId: Number,
         conversationId: Number,
