@@ -3,10 +3,11 @@ import { connect } from 'react-redux'
 import { currentUserIdSelector } from 'selector/meta'
 import {
     fetchingConversation,
-    sendingNewMessage,
     subscribeToConversation,
     unsubscribeFromConversation,
 } from 'duck/conversation'
+
+import { sendingNewMessage } from 'duck/message'
 
 import Conversation from './conversation'
 
@@ -16,9 +17,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     fetchingConversation: userId => dispatch(fetchingConversation(userId)),
-    sendingNewMessage: (message, userId) =>
-        dispatch(sendingNewMessage(message, userId)),
-    subscribeToConversation: () => dispatch(subscribeToConversation()),
+    sendingNewMessage: (content, userId, conversationId, channel) =>
+        dispatch(sendingNewMessage(content, userId, conversationId, channel)),
+    subscribeToConversation: channel =>
+        dispatch(subscribeToConversation(channel)),
     unsubscribeFromConversation: () => dispatch(unsubscribeFromConversation()),
 })
 

@@ -1,5 +1,15 @@
-mutation($userId: ID!, $channel: String!, $message: String!) {
-    message(userId: $userId, channel: $channel, message: $message) {
+mutation(
+    $content: String!
+    $userId: ID!
+    $conversationId: ID!
+    $channel: String!
+) {
+    message(
+        content: $content
+        userId: $userId
+        conversationId: $conversationId
+        channel: $channel
+    ) {
         id
         createdAt
         user {

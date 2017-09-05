@@ -13,19 +13,19 @@ export default class Message {
             .select()
             .from('message')
             .where('conversation_id', conversationId)
-            .orderBy('created_at', 'desc')
+            .orderBy('created_at', 'asc')
             .then(messages => messages)
     }
 
     add(
+        content: String,
         userId: Number,
         conversationId: Number,
         channel: String,
-        message: String,
     ) {
         return this.sql('message')
             .insert({
-                message,
+                content,
                 user_id: userId,
                 conversation_id: conversationId,
             })

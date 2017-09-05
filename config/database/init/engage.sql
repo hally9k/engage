@@ -2,8 +2,10 @@
 -- PostgreSQL database dump
 --
 
+\c engage
+
 -- Dumped from database version 9.6.4
--- Dumped by pg_dump version 9.6.4
+-- Dumped by pg_dump version 9.6.3
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -15,14 +17,14 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner:
 --
 
 CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner:
 --
 
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
@@ -122,10 +124,10 @@ ALTER TABLE child_subject OWNER TO postgres;
 
 CREATE TABLE message (
     id integer NOT NULL,
-    conversation_id integer,
-    message text,
-    channel text,
-    created_at text DEFAULT date_part('epoch'::text, now())
+    user_id integer,
+    content text,
+    created_at text DEFAULT date_part('epoch'::text, now()),
+    conversation_id integer
 );
 
 
@@ -184,18 +186,6 @@ ALTER TABLE conversation_id_seq OWNER TO postgres;
 
 ALTER SEQUENCE conversation_id_seq OWNED BY conversation.id;
 
-
---
--- Name: conversation_user; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE conversation_user (
-    user_id integer,
-    conversation_id integer
-);
-
-
-ALTER TABLE conversation_user OWNER TO postgres;
 
 --
 -- Name: session; Type: TABLE; Schema: public; Owner: postgres
@@ -293,6 +283,18 @@ CREATE TABLE user_child (
 
 
 ALTER TABLE user_child OWNER TO postgres;
+
+--
+-- Name: user_conversation; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE user_conversation (
+    conversation_id integer,
+    user_id integer
+);
+
+
+ALTER TABLE user_conversation OWNER TO postgres;
 
 --
 -- Name: user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -435,18 +437,10 @@ SELECT pg_catalog.setval('conversation_id_seq', 1, false);
 
 
 --
--- Data for Name: conversation_user; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY conversation_user (user_id, conversation_id) FROM stdin;
-\.
-
-
---
 -- Data for Name: message; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY message (id, conversation_id, message, channel, created_at) FROM stdin;
+COPY message (id, user_id, content, created_at, conversation_id) FROM stdin;
 \.
 
 
@@ -509,6 +503,14 @@ COPY user_child (user_id, child_id) FROM stdin;
 
 
 --
+-- Data for Name: user_conversation; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY user_conversation (conversation_id, user_id) FROM stdin;
+\.
+
+
+--
 -- Name: user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -532,19 +534,19 @@ ALTER TABLE ONLY child
 
 
 --
--- Name: message comment_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY message
-    ADD CONSTRAINT comment_pkey PRIMARY KEY (id);
-
-
---
 -- Name: conversation conversation_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY conversation
     ADD CONSTRAINT conversation_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: message message_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY message
+    ADD CONSTRAINT message_pkey PRIMARY KEY (id);
 
 
 --
@@ -604,19 +606,19 @@ ALTER TABLE ONLY session
 
 
 --
--- Name: conversation_user conversation_conversation_user; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY conversation_user
-    ADD CONSTRAINT conversation_conversation_user FOREIGN KEY (conversation_id) REFERENCES conversation(id);
-
-
---
--- Name: message message_conversation; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: message comment_user; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY message
-    ADD CONSTRAINT message_conversation FOREIGN KEY (conversation_id) REFERENCES conversation(id);
+    ADD CONSTRAINT comment_user FOREIGN KEY (user_id) REFERENCES "user"(id);
+
+
+--
+-- Name: message conversation_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY message
+    ADD CONSTRAINT conversation_id FOREIGN KEY (conversation_id) REFERENCES conversation(id);
 
 
 --
@@ -636,11 +638,19 @@ ALTER TABLE ONLY activity
 
 
 --
--- Name: conversation_user user_conversation_user; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: user_conversation user_conversation_conversation_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY conversation_user
-    ADD CONSTRAINT user_conversation_user FOREIGN KEY (user_id) REFERENCES "user"(id);
+ALTER TABLE ONLY user_conversation
+    ADD CONSTRAINT user_conversation_conversation_id FOREIGN KEY (conversation_id) REFERENCES conversation(id);
+
+
+--
+-- Name: user_conversation user_conversation_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY user_conversation
+    ADD CONSTRAINT user_conversation_user_id FOREIGN KEY (user_id) REFERENCES "user"(id);
 
 
 --
@@ -662,4 +672,3 @@ ALTER TABLE ONLY session
 --
 -- PostgreSQL database dump complete
 --
-

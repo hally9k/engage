@@ -1,5 +1,5 @@
-subscription {
-    conversation {
+subscription($channel: String!) {
+    conversation(channel: $channel) {
         id
         channel
     }

@@ -11,3 +11,6 @@ export const userSchema = new schema.Entity('user', {
 })
 
 export const conversationSchema = new schema.Entity('conversation', {})
+export const messageSchema = new schema.Entity('conversation', {
+    user: userSchema,
+})

@@ -1,32 +1,22 @@
 // @flow
-import { pubsub } from '../schema'
 export default class Conversation {
     sql: Knex$Knex
     redis: RedisConnector
 
-    constructor(sql: Knex$Knex, redis: RedisConnector) {
+    constructor(sql: Knex$Knex) {
         this.sql = sql
-        this.redis = redis
-
-        this.redis.sub.on('message', function(channel, message) {
-            pubsub.publish(channel, {
-                conversation: JSON.parse(message),
-            })
-        })
     }
 
     all(userId: Number) {
         return this.sql
             .select()
-            .from('conversation_user')
+            .from('user_conversation')
             .where('user_id', userId)
             .innerJoin('conversation', 'id', 'conversation_id')
             .then(conversations => conversations)
     }
 
     add(userId: Number, channel: String) {
-        this.redis.sub.subscribe(channel)
-
         return this.sql
             .select()
             .from('conversation')
@@ -50,7 +40,7 @@ export default class Conversation {
     }
 
     addUser(userId: Number, conversationId: Number) {
-        return this.sql('conversation_user').insert({
+        return this.sql('user_conversation').insert({
             conversation_id: conversationId,
             user_id: userId,
         })

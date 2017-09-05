@@ -32,7 +32,7 @@ export default class Messenger extends Component {
                     {conversations &&
                         conversations.map(conversation =>
                             <Conversation
-                                key={conversation.id}
+                                key={`conversation-${conversation.id}`}
                                 conversation={conversation}
                             />,
                         )}

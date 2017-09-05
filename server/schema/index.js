@@ -1,11 +1,12 @@
 // @flow
 
-import { PubSub, withFilter } from 'graphql-subscriptions'
+import { PubSub } from 'graphql-subscriptions'
 export const pubsub = new PubSub()
 
 import ActivityType from './activity'
 import ChildType from './child'
 import ConversationType from './conversation'
+import MessageType from './message'
 import SessionType from './session'
 import SubjectType from './subject'
 import UserType from './user'
@@ -25,15 +26,19 @@ const schema = new GraphQLSchema({
         fields: {
             conversation: {
                 type: ConversationType,
-                subscribe: withFilter(
-                    channel => pubsub.asyncIterator(channel),
-                    // eslint-disable-next-line
-                    payload => {
-                        // The `messageAdded` channel includes events for all channels, so we filter to only
-                        // pass through events for the channel specified in the query
-                        return true
-                    },
-                ),
+                args: {
+                    channel: { type: new GraphQLNonNull(GraphQLString) },
+                },
+                subscribe: (_, { channel }, { redis }) => {
+                    redis.sub.subscribe(channel)
+
+                    redis.sub.on(channel, function(channel, message) {
+                        pubsub.publish(channel, {
+                            conversation: JSON.parse(message),
+                        })
+                    })
+                    pubsub.asyncIterator(channel)
+                },
             },
         },
     }),
@@ -48,6 +53,20 @@ const schema = new GraphQLSchema({
                 },
                 resolve: (_, { userId, channel }, { conversation }) =>
                     conversation.add(userId, channel),
+            },
+            message: {
+                type: MessageType,
+                args: {
+                    content: { type: new GraphQLNonNull(GraphQLString) },
+                    userId: { type: new GraphQLNonNull(GraphQLID) },
+                    conversationId: { type: new GraphQLNonNull(GraphQLID) },
+                    channel: { type: new GraphQLNonNull(GraphQLString) },
+                },
+                resolve: (
+                    _,
+                    { content, userId, conversationId, channel },
+                    { message },
+                ) => message.add(content, userId, conversationId, channel),
             },
         },
     }),

@@ -7,15 +7,12 @@ import conversationMutation from 'graphql/mutation/conversation'
 import conversationSubscription from 'graphql/subscription/conversation'
 import { fromJS, Map } from 'immutable'
 import { subscribe, unsubscribe } from 'redux-graphql-subscriptions'
+import { receivedNewMessage, receivedNewMessageWithErrors } from 'duck/message'
 
 // Actions
 const CREATING_CONVERSATION = 'conversation/CREATING_CONVERSATION'
 const FETCHING_CONVERSATION = 'conversation/FETCHING_CONVERSATION'
 const RECEIVED_CONVERSATION = 'conversation/RECEIVED_CONVERSATION'
-const SENDING_NEW_MESSAGE = 'conversation/SENDING_NEW_MESSAGE'
-const RECEIVED_NEW_MESSAGE = 'conversation/RECEIVED_NEW_MESSAGE'
-const RECEIVED_NEW_MESSAGE_WITH_ERRORS =
-    'conversation/RECEIVED_NEW_MESSAGE_WITH_ERRORS'
 
 export const creatingConversation = (userId, channel) => ({
     type: CREATING_CONVERSATION,
@@ -35,26 +32,8 @@ export const receivedConversation = payload => ({
     payload,
 })
 
-export const sendingNewMessage = (message, userId) => ({
-    type: SENDING_NEW_MESSAGE,
-    payload: {
-        message,
-        userId,
-    },
-})
-
-export const receivedNewMessage = payload => ({
-    type: RECEIVED_NEW_MESSAGE,
-    payload,
-})
-
-export const receivedNewMessageWithErrors = payload => ({
-    type: RECEIVED_NEW_MESSAGE_WITH_ERRORS,
-    payload,
-})
-
 export const subscribeToConversation = channel =>
-    subscribe({ id: channel, ...conversation })
+    subscribe({ ...conversation, variables: { channel } })
 
 export const unsubscribeFromConversation = channel => unsubscribe(channel)
 
@@ -104,26 +83,8 @@ export const receivedConversationEpic = action$ =>
             return [processed(normalize(conversation, [conversationSchema]))]
         })
 
-export const sendingNewMessageEpic = action$ =>
-    action$
-        .ofType(SENDING_NEW_MESSAGE)
-        .mergeMap(({ payload: { message, userId } }) =>
-            graphql
-                .request(conversationMutation, { message, userId })
-                .then(({ message }) => [receivedNewMessage(message)]),
-        )
-
-export const receivedNewMessageEpic = action$ =>
-    action$
-        .ofType(RECEIVED_NEW_MESSAGE)
-        .mergeMap(({ payload: message }) => [
-            processed(normalize(message, conversationSchema)),
-        ])
-
 export const epics = {
     creatingConversationEpic,
     fetchingConversationEpic,
     receivedConversationEpic,
-    sendingNewMessageEpic,
-    receivedNewMessageEpic,
 }

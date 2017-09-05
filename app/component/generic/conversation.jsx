@@ -5,17 +5,28 @@ import { ago } from 'utility/time'
 const ONE_THOUSAND = 1000
 
 export default class Comments extends Component {
-    componentWillMount() {
-        this.props.subscribeToConversation()
-        this.props.fetchingConversation()
+    componentWillMount = () => {
+        const { conversation: { channel }, currentUserId } = this.props
+
+        this.props.subscribeToConversation(channel)
+        this.props.fetchingConversation(currentUserId)
     }
 
-    componentWillUnMount() {
-        this.props.unsubscribeFromConversation()
-    }
+    componentWillUnMount = () => this.props.unsubscribeFromConversation()
 
-    handleSendingNewMessage = () =>
-        this.props.sendingNewMessage(this.input.value, this.props.currentUserId)
+    handleSendingNewMessage = () => {
+        const {
+            conversation: { id: conversationId, channel },
+            currentUserId,
+        } = this.props
+
+        this.props.sendingNewMessage(
+            this.input.value,
+            currentUserId,
+            conversationId,
+            channel,
+        )
+    }
 
     renderMessageInput = () =>
         <div>
@@ -23,7 +34,7 @@ export default class Comments extends Component {
                 ref={input => (this.input = input)}
                 className="comment-input"
             />
-            <button onClick={this.handleSendingNewComment}>Send</button>
+            <button onClick={this.handleSendingNewMessage}>Send</button>
         </div>
 
     renderMessages = () =>
@@ -33,7 +44,7 @@ export default class Comments extends Component {
                     {message.user.firstName}
                 </h5>
                 <p>
-                    {message.message}
+                    {message.content}
                 </p>
                 <p className="time-stamp">
                     {ago(parseFloat(message.createdAt) * ONE_THOUSAND)}
@@ -43,10 +54,10 @@ export default class Comments extends Component {
 
     renderConversation = channel =>
         <div className="conversation">
-            <h5>
+            <h2>
                 {channel}
-            </h5>
-            {this.renderMessages()}
+            </h2>
+            {this.props.conversation.messages && this.renderMessages()}
             {this.renderMessageInput()}
         </div>
 
