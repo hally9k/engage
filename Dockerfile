@@ -8,4 +8,4 @@ RUN npm i && ./node_modules/.bin/webpack
 
 EXPOSE 8080
 
-CMD ["npm", "start"]
+CMD ["pm2", "start index.js"]
