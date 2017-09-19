@@ -11,7 +11,7 @@ const getSubject = (state, id) =>
 const subjectSelector = createSelector(
     [getData, getSubject],
     (data, subject) =>
-        subject ? denormalize(subject, subjectSchema, data).toJS() : null
+        subject ? denormalize(subject, subjectSchema, data) : undefined
 )
 
 export default subjectSelector

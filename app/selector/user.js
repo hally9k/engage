@@ -11,7 +11,7 @@ const getUser = (state, id) => {
 
 const userSelector = createSelector(
     [getData, getUser],
-    (data, user) => (user ? denormalize(user, userSchema, data).toJS() : null)
+    (data, user) => user ? denormalize(user, userSchema, data) : null
 )
 
 export default userSelector
