@@ -1,7 +1,7 @@
 module.exports = {
     client: 'pg',
     connection: {
-        host: 'db',
+        host: 'localhost',
         user: 'postgres',
         password: '',
         database: 'engage',

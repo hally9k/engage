@@ -16,7 +16,7 @@ export default class Activities extends Component {
 
     renderActivities = () =>
         this.props.subject.activities.map(({ description, id }) =>
-            <div
+            <button
                 key={`activity-${id}`}
                 className="activity"
                 onClick={() => this.handleActivitySelection(id)}
@@ -25,7 +25,7 @@ export default class Activities extends Component {
                 <h5>
                     {description}
                 </h5>
-            </div>,
+            </button>,
         )
 
     renderModal = (selectedActivityId, { description, hint }) =>
@@ -59,15 +59,15 @@ export default class Activities extends Component {
         </Modal>
 
     render() {
-        const { subject, meta: { selectedActivityId } } = this.props
+        const { subject, meta } = this.props
 
         return subject
             ? <div className="activities">
-                {selectedActivityId &&
+                {meta && meta.selectedActivityId &&
                       this.renderModal(
-                          selectedActivityId,
+                          meta.selectedActivityId,
                           subject.activities.find(
-                              x => x.id === selectedActivityId,
+                              x => x.id === meta.selectedActivityId,
                           ),
                       )}
                 {this.renderActivities()}

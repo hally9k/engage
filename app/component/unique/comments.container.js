@@ -8,6 +8,9 @@ import {
     subscribeToNewComments,
     unsubscribeFromNewComments,
 } from 'duck/comment'
+import Loading from 'component/generic/loading'
+import RequiredProps from 'component/generic/required-props'
+import ToJS from 'component/generic/to-js'
 
 import Comments from './comments'
 
@@ -24,4 +27,12 @@ const mapDispatchToProps = dispatch => ({
     unsubscribeFromNewComments: () => dispatch(unsubscribeFromNewComments()),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Comments)
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(
+    ToJS(RequiredProps(
+        Comments,
+        Loading
+    ))
+)

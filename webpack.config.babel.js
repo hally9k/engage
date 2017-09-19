@@ -49,6 +49,7 @@ export default {
         extensions: ['.js', '.jsx', '.css', '.graphql'],
     },
     devServer: {
+        port: 8081,
         compress: true,
         contentBase: paths.appPublic,
         historyApiFallback: true,

@@ -45,14 +45,12 @@ export default class Comments extends Component {
         </div>
 
     render() {
-        const { comments } = this.props
-
-        return comments ? this.renderCommentInput() : null
+        return this.renderCommentInput()
     }
 }
 
 Comments.propTypes = {
-    comments: PropTypes.array,
+    comments: PropTypes.array.isRequired,
     currentUserId: PropTypes.number.isRequired,
     fetchingCommentHistory: PropTypes.func.isRequired,
     sendingNewComment: PropTypes.func.isRequired,

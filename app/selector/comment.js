@@ -15,7 +15,6 @@ const commentsSelector = createSelector(
             ? denormalize(comments, [commentSchema], data)
                 .toList()
                 .sort((a, b) => a.createdAt > b.createdAt)
-                .toJS()
             : null,
 )
 
