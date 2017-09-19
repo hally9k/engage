@@ -25,7 +25,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-    ToJS(RequiredProps(
-        Activities,
-        Loading
-    )))
+    ToJS(
+        RequiredProps(Activities, Loading)
+    )
+)

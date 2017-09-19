@@ -2,7 +2,7 @@ import React from 'react'
 import { Iterable } from 'immutable'
 
 const ToJS = WrappedComponent =>
-    class ImmutableWrapper extends React.Component {
+    class ToJSWrapper extends React.Component {
         constructor(props) {
             super(props)
 

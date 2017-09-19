@@ -1,7 +1,7 @@
 import React from 'react'
 
 const RequiredProps = (WrappedComponent, LoadingComponent) => {
-    return class ImmutableWrapper extends React.Component {
+    return class RequiredPropsWrapper extends React.Component {
         constructor(props) {
             super(props)
         }
