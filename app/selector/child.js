@@ -9,7 +9,7 @@ const getChild = (state, id) =>
 const childSelector = createSelector(
     [getData, getChild],
     (data, child) =>
-        child ? denormalize(child, childSchema, data).toJS() : null
+        child ? denormalize(child, childSchema, data) : null
 )
 
 export default childSelector

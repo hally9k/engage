@@ -1,12 +1,13 @@
 import { createSelector } from 'reselect'
 
-const getComponentMeta = (state, key) => {
-    return state.getIn(['meta', 'components', key])
-}
+const getComponentMeta = (state, key) =>
+    state.getIn(['meta', 'components', key])
 
 export default createSelector(
     [getComponentMeta],
-    meta => (meta ? meta.toJS() : {})
+    meta => {
+        return meta
+    }
 )
 
 export const currentUserIdSelector = state =>

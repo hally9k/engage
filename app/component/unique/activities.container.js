@@ -6,6 +6,9 @@ import metaSelector from 'selector/meta'
 import subjectSelector from 'selector/subject'
 import fetchingSelector from 'selector/fetching'
 import { fetchingSubject } from 'duck/subject'
+import Loading from 'component/generic/loading'
+import RequiredProps from 'component/generic/required-props'
+import ToJS from 'component/generic/to-js'
 
 import Activities from './activities'
 
@@ -21,4 +24,8 @@ const mapDispatchToProps = dispatch => ({
     fetchingSubject: () => dispatch(fetchingSubject())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Activities)
+export default connect(mapStateToProps, mapDispatchToProps)(
+    ToJS(
+        RequiredProps(Activities, Loading)
+    )
+)

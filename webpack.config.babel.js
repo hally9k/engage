@@ -1,8 +1,9 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import paths from './config/path'
+import webpack from 'webpack'
 
 export default {
-    devtool: 'source-map',
+    devtool: 'inline-cheap-source-map',
     entry: paths.appIndexJs,
     output: {
         path: paths.appBuild,
@@ -11,6 +12,10 @@ export default {
     plugins: [
         new HtmlWebpackPlugin({
             template: paths.appHtmlTemplate,
+        }),
+        new webpack.DefinePlugin({
+            NODE_ENV: process.env.NODE_ENV,
+            PORT: process.env.PORT,
         }),
     ],
     module: {

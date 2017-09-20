@@ -1,0 +1,16 @@
+query($userId: ID!) {
+    conversation(userId: $userId) {
+        id
+        channel
+        messages {
+            id
+            conversationId
+            user {
+                firstName
+                id
+            }
+            createdAt
+            content
+        }
+    }
+}

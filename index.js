@@ -13,7 +13,8 @@ import staticFiles from 'koa-static'
 import {
     Activity,
     Child,
-    Comment,
+    Conversation,
+    Message,
     Session,
     Subject,
     User,
@@ -21,7 +22,8 @@ import {
 
 const user = new User(sql)
 const child = new Child(sql)
-const comment = new Comment(sql, redis)
+const conversation = new Conversation(sql)
+const message = new Message(sql, redis)
 const subject = new Subject(sql)
 const activity = new Activity(sql)
 const session = new Session(sql)
@@ -29,13 +31,15 @@ const session = new Session(sql)
 const context = {
     user,
     child,
-    comment,
+    conversation,
+    message,
     subject,
     activity,
     session,
+    redis,
 }
 
-const DEFAULT_PORT = 8080
+const DEFAULT_PORT = 8081
 
 const PORT = process.env.PORT || DEFAULT_PORT
 
@@ -53,6 +57,10 @@ server.use(
             graphiql: true,
             context,
             subscriptionsEndpoint: `ws://localhost:${PORT}/subscriptions`,
+            formatError: error => ({
+                message: error.message,
+                status: error.status,
+            }),
         }),
     ),
 )
