@@ -25,16 +25,18 @@ const schema = new GraphQLSchema({
         name: 'RootSubscriptionType',
         fields: {
             conversation: {
-                type: ConversationType,
+                type: MessageType,
                 args: {
                     channel: { type: new GraphQLNonNull(GraphQLString) },
                 },
-                subscribe: (_, { channel }, { redis }) => {
+                subscribe: (_, { channel }, { redis, message }) => {
                     redis.sub.subscribe(channel)
 
-                    redis.sub.on(channel, function(channel, message) {
+                    redis.sub.on('message', function(channel, newMessage) {
+                        const { id } = JSON.parse(newMessage)
+
                         pubsub.publish(channel, {
-                            conversation: JSON.parse(message),
+                            conversation: message.one(id),
                         })
                     })
 

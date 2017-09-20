@@ -1,16 +1,12 @@
 subscription($channel: String!) {
     conversation(channel: $channel) {
         id
-        channel
-        messages {
+        conversationId
+        user {
+            firstName
             id
-            conversationId
-            user {
-                firstName
-                id
-            }
-            createdAt
-            content
         }
+        createdAt
+        content
     }
 }
