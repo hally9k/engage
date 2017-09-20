@@ -83,6 +83,7 @@
         "koa-static": "^4.0.1",
         "normalizr": "^3.2.3",
         "pg": "^7.0.2",
+        "prettier": "^1.7.0",
         "react": "^15.6.1",
         "react-dom": "^15.6.1",
         "react-modal": "^2.2.4",
