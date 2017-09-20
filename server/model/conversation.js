@@ -7,6 +7,14 @@ export default class Conversation {
         this.sql = sql
     }
 
+    one(conversationId: Number) {
+        return this.sql
+            .select()
+            .from('conversation')
+            .where('id', conversationId)
+            .then(conversation => conversation)
+    }
+
     all(userId: Number) {
         return this.sql
             .select()
@@ -34,16 +42,23 @@ export default class Conversation {
                         return this.addUser(
                             userId,
                             conversationId[0],
-                        ).then(() => ({ id: conversationId, channel }))
+                        ).then(x => {
+                            return x
+                        })
                     })
             })
     }
 
     addUser(userId: Number, conversationId: Number) {
-        return this.sql('user_conversation').insert({
-            conversation_id: conversationId,
-            user_id: userId,
-        })
+        return this.sql('user_conversation')
+            .insert({
+                conversation_id: conversationId,
+                user_id: userId,
+            })
+            .returning('conversation_id')
+            .then(conversationId => {
+                return this.one(conversationId[0])
+            })
     }
 
     allUsers(conversationId: Number) {

@@ -37,7 +37,8 @@ const schema = new GraphQLSchema({
                             conversation: JSON.parse(message),
                         })
                     })
-                    pubsub.asyncIterator(channel)
+
+                    return pubsub.asyncIterator(channel)
                 },
             },
         },
@@ -46,16 +47,17 @@ const schema = new GraphQLSchema({
         name: 'RootMutationType',
         fields: {
             conversation: {
-                type: ConversationType,
+                type: new GraphQLList(ConversationType),
                 args: {
                     userId: { type: new GraphQLNonNull(GraphQLID) },
                     channel: { type: new GraphQLNonNull(GraphQLString) },
                 },
-                resolve: (_, { userId, channel }, { conversation }) =>
-                    conversation.add(userId, channel),
+                resolve: (_, { userId, channel }, { conversation }) => {
+                    return conversation.add(Number.parseInt(userId), channel)
+                },
             },
             message: {
-                type: MessageType,
+                type: new GraphQLList(MessageType),
                 args: {
                     content: { type: new GraphQLNonNull(GraphQLString) },
                     userId: { type: new GraphQLNonNull(GraphQLID) },
@@ -87,7 +89,7 @@ const schema = new GraphQLSchema({
                 type: new GraphQLList(ConversationType),
                 args: { userId: { type: GraphQLID } },
                 resolve: (_, { userId }, { conversation }) =>
-                    conversation.all(userId),
+                    conversation.all(Number.parseInt(userId)),
             },
             subject: {
                 type: new GraphQLList(SubjectType),

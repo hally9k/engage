@@ -14,7 +14,6 @@ const conversationSelector = createSelector(
         conversation
             ? denormalize(conversation, [conversationSchema], data)
                 .toList()
-                .sort((a, b) => a.createdAt > b.createdAt)
             : null,
 )
 

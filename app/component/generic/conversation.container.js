@@ -1,13 +1,14 @@
 import { connect } from 'react-redux'
-
 import { currentUserIdSelector } from 'selector/meta'
+import { sendingNewMessage } from 'duck/message'
 import {
     fetchingConversation,
     subscribeToConversation,
     unsubscribeFromConversation,
 } from 'duck/conversation'
-
-import { sendingNewMessage } from 'duck/message'
+import Loading from 'component/generic/loading'
+import RequiredProps from 'component/generic/required-props'
+import ToJS from 'component/generic/to-js'
 
 import Conversation from './conversation'
 
@@ -24,4 +25,8 @@ const mapDispatchToProps = dispatch => ({
     unsubscribeFromConversation: () => dispatch(unsubscribeFromConversation()),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Conversation)
+export default connect(mapStateToProps, mapDispatchToProps)(
+    ToJS(
+        RequiredProps(Conversation, Loading)
+    )
+)

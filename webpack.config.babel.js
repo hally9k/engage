@@ -3,7 +3,7 @@ import paths from './config/path'
 import webpack from 'webpack'
 
 export default {
-    devtool: 'cheap-module-eval-source-map',
+    devtool: 'inline-cheap-source-map',
     entry: paths.appIndexJs,
     output: {
         path: paths.appBuild,
@@ -54,7 +54,6 @@ export default {
         extensions: ['.js', '.jsx', '.css', '.graphql'],
     },
     devServer: {
-        port: 8081,
         compress: true,
         contentBase: paths.appPublic,
         historyApiFallback: true,

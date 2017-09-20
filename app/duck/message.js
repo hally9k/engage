@@ -1,7 +1,7 @@
 import graphql from 'utility/graphql'
 import { normalize } from 'normalizr'
 import { processed, PROCESSED } from 'duck'
-import { conversationSchema } from 'schema'
+import { messageSchema } from 'schema'
 import messageMutation from 'graphql/mutation/message'
 import { fromJS, Map } from 'immutable'
 
@@ -70,8 +70,8 @@ export const sendingNewMessageEpic = action$ =>
 export const receivedNewMessageEpic = action$ =>
     action$
         .ofType(RECEIVED_NEW_MESSAGE)
-        .mergeMap(({ payload: conversations }) => {
-            return [processed(normalize(conversations, conversationSchema))]
+        .mergeMap(({ payload: message }) => {
+            return [processed(normalize(message, messageSchema))]
         })
 
 export const epics = {

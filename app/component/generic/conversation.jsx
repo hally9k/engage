@@ -4,15 +4,17 @@ import { ago } from 'utility/time'
 
 const ONE_THOUSAND = 1000
 
-export default class Comments extends Component {
+export default class Conversation extends Component {
     componentWillMount = () => {
-        const { conversation: { channel }, currentUserId } = this.props
+        const { currentUserId, subscribeToConversation, fetchingConversation, conversation: { channel } } = this.props
 
-        this.props.subscribeToConversation(channel)
-        this.props.fetchingConversation(currentUserId)
+        subscribeToConversation(channel)
+        fetchingConversation(currentUserId)
     }
 
-    componentWillUnMount = () => this.props.unsubscribeFromConversation()
+    componentWillUnMount = () => {
+        this.props.unsubscribeFromConversation(this.props.conversation.channel)
+    }
 
     handleSendingNewMessage = () => {
         const {
@@ -70,7 +72,7 @@ export default class Comments extends Component {
     }
 }
 
-Comments.propTypes = {
+Conversation.propTypes = {
     conversation: PropTypes.object,
     currentUserId: PropTypes.number.isRequired,
     fetchingConversation: PropTypes.func.isRequired,
