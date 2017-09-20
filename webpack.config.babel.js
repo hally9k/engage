@@ -54,12 +54,13 @@ export default {
         extensions: ['.js', '.jsx', '.css', '.graphql'],
     },
     devServer: {
+        port: 8082,
         compress: true,
         contentBase: paths.appPublic,
         historyApiFallback: true,
         hot: false,
         https: false,
-        noInfo: true,
+        noInfo: false,
         publicPath: '/',
         watchOptions: {
             ignored: /node_modules/,
