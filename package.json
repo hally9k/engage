@@ -1,7 +1,8 @@
 {
     "name": "engage",
     "version": "0.0.1",
-    "description": "An educational application to help parents engage with their pre-schoolers.",
+    "description":
+        "An educational application to help parents engage with their pre-schoolers.",
     "main": "index.js",
     "author": "hally9k@gmail.com",
     "license": "ISC",
@@ -10,14 +11,22 @@
         "*.js": ["eslint"]
     },
     "scripts": {
-        "start:local": "docker-compose up -d && concurrently \"nodemon index --exec babel-node --inspect\" \"webpack-dev-server\" --watch",
+        "start:local":
+            "docker-compose up -d && concurrently \"nodemon index --exec babel-node --inspect\" \"webpack-dev-server\" --watch",
+        "restart:local":
+            "docker-compose down && docker-compose up -d && concurrently \"nodemon index --exec babel-node --inspect\" \"webpack-dev-server\" --watch",
         "start": "./node_modules/.bin/nodemon index --exec babel-node",
-        "db:migrations": "./node_modules/.bin/knex migrate:latest --knexfile ./config/database/knexfile.js",
-        "test": "./node_modules/.bin/mocha $(find . -name '*test.js' ! -ipath '*node_modules*')  --opts 'config/mocha/mocha.opts'",
-        "e2e": "./node_modules/nightwatch/bin/nightwatch --config ./config/nightwatch/nightwatch.conf.js",
-        "e2e:local": "./node_modules/nightwatch/bin/nightwatch --config ./config/nightwatch/nightwatch.conf.js -e local",
+        "db:migrations":
+            "./node_modules/.bin/knex migrate:latest --knexfile ./config/database/knexfile.js",
+        "test":
+            "./node_modules/.bin/mocha $(find . -name '*test.js' ! -ipath '*node_modules*')  --opts 'config/mocha/mocha.opts'",
+        "e2e":
+            "./node_modules/nightwatch/bin/nightwatch --config ./config/nightwatch/nightwatch.conf.js",
+        "e2e:local":
+            "./node_modules/nightwatch/bin/nightwatch --config ./config/nightwatch/nightwatch.conf.js -e local",
         "lint": "./node_modules/.bin/eslint app/* server/* index.js",
-        "format": "./node_modules/.bin/prettier-eslint \"server/**/*.{js,jsx}\" \"app/**/*.{js,jsx}\" \"index.js\" --write",
+        "format":
+            "./node_modules/.bin/prettier-eslint \"server/**/*.{js,jsx}\" \"app/**/*.{js,jsx}\" \"index.js\" --write",
         "precommit": "npm run lint && npm run type-check",
         "prepush": "npm t",
         "type-check": "./node_modules/.bin/flow"
@@ -55,6 +64,7 @@
         "prop-types": "^15.5.10",
         "raw-loader": "^0.5.1",
         "react-hot-loader": "^1.3.1",
+        "release": "^2.4.0",
         "selenium-server": "^3.5.3",
         "sinon": "^3.3.0",
         "sinon-chai": "^2.12.0",
@@ -79,6 +89,7 @@
         "koa-static": "^4.0.1",
         "normalizr": "^3.2.3",
         "pg": "^7.0.2",
+        "prettier": "^1.7.0",
         "react": "^15.6.1",
         "react-dom": "^15.6.1",
         "react-modal": "^2.2.4",

@@ -1,0 +1,22 @@
+mutation(
+    $content: String!
+    $userId: ID!
+    $conversationId: ID!
+    $channel: String!
+) {
+    message(
+        content: $content
+        userId: $userId
+        conversationId: $conversationId
+        channel: $channel
+    ) {
+        id
+        conversationId
+        createdAt
+        user {
+            id
+            firstName
+        }
+        content
+    }
+}

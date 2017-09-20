@@ -1,11 +1,12 @@
-subscription {
-    newComment {
+query {
+    message {
         id
+        conversationId
         createdAt
         user {
             id
             firstName
         }
-        message
+        content
     }
 }
