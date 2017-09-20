@@ -57,7 +57,7 @@ const schema = new GraphQLSchema({
                 },
             },
             message: {
-                type: new GraphQLList(MessageType),
+                type: MessageType,
                 args: {
                     content: { type: new GraphQLNonNull(GraphQLString) },
                     userId: { type: new GraphQLNonNull(GraphQLID) },

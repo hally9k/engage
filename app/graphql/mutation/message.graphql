@@ -11,6 +11,7 @@ mutation(
         channel: $channel
     ) {
         id
+        conversationId
         createdAt
         user {
             id

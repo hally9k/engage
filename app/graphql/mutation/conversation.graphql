@@ -3,6 +3,8 @@ mutation($userId: ID!, $channel: String!) {
         id
         channel
         messages {
+            id
+            conversationId
             user {
                 firstName
                 id

@@ -3,13 +3,14 @@ import { normalize } from 'normalizr'
 import { processed, PROCESSED } from 'duck'
 import { messageSchema } from 'schema'
 import messageMutation from 'graphql/mutation/message'
+import { addMessage } from 'duck/conversation'
 import { fromJS, Map } from 'immutable'
 
 // Actions
-const SENDING_NEW_MESSAGE = 'conversation/SENDING_NEW_MESSAGE'
-const RECEIVED_NEW_MESSAGE = 'conversation/RECEIVED_NEW_MESSAGE'
+const SENDING_NEW_MESSAGE = 'message/SENDING_NEW_MESSAGE'
+const RECEIVED_NEW_MESSAGE = 'message/RECEIVED_NEW_MESSAGE'
 const RECEIVED_NEW_MESSAGE_WITH_ERRORS =
-    'conversation/RECEIVED_NEW_MESSAGE_WITH_ERRORS'
+    'message/RECEIVED_NEW_MESSAGE_WITH_ERRORS'
 
 export const sendingNewMessage = (
     content,
@@ -70,8 +71,11 @@ export const sendingNewMessageEpic = action$ =>
 export const receivedNewMessageEpic = action$ =>
     action$
         .ofType(RECEIVED_NEW_MESSAGE)
-        .mergeMap(({ payload: message }) => {
-            return [processed(normalize(message, messageSchema))]
+        .mergeMap(({ payload: { message } }) => {
+            return [
+                processed(normalize(message, messageSchema)),
+                addMessage(message),
+            ]
         })
 
 export const epics = {

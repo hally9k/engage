@@ -4,7 +4,7 @@ import {
     GraphQLNonNull,
     GraphQLObjectType,
     GraphQLString,
-    GraphQLInt,
+    GraphQLID,
 } from 'graphql'
 
 import UserType from './user'
@@ -14,8 +14,15 @@ const MessageType = new GraphQLObjectType({
     description: 'A message in a conversation.',
     fields: () => ({
         id: {
-            type: new GraphQLNonNull(GraphQLInt),
+            type: new GraphQLNonNull(GraphQLID),
             description: 'The message\'s ID.',
+        },
+        conversationId: {
+            type: new GraphQLNonNull(GraphQLID),
+            description: 'The ID of the message\'s conversation.',
+            resolve: obj => {
+                return obj.conversation_id
+            },
         },
         user: {
             type: new GraphQLNonNull(UserType),

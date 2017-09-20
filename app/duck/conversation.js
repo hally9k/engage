@@ -13,6 +13,7 @@ import { receivedNewMessage, receivedNewMessageWithErrors } from 'duck/message'
 const CREATING_CONVERSATION = 'conversation/CREATING_CONVERSATION'
 const FETCHING_CONVERSATION = 'conversation/FETCHING_CONVERSATION'
 const RECEIVED_CONVERSATION = 'conversation/RECEIVED_CONVERSATION'
+const ADD_MESSAGE = 'conversation/ADD_MESSAGE'
 
 export const creatingConversation = (userId, channel) => ({
     type: CREATING_CONVERSATION,
@@ -29,6 +30,11 @@ export const fetchingConversation = payload => ({
 
 export const receivedConversation = payload => ({
     type: RECEIVED_CONVERSATION,
+    payload,
+})
+
+export const addMessage = payload => ({
+    type: ADD_MESSAGE,
     payload,
 })
 
@@ -50,6 +56,11 @@ const INITIAL_STATE = Map()
 export default (state = INITIAL_STATE, action) => {
     if (!action) return state
     switch (action.type) {
+        case ADD_MESSAGE:
+            return state.updateIn(
+                [action.payload.conversationId, 'messages'],
+                messages => messages.push(action.payload.id),
+            )
         case PROCESSED:
             return state.merge(fromJS(action.payload.entities.conversation))
         default:

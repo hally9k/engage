@@ -12,8 +12,7 @@ const conversationSelector = createSelector(
     [getData, getConversation],
     (data, conversation) =>
         conversation
-            ? denormalize(conversation, [conversationSchema], data)
-                .toList()
+            ? denormalize(conversation, [conversationSchema], data).toList()
             : null,
 )
 

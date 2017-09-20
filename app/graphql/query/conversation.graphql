@@ -3,6 +3,8 @@ query($userId: ID!) {
         id
         channel
         messages {
+            id
+            conversationId
             user {
                 firstName
                 id

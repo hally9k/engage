@@ -1,6 +1,7 @@
 query {
     message {
         id
+        conversationId
         createdAt
         user {
             id
