@@ -1,4 +1,4 @@
-import createGraphQLSubscriptionsMiddleware from 'redux-graphql-subscriptions'
+import createGraphQLSubscriptionsMiddleware from '../../../redux-graphql-subscriptions'
 import { port } from 'config'
 
 const url = `ws://localhost:${port}/subscriptions`

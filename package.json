@@ -1,32 +1,26 @@
 {
     "name": "engage",
     "version": "0.0.1",
-    "description":
-        "An educational application to help parents engage with their pre-schoolers.",
+    "description": "An educational application to help parents engage with their pre-schoolers.",
     "main": "index.js",
     "author": "hally9k@gmail.com",
     "license": "ISC",
     "repository": "git@github.com:hally9k/engage.git",
     "lint-staged": {
-        "*.js": ["eslint"]
+        "*.js": [
+            "eslint"
+        ]
     },
     "scripts": {
-        "start:local":
-            "docker-compose up -d && concurrently \"nodemon index --exec babel-node --inspect\" \"webpack-dev-server\" --watch",
-        "restart:local":
-            "docker-compose down && docker-compose up -d && concurrently \"nodemon index --exec babel-node --inspect\" \"webpack-dev-server\" --watch",
+        "start:local": "docker-compose up -d && concurrently \"nodemon index --exec babel-node --inspect\" \"webpack-dev-server\" --watch",
+        "restart:local": "docker-compose down && docker-compose up -d && concurrently \"nodemon index --exec babel-node --inspect\" \"webpack-dev-server\" --watch",
         "start": "./node_modules/.bin/nodemon index --exec babel-node",
-        "db:migrations":
-            "./node_modules/.bin/knex migrate:latest --knexfile ./config/database/knexfile.js",
-        "test":
-            "./node_modules/.bin/mocha $(find . -name '*test.js' ! -ipath '*node_modules*')  --opts 'config/mocha/mocha.opts'",
-        "e2e":
-            "./node_modules/nightwatch/bin/nightwatch --config ./config/nightwatch/nightwatch.conf.js",
-        "e2e:local":
-            "./node_modules/nightwatch/bin/nightwatch --config ./config/nightwatch/nightwatch.conf.js -e local",
+        "db:migrations": "./node_modules/.bin/knex migrate:latest --knexfile ./config/database/knexfile.js",
+        "test": "./node_modules/.bin/mocha $(find . -name '*test.js' ! -ipath '*node_modules*')  --opts 'config/mocha/mocha.opts'",
+        "e2e": "./node_modules/nightwatch/bin/nightwatch --config ./config/nightwatch/nightwatch.conf.js",
+        "e2e:local": "./node_modules/nightwatch/bin/nightwatch --config ./config/nightwatch/nightwatch.conf.js -e local",
         "lint": "./node_modules/.bin/eslint app/* server/* index.js",
-        "format":
-            "./node_modules/.bin/prettier-eslint \"server/**/*.{js,jsx}\" \"app/**/*.{js,jsx}\" \"index.js\" --write",
+        "format": "./node_modules/.bin/prettier-eslint \"server/**/*.{js,jsx}\" \"app/**/*.{js,jsx}\" \"index.js\" --write",
         "precommit": "npm run lint && npm run type-check",
         "prepush": "npm t",
         "type-check": "./node_modules/.bin/flow"
@@ -96,7 +90,7 @@
         "react-redux": "^5.0.5",
         "redis": "^2.8.0",
         "redux": "^3.7.2",
-        "redux-graphql-subscriptions": "0.0.5",
+        "redux-graphql-subscriptions": "0.0.6",
         "redux-immutablejs": "0.0.8",
         "redux-logger": "^3.0.6",
         "redux-observable": "^0.16.0",
