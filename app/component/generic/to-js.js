@@ -6,30 +6,57 @@ const ToJS = WrappedComponent =>
     class ToJSWrapper extends React.Component {
         constructor(props) {
             super(props)
-
-            this.newProps = this.updateNewProps({}, props)
+            this.state = {
+                newProps: {},
+                processedProps: new WeakMap(),
+            }
+            // eslint-disable-next-line react/no-direct-mutation-state
+            this.state.newProps = this.updateNewProps({}, props)
         }
 
         static displayName = `ToJSWrapper(${getDisplayName(WrappedComponent)})`
 
         updateNewProps = (props, nextProps) =>
-            Object.entries(nextProps).reduce((newProps, entry) => {
-                if (props[entry[0]] === entry[1]) {
-                    newProps[entry[0]] = props[entry[0]]
+            Object.entries(nextProps).reduce((newProps, [key, value]) => {
+                if (this.propsHaventChanged(props[key], value)) {
+                    newProps[key] = props[key]
                 } else {
-                    newProps[entry[0]] = Iterable.isIterable(entry[1])
-                        ? entry[1].toJS()
-                        : entry[1]
+                    newProps[key] = this.toJSIfIterable(value)
                 }
 
                 return newProps
             }, {})
 
-        componentWillReceiveProps = nextProps => {
-            this.newProps = this.updateNewProps(this.newProps, nextProps)
+        propsHaventChanged = (oldProp, newProp) => oldProp === newProp
+
+        toJSIfIterable = value => {
+            let plainJS
+
+            if (Iterable.isIterable(value)) {
+                const previouslyProcessedProp = this.state.processedProps.get(
+                    value,
+                )
+
+                if (previouslyProcessedProp) {
+                    plainJS = previouslyProcessedProp
+                } else {
+                    plainJS = value.toJS()
+                    this.state.processedProps.set(value, plainJS)
+                }
+            } else {
+                plainJS = value
+            }
+
+            return plainJS
         }
 
-        render = () => <WrappedComponent {...this.newProps} />
+        componentWillReceiveProps = nextProps => {
+            this.setState({
+                newProps: this.updateNewProps(this.state.newProps, nextProps),
+            })
+        }
+
+        render = () => <WrappedComponent {...this.state.newProps} />
     }
 
 export default ToJS
