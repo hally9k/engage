@@ -5,7 +5,7 @@ import { conversationSchema } from 'schema'
 import conversationQuery from 'graphql/query/conversation'
 import conversationMutation from 'graphql/mutation/conversation'
 import conversationSubscription from 'graphql/subscription/conversation'
-import { fromJS, Map } from 'immutable'
+import { fromJS, Map, OrderedSet } from 'immutable'
 import { subscribe, unsubscribe } from 'redux-graphql-subscriptions'
 import { receivedNewMessage, receivedNewMessageWithErrors } from 'duck/message'
 
@@ -59,7 +59,11 @@ export default (state = INITIAL_STATE, action) => {
         case ADD_MESSAGE:
             return state.updateIn(
                 [action.payload.conversationId, 'messages'],
-                messages => messages.push(action.payload.id),
+                messages =>
+                    messages
+                        .toOrderedSet()
+                        .union(OrderedSet([action.payload.id]))
+                        .toList(),
             )
         case PROCESSED:
             return state.merge(fromJS(action.payload.entities.conversation))

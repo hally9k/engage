@@ -1,4 +1,6 @@
 import { connect } from 'react-redux'
+import toJS from 'react-immutable-hoc'
+
 import { currentUserIdSelector } from 'selector/meta'
 import { sendingNewMessage } from 'duck/message'
 import {
@@ -8,7 +10,6 @@ import {
 } from 'duck/conversation'
 import Loading from 'component/generic/loading'
 import RequiredProps from 'component/generic/required-props'
-import ToJS from 'component/generic/to-js'
 
 import Conversation from './conversation'
 
@@ -26,7 +27,5 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-    ToJS(
-        RequiredProps(Conversation, Loading)
-    )
+    toJS(RequiredProps(Conversation, Loading)),
 )

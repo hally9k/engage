@@ -1,4 +1,5 @@
 import { connect } from 'react-redux'
+import toJS from 'react-immutable-hoc'
 
 import { updateComponentState } from 'duck/meta'
 
@@ -7,25 +8,22 @@ import subjectSelector from 'selector/subject'
 import fetchingSelector from 'selector/fetching'
 import { fetchingSubject } from 'duck/subject'
 import Loading from 'component/generic/loading'
-import RequiredProps from 'component/generic/required-props'
-import ToJS from 'component/generic/to-js'
+import requiredProps from 'component/generic/required-props'
 
 import Activities from './activities'
 
 const mapStateToProps = (state, ownProps) => ({
     fetching: fetchingSelector(state),
     meta: metaSelector(state, 'activities'),
-    subject: subjectSelector(state, ownProps.subjectId)
+    subject: subjectSelector(state, ownProps.subjectId),
 })
 
 const mapDispatchToProps = dispatch => ({
     updateComponentState: value =>
         dispatch(updateComponentState({ key: 'activities', value })),
-    fetchingSubject: () => dispatch(fetchingSubject())
+    fetchingSubject: () => dispatch(fetchingSubject()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-    ToJS(
-        RequiredProps(Activities, Loading)
-    )
+    toJS(requiredProps(Activities, Loading)),
 )

@@ -12,6 +12,7 @@ const RECEIVED_NEW_MESSAGE = 'message/RECEIVED_NEW_MESSAGE'
 const RECEIVED_NEW_MESSAGE_WITH_ERRORS =
     'message/RECEIVED_NEW_MESSAGE_WITH_ERRORS'
 
+// Action Creators
 export const sendingNewMessage = (
     content,
     userId,
@@ -44,14 +45,13 @@ export default (state = INITIAL_STATE, action) => {
     if (!action) return state
     switch (action.type) {
         case PROCESSED:
-            return state.merge(fromJS(action.payload.entities.message))
+            return state.mergeDeep(fromJS(action.payload.entities.message))
         default:
             return state
     }
 }
 
 // Epics
-
 export const sendingNewMessageEpic = action$ =>
     action$
         .ofType(SENDING_NEW_MESSAGE)
@@ -63,15 +63,19 @@ export const sendingNewMessageEpic = action$ =>
                     conversationId,
                     channel,
                 })
-                .then(message => {
-                    return [receivedNewMessage(message)]
+                .then(res => {
+                    return [
+                        receivedNewMessage({
+                            data: { conversation: res.message },
+                        }),
+                    ]
                 }),
         )
 
 export const receivedNewMessageEpic = action$ =>
     action$
         .ofType(RECEIVED_NEW_MESSAGE)
-        .mergeMap(({ payload: { message } }) => {
+        .mergeMap(({ payload: { data: { conversation: message } } }) => {
             return [
                 processed(normalize(message, messageSchema)),
                 addMessage(message),

@@ -1,5 +1,4 @@
 import React from 'react'
-import { getDisplayName } from 'utility/component'
 
 const RequiredProps = (WrappedComponent, LoadingComponent) => {
     return class RequiredPropsWrapper extends React.Component {
@@ -44,5 +43,8 @@ const RequiredProps = (WrappedComponent, LoadingComponent) => {
             )
     }
 }
+
+const getDisplayName = Component =>
+    Component.displayName || Component.name || 'Component'
 
 export default RequiredProps
