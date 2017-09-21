@@ -14,5 +14,5 @@ module.exports = {
     appIndexJs: resolveApp('app/index.js'),
     appPackageJson: resolveApp('package.json'),
     appPublic: resolveApp('static'),
-    appSrc: resolveApp('app')
+    appSrc: resolveApp('app'),
 }

@@ -6,6 +6,7 @@ import loggerMiddleware from 'middleware/logger'
 import graphQLSubscriptionsMiddleware from 'middleware/subscriptions'
 import { applyMiddleware, compose, createStore } from 'redux'
 import { epics, reducers } from 'duck'
+import router from 'router'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose // eslint-disable-line no-underscore-dangle
 
@@ -14,6 +15,7 @@ const ravenMiddleware = createRavenMiddleware()
 
 const enhancer = composeEnhancers(
     applyMiddleware(
+        router.middleware,
         batchMiddleware,
         metaMiddleware,
         ravenMiddleware,

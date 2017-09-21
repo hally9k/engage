@@ -7,11 +7,12 @@ export default {
     entry: paths.appIndexJs,
     output: {
         path: paths.appBuild,
-        filename: 'bundle.js',
+        publicPath: '/',
     },
     plugins: [
         new HtmlWebpackPlugin({
             template: paths.appHtmlTemplate,
+            // filename: '/bundle.js',
         }),
         new webpack.DefinePlugin({
             NODE_ENV: process.env.NODE_ENV,
@@ -57,7 +58,6 @@ export default {
         port: 8082,
         compress: true,
         contentBase: paths.appPublic,
-        historyApiFallback: true,
         hot: false,
         https: false,
         noInfo: false,
@@ -65,5 +65,6 @@ export default {
         watchOptions: {
             ignored: /node_modules/,
         },
+        historyApiFallback: true,
     },
 }

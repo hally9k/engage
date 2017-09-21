@@ -1,6 +1,7 @@
 import { combineEpics } from 'redux-observable'
 import { combineReducers } from 'redux-immutablejs'
 
+import router from 'router'
 import meta from 'duck/meta'
 import child, { epics as childEpics } from 'duck/child'
 import subject, { epics as subjectEpics } from 'duck/subject'
@@ -14,6 +15,7 @@ export const processed = payload => ({ type: PROCESSED, payload })
 
 // Root Reducer
 export const reducers = combineReducers({
+    location: router.reducer,
     data: combineReducers({
         child,
         conversation,
