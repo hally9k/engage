@@ -2,6 +2,7 @@
 .*/config/.*
 .*/node_modules/koa-graphql
 .*/node_modules/express-graphql
+.*/node_modules/redux-first-router
 
 [include]
 

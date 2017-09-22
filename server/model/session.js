@@ -1,9 +1,9 @@
 // @flow
 
 class Session {
-    sql: Knex$QueryBuilder
+    sql: Knex$QueryBuilder<Session>
 
-    constructor(sql: Knex$QueryBuilder) {
+    constructor(sql: Knex$QueryBuilder<Session>) {
         this.sql = sql
     }
 
@@ -17,7 +17,10 @@ class Session {
     }
 
     all() {
-        return this.sql.select().from('session').then(sessions => sessions)
+        return this.sql
+            .select()
+            .from('session')
+            .then(sessions => sessions)
     }
 
     oneOrAll(id: Number) {

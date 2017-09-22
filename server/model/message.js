@@ -1,9 +1,9 @@
 // @flow
 export default class Message {
-    sql: Knex$Knex
+    sql: any
     redis: RedisConnector
 
-    constructor(sql: Knex$Knex, redis: RedisConnector) {
+    constructor(sql: any, redis: RedisConnector) {
         this.sql = sql
         this.redis = redis
     }
@@ -39,7 +39,7 @@ export default class Message {
                 conversation_id: conversationId,
             })
             .returning('id')
-            .then(messageId => {
+            .then((messageId: Array<Number>) => {
                 return this.sql
                     .select()
                     .from('message')

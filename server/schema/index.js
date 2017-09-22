@@ -91,7 +91,7 @@ const schema = new GraphQLSchema({
                 type: new GraphQLList(ConversationType),
                 args: { userId: { type: GraphQLID } },
                 resolve: (_, { userId }, { conversation }) =>
-                    conversation.all(Number.parseInt(userId)),
+                    conversation.all(userId),
             },
             subject: {
                 type: new GraphQLList(SubjectType),

@@ -1,10 +1,10 @@
 // @flow
 import slug from 'slug'
 export default class Conversation {
-    sql: Knex$Knex
+    sql: any
     redis: RedisConnector
 
-    constructor(sql: Knex$Knex) {
+    constructor(sql: any) {
         this.sql = sql
     }
 
@@ -17,10 +17,18 @@ export default class Conversation {
     }
 
     all(userId: Number) {
+        if (userId) {
+            return this.sql
+                .select()
+                .from('user_conversation')
+                .where('user_id', userId)
+                .innerJoin('conversation', 'id', 'conversation_id')
+                .then(conversations => conversations)
+        }
+
         return this.sql
             .select()
             .from('user_conversation')
-            .where('user_id', userId)
             .innerJoin('conversation', 'id', 'conversation_id')
             .then(conversations => conversations)
     }
@@ -39,11 +47,8 @@ export default class Conversation {
                 return this.sql('conversation')
                     .insert({ channel, slug: slug(channel, { lower: true }) })
                     .returning('id')
-                    .then(conversationId => {
-                        return this.addUser(
-                            userId,
-                            conversationId[0],
-                        ).then(x => {
+                    .then(([conversationId]) => {
+                        return this.addUser(userId, conversationId).then(x => {
                             return x
                         })
                     })
@@ -57,8 +62,8 @@ export default class Conversation {
                 user_id: userId,
             })
             .returning('conversation_id')
-            .then(conversationId => {
-                return this.one(conversationId[0])
+            .then(([conversationId]) => {
+                return this.one(conversationId)
             })
     }
 
