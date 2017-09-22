@@ -1,8 +1,17 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
+import Link from 'redux-first-router-link'
 import Conversation from 'component/generic/conversation.container'
 
 export default class Messenger extends Component {
+    static propTypes = {
+        conversations: PropTypes.array,
+        creatingConversation: PropTypes.func.isRequired,
+        currentUserId: PropTypes.number.isRequired,
+        fetchingConversation: PropTypes.func.isRequired,
+        selectedConversation: PropTypes.object,
+    }
+
     componentWillMount = () => {
         const { fetchingConversation, currentUserId } = this.props
 
@@ -16,35 +25,37 @@ export default class Messenger extends Component {
     }
 
     render() {
-        const { conversations } = this.props
+        const { conversations, selectedConversation } = this.props
 
         return (
             <div className="messenger">
-                <label htmlFor="channel-input">
-                    channel:
-                    <input
-                        name="channel-input"
-                        ref={input => (this.channelInput = input)}
-                    />
-                    <button onClick={this.handleCreateConversation}>
-                        Create Channel
-                    </button>
+                <div className="channels">
+                    <label htmlFor="channel-input">
+                        <input
+                            name="channel-input"
+                            ref={input => (this.channelInput = input)}
+                        />
+                        <button onClick={this.handleCreateConversation}>
+                            +
+                        </button>
+                    </label>
                     {conversations &&
-                        conversations.map(conversation =>
-                            <Conversation
-                                key={`conversation-${conversation.id}`}
-                                conversation={conversation}
-                            />,
-                        )}
-                </label>
+                        conversations.map(conversation => (
+                            <div
+                                key={`channel-${conversation.slug}-${conversation.id}`}
+                            >
+                                <Link to={`/chat/${conversation.slug}`}>
+                                    {`#${conversation.slug}`}
+                                </Link>
+                            </div>
+                        ))}
+                </div>
+                <div className="conversation">
+                    {selectedConversation && (
+                        <Conversation conversation={selectedConversation} />
+                    )}
+                </div>
             </div>
         )
     }
-}
-
-Messenger.propTypes = {
-    conversations: PropTypes.array,
-    creatingConversation: PropTypes.func.isRequired,
-    currentUserId: PropTypes.number.isRequired,
-    fetchingConversation: PropTypes.func.isRequired,
 }

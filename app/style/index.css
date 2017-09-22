@@ -1,3 +1,25 @@
+.navigation-bar {
+    display: flex;
+    justify-content: space-around;
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
+
+.messenger {
+    display: flex;
+}
+
+.channels {
+    margin-right: 3rem;
+}
+
+.conversation {
+}
+
+.main {
+    padding: 1rem;
+}
+
 .activities {
     display: flex;
     justify-content: space-between;

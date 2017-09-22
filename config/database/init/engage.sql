@@ -3,7 +3,6 @@
 --
 
 \c engage
-
 -- Dumped from database version 9.6.4
 -- Dumped by pg_dump version 9.6.3
 
@@ -160,7 +159,8 @@ ALTER SEQUENCE comment_id_seq OWNED BY message.id;
 
 CREATE TABLE conversation (
     id integer NOT NULL,
-    channel text
+    channel text,
+    slug text
 );
 
 
@@ -425,7 +425,7 @@ SELECT pg_catalog.setval('comment_id_seq', 199, true);
 -- Data for Name: conversation; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY conversation (id, channel) FROM stdin;
+COPY conversation (id, channel, slug) FROM stdin;
 \.
 
 

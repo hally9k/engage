@@ -1,4 +1,5 @@
 // @flow
+import slug from 'slug'
 export default class Conversation {
     sql: Knex$Knex
     redis: RedisConnector
@@ -36,7 +37,7 @@ export default class Conversation {
                 }
 
                 return this.sql('conversation')
-                    .insert({ channel })
+                    .insert({ channel, slug: slug(channel, { lower: true }) })
                     .returning('id')
                     .then(conversationId => {
                         return this.addUser(

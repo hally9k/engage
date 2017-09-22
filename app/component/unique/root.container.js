@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import toJS from 'react-immutable-hoc'
 
-import { updateComponentState } from 'duck/meta'
+import { updateMetaState } from 'duck/meta'
 
 import metaSelector from 'selector/meta'
 import fetchingSelector from 'selector/fetching'
@@ -16,8 +16,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    updateComponentState: value =>
-        dispatch(updateComponentState({ key: 'root', value })),
+    updateMetaState: value => dispatch(updateMetaState(value)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(toJS(Root))

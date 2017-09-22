@@ -29,6 +29,10 @@ const ConversationType = new GraphQLObjectType({
             type: GraphQLString,
             description: 'The channel identifier.',
         },
+        slug: {
+            type: GraphQLString,
+            description: 'The channel identifier as a slug.',
+        },
         users: {
             type: new GraphQLList(UserType),
             description: 'The users subscribed to the conversation.',

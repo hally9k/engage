@@ -2,6 +2,7 @@ mutation($userId: ID!, $channel: String!) {
     conversation(userId: $userId, channel: $channel) {
         id
         channel
+        slug
         messages {
             id
             conversationId

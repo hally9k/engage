@@ -2,7 +2,10 @@ import { connect } from 'react-redux'
 import toJS from 'react-immutable-hoc'
 
 import { creatingConversation, fetchingConversation } from 'duck/conversation'
-import conversationSelector from 'selector/conversation'
+import {
+    conversationSelector,
+    selectedConversationSelector,
+} from 'selector/conversation'
 import { currentUserIdSelector } from 'selector/meta'
 import Loading from 'component/generic/loading'
 import RequiredProps from 'component/generic/required-props'
@@ -12,6 +15,7 @@ import Messenger from './messenger'
 const mapStateToProps = state => ({
     conversations: conversationSelector(state),
     currentUserId: currentUserIdSelector(state),
+    selectedConversation: selectedConversationSelector(state),
 })
 
 const mapDispatchToProps = dispatch => ({

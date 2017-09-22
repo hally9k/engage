@@ -11,7 +11,9 @@ const options = {
 const routes = {
     HOME: '/',
     ACTIVITIES: '/activities',
-    CHAT_INDEX: '/chat',
+    CHAT_INDEX: {
+        path: '/chat',
+    },
     CHAT: {
         path: '/chat/:channel',
     },
