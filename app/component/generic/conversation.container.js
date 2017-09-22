@@ -22,7 +22,8 @@ const mapDispatchToProps = dispatch => ({
         dispatch(sendingNewMessage(content, userId, conversationId, channel)),
     subscribeToConversation: channel =>
         dispatch(subscribeToConversation(channel)),
-    unsubscribeFromConversation: () => dispatch(unsubscribeFromConversation()),
+    unsubscribeFromConversation: channel =>
+        dispatch(unsubscribeFromConversation(channel)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(

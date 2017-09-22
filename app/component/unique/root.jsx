@@ -21,7 +21,7 @@ export default class Root extends Component {
                             currentUserId: 1,
                         })}
                 >
-                    Hal
+                    One
                 </button>
                 <button
                     onClick={() =>
@@ -29,7 +29,7 @@ export default class Root extends Component {
                             currentUserId: 2,
                         })}
                 >
-                    Kir
+                    Two
                 </button>
                 <section className="navigation-bar">
                     <NavLink to="/">Home</NavLink>

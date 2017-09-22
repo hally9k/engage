@@ -55,7 +55,7 @@ export default {
         extensions: ['.js', '.jsx', '.css', '.graphql'],
     },
     devServer: {
-        port: 8082,
+        host: '0.0.0.0',
         compress: true,
         contentBase: paths.appPublic,
         hot: false,
@@ -66,5 +66,7 @@ export default {
             ignored: /node_modules/,
         },
         historyApiFallback: true,
+        disableHostCheck: true,
+        useLocalIp: true,
     },
 }

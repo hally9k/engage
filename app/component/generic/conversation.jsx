@@ -22,8 +22,16 @@ export default class Conversation extends Component {
         subscribeToConversation(channel)
     }
 
-    componentWillUnMount = () => {
-        this.props.unsubscribeFromConversation(this.props.conversation.channel)
+    componentWillReceiveProps = nextProps => {
+        const {
+            subscribeToConversation,
+            unsubscribeFromConversation,
+        } = this.props
+
+        if (this.props.conversation.id !== nextProps.conversation.id) {
+            unsubscribeFromConversation(this.props.conversation.channel)
+            subscribeToConversation(nextProps.conversation.channel)
+        }
     }
 
     handleSendingNewMessage = () => {
