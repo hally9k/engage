@@ -3,7 +3,6 @@
 --
 
 \c engage
-
 -- Dumped from database version 9.6.4
 -- Dumped by pg_dump version 9.6.3
 
@@ -299,8 +298,9 @@ ALTER SEQUENCE subject_id_seq OWNED BY subject.id;
 CREATE TABLE "user" (
     id integer NOT NULL,
     email text,
-    "firstName" text,
-    "lastName" text
+    first_name text,
+    last_name text,
+    password text
 );
 
 
@@ -575,9 +575,9 @@ SELECT pg_catalog.setval('subject_id_seq', 5, true);
 -- Data for Name: user; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY "user" (id, email, "firstName", "lastName") FROM stdin;
-1	hally9k@gmail.com	Hal	Smith Stevens
-2	k.shrosbree@gmail.com	Kirsty	Smith Stevens
+COPY "user" (id, email, first_name, last_name, password) FROM stdin;
+1	hally9k@gmail.com	Hal	Smith Stevens	\N
+2	k.shrosbree@gmail.com	Kirsty	Smith Stevens	\N
 \.
 
 

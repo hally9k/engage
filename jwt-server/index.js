@@ -19,7 +19,7 @@ const jwtOptions = {
 }
 
 const strategy = new JwtStrategy(jwtOptions, ({ email }, next) => {
-    sql
+    return sql
         .select()
         .from('user')
         .where('email', email)
@@ -48,7 +48,7 @@ app.post('/login', (req, res) => {
         res.status(UNAUTHORIZED).json({ message: 'credentials required' })
     const { email, password } = req.body
 
-    sql
+    return sql
         .select()
         .from('user')
         .where('email', email)
@@ -77,7 +77,7 @@ app.get(
         const token = req.headers.authorization.split(' ')[1]
         const { id } = jwt.verify(token, jwtOptions.secretOrKey)
 
-        this.sql
+        return sql
             .select()
             .from('user')
             .where('id', id)
@@ -106,7 +106,7 @@ app.get(
         const token = req.headers.authorization.split(' ')[1]
         const { id } = jwt.verify(token, jwtOptions.secretOrKey)
 
-        this.sql
+        return sql
             .select()
             .from('user')
             .where('id', id)
