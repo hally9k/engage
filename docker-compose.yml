@@ -1,5 +1,9 @@
-version: "2"
+version: "3"
 services:
+  auth:
+    build: ./jwt-server
+    ports:
+      - "8082:8082"
   db:
     image: postgres
     volumes:
