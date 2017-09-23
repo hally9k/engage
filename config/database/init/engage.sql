@@ -576,8 +576,8 @@ SELECT pg_catalog.setval('subject_id_seq', 5, true);
 --
 
 COPY "user" (id, email, first_name, last_name, password) FROM stdin;
-1	hally9k@gmail.com	Hal	Smith Stevens	\N
-2	k.shrosbree@gmail.com	Kirsty	Smith Stevens	\N
+1	hally9k@gmail.com	Hal	Smith Stevens	password1
+2	k.shrosbree@gmail.com	Kirsty	Smith Stevens	password1
 \.
 
 

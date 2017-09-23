@@ -18,11 +18,11 @@ const jwtOptions = {
     secretOrKey: 'tasmanianDevil',
 }
 
-const strategy = new JwtStrategy(jwtOptions, ({ email }, next) => {
+const strategy = new JwtStrategy(jwtOptions, ({ id }, next) => {
     return sql
         .select()
         .from('user')
-        .where('email', email)
+        .where('id', id)
         .first()
         .then(user => (user ? next(null, user) : next(null, false)))
 })
@@ -80,11 +80,11 @@ app.get(
         return sql
             .select()
             .from('user')
-            .where('id', id)
-            .innerJoin('user_role', 'user_id', 'id')
-            .innerJoin('role', 'id', 'role_id')
-            .then(user => {
-                if (user.roles.includes('ADMIN')) {
+            .where('user.id', id)
+            .join('user_role', 'user_id', 'user.id')
+            .join('role', 'role.id', 'role_id')
+            .then(users => {
+                if (users.map(user => user.role).includes('ADMIN')) {
                     res.json({
                         message:
                             'Success! You can not see this without a token',
@@ -109,11 +109,11 @@ app.get(
         return sql
             .select()
             .from('user')
-            .where('id', id)
-            .innerJoin('user_role', 'user_id', 'id')
-            .innerJoin('role', 'id', 'role_id')
-            .then(user => {
-                if (user.roles.includes('USER')) {
+            .where('user.id', id)
+            .join('user_role', 'user_id', 'user.id')
+            .join('role', 'role.id', 'role_id')
+            .then(users => {
+                if (users.map(user => user.role).includes('USER')) {
                     res.json({
                         message:
                             'Success! You can not see this without a token',
