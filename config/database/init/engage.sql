@@ -3,6 +3,7 @@
 --
 
 \c engage
+
 -- Dumped from database version 9.6.4
 -- Dumped by pg_dump version 9.6.3
 
@@ -188,6 +189,39 @@ ALTER SEQUENCE conversation_id_seq OWNED BY conversation.id;
 
 
 --
+-- Name: role; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE role (
+    id integer NOT NULL,
+    role text
+);
+
+
+ALTER TABLE role OWNER TO postgres;
+
+--
+-- Name: roles_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE roles_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE roles_id_seq OWNER TO postgres;
+
+--
+-- Name: roles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE roles_id_seq OWNED BY role.id;
+
+
+--
 -- Name: session; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -318,6 +352,18 @@ ALTER SEQUENCE user_id_seq OWNED BY "user".id;
 
 
 --
+-- Name: user_role; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE user_role (
+    user_id integer,
+    role_id integer
+);
+
+
+ALTER TABLE user_role OWNER TO postgres;
+
+--
 -- Name: activity id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -343,6 +389,13 @@ ALTER TABLE ONLY conversation ALTER COLUMN id SET DEFAULT nextval('conversation_
 --
 
 ALTER TABLE ONLY message ALTER COLUMN id SET DEFAULT nextval('comment_id_seq'::regclass);
+
+
+--
+-- Name: role id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY role ALTER COLUMN id SET DEFAULT nextval('roles_id_seq'::regclass);
 
 
 --
@@ -418,7 +471,7 @@ COPY child_subject (child_id, subject_id) FROM stdin;
 -- Name: comment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('comment_id_seq', 199, true);
+SELECT pg_catalog.setval('comment_id_seq', 215, true);
 
 
 --
@@ -426,6 +479,9 @@ SELECT pg_catalog.setval('comment_id_seq', 199, true);
 --
 
 COPY conversation (id, channel, slug) FROM stdin;
+1	babies	babies
+2	Shopping	shopping
+3	Get me tho!	get-me-tho
 \.
 
 
@@ -433,7 +489,7 @@ COPY conversation (id, channel, slug) FROM stdin;
 -- Name: conversation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('conversation_id_seq', 1, false);
+SELECT pg_catalog.setval('conversation_id_seq', 3, true);
 
 
 --
@@ -441,7 +497,40 @@ SELECT pg_catalog.setval('conversation_id_seq', 1, false);
 --
 
 COPY message (id, user_id, content, created_at, conversation_id) FROM stdin;
+200	2	hi baby!	1506049673.8704	1
+201	1	Let's have more babies!	1506049681.72427	1
+202	2	no way dudddeee	1506049687.10826	1
+203	1	We've run out of yummy food!	1506049720.97223	2
+204	2	oh no	1506049729.96039	2
+205	1	Let's go shopping!	1506049739.09709	2
+206	1	Oi!	1506062793.51271	1
+207	1	et meh!	1506062803.98853	3
+208	1		1506062806.62323	3
+209	1		1506062807.07467	3
+210	1		1506062807.85088	3
+211	1	et me tho sis 	1506062816.87143	3
+212	1		1506062819.5014	3
+213	1		1506062819.66495	3
+214	1		1506062819.82199	3
+215	1	Yo!	1506062827.15776	3
 \.
+
+
+--
+-- Data for Name: role; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY role (id, role) FROM stdin;
+1	ADMIN
+2	USER
+\.
+
+
+--
+-- Name: roles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('roles_id_seq', 1, false);
 
 
 --
@@ -507,6 +596,13 @@ COPY user_child (user_id, child_id) FROM stdin;
 --
 
 COPY user_conversation (conversation_id, user_id) FROM stdin;
+1	1
+1	2
+2	1
+1	2
+1	2
+2	2
+3	1
 \.
 
 
@@ -515,6 +611,17 @@ COPY user_conversation (conversation_id, user_id) FROM stdin;
 --
 
 SELECT pg_catalog.setval('user_id_seq', 2, true);
+
+
+--
+-- Data for Name: user_role; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY user_role (user_id, role_id) FROM stdin;
+1	1
+1	2
+2	2
+\.
 
 
 --
@@ -547,6 +654,14 @@ ALTER TABLE ONLY conversation
 
 ALTER TABLE ONLY message
     ADD CONSTRAINT message_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: role roles_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY role
+    ADD CONSTRAINT roles_pkey PRIMARY KEY (id);
 
 
 --
@@ -622,6 +737,14 @@ ALTER TABLE ONLY message
 
 
 --
+-- Name: user_role role_user_role; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY user_role
+    ADD CONSTRAINT role_user_role FOREIGN KEY (role_id) REFERENCES role(id);
+
+
+--
 -- Name: child_subject subject_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -667,6 +790,14 @@ ALTER TABLE ONLY user_child
 
 ALTER TABLE ONLY session
     ADD CONSTRAINT user_fkey FOREIGN KEY (user_id) REFERENCES "user"(id);
+
+
+--
+-- Name: user_role user_user_role; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY user_role
+    ADD CONSTRAINT user_user_role FOREIGN KEY (user_id) REFERENCES "user"(id);
 
 
 --

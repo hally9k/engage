@@ -5,6 +5,8 @@ import mount from 'koa-mount'
 import { createServer } from 'http'
 import { SubscriptionServer } from 'subscriptions-transport-ws'
 import { execute, subscribe } from 'graphql'
+import './server/utility/auth'
+import passport from 'koa-passport'
 
 import schema from './server/schema'
 import sql from './server/connector/sql'
@@ -46,6 +48,8 @@ const PORT = process.env.PORT || DEFAULT_PORT
 const server = new Koa()
 
 server.use(cors())
+
+server.use(passport.initialize())
 
 server.use(staticFiles('public'))
 
