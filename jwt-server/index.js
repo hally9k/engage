@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken'
 import sql from './connector/sql'
 import passport from 'passport'
 import passportJWT from 'passport-jwt'
+import bcrypt from 'bcryptjs'
 
 const ExtractJwt = passportJWT.ExtractJwt
 const JwtStrategy = passportJWT.Strategy
@@ -12,6 +13,9 @@ const DEFAULT_PORT = 8082
 const PORT = process.env.PORT || DEFAULT_PORT
 
 const UNAUTHORIZED = 401
+const BAD_REQUEST = 400
+
+const SALT_ROUNDS = 10
 
 const jwtOptions = {
     jwtFromRequest: ExtractJwt.fromAuthHeader(),
@@ -43,9 +47,29 @@ app.use(bodyParser.json())
 
 app.get('/', (req, res) => res.json({ message: 'JWT Server Running...' }))
 
+app.post('/register', (req, res) => {
+    if (!req.body)
+        res.status(BAD_REQUEST).json({ message: 'credentials required' })
+    const { email, password, firstName, lastName } = req.body
+
+    bcrypt.genSalt(SALT_ROUNDS, (err, salt) =>
+        bcrypt.hash(password, salt, (err, hash) =>
+            sql('user')
+                .insert({
+                    email,
+                    password: hash,
+                    first_name: firstName,
+                    last_name: lastName,
+                })
+                .returning('id')
+                .then(() => res.json({ message: 'user created' })),
+        ),
+    )
+})
+
 app.post('/login', (req, res) => {
     if (!req.body)
-        res.status(UNAUTHORIZED).json({ message: 'credentials required' })
+        res.status(BAD_REQUEST).json({ message: 'credentials required' })
     const { email, password } = req.body
 
     return sql

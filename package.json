@@ -12,9 +12,9 @@
     },
     "scripts": {
         "start:local":
-            "docker-compose up -d && concurrently \"nodemon index --exec babel-node --inspect\" \"webpack-dev-server\" --watch",
+            "docker-compose up -d && concurrently \"nodemon index --exec babel-node\" \"webpack-dev-server\" --watch",
         "restart:local":
-            "docker-compose down && docker-compose up -d && concurrently \"nodemon index --exec babel-node --inspect\" \"webpack-dev-server\" --watch",
+            "docker-compose down && docker-compose up -d --build && concurrently \"nodemon index --exec babel-node\" \"webpack-dev-server\" --watch",
         "start": "./node_modules/.bin/nodemon index --exec babel-node",
         "db:migrations":
             "./node_modules/.bin/knex migrate:latest --knexfile ./config/database/knexfile.js",
