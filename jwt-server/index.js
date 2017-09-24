@@ -19,7 +19,7 @@ const SALT_ROUNDS = 10
 
 const jwtOptions = {
     jwtFromRequest: ExtractJwt.fromAuthHeader(),
-    secretOrKey: 'tasmanianDevil',
+    secretOrKey: process.env.JWT_SECRET || '^yx^j#CSzxV6YRZ8',
 }
 
 const strategy = new JwtStrategy(jwtOptions, ({ id }, next) => {
@@ -48,22 +48,20 @@ app.use(bodyParser.json())
 app.get('/', (req, res) => res.json({ message: 'JWT Server Running...' }))
 
 app.post('/register', (req, res) => {
-    if (!req.body)
-        res.status(BAD_REQUEST).json({ message: 'credentials required' })
+    if (!req.body) res.status(BAD_REQUEST).json({ message: 'no credentials' })
+
     const { email, password, firstName, lastName } = req.body
 
-    bcrypt.genSalt(SALT_ROUNDS, (err, salt) =>
-        bcrypt.hash(password, salt, (err, hash) =>
-            sql('user')
-                .insert({
-                    email,
-                    password: hash,
-                    first_name: firstName,
-                    last_name: lastName,
-                })
-                .returning('id')
-                .then(() => res.json({ message: 'user created' })),
-        ),
+    bcrypt.hash(password, SALT_ROUNDS, (err, hash) =>
+        sql('user')
+            .insert({
+                email,
+                password: hash,
+                first_name: firstName,
+                last_name: lastName,
+            })
+            .returning('id')
+            .then(() => res.json({ message: 'user created' })),
     )
 })
 
@@ -75,22 +73,29 @@ app.post('/login', (req, res) => {
     return sql
         .select()
         .from('user')
-        .where('email', email)
-        .first()
-        .then(user => {
-            if (!user)
-                res.status(UNAUTHORIZED).json({ message: 'no such user found' })
+        .where('user.email', email)
+        .join('user_role', 'user_id', 'user.id')
+        .join('role', 'role.id', 'role_id')
+        .then(userLines => {
+            if (!userLines.length) {
+                res.status(UNAUTHORIZED).json({ message: 'user not found' })
+            }
 
-            if (user.password === password) {
-                const { id, roles } = user
+            const user = userLines[0]
+            const roles = userLines.map(user => user.role)
+
+            return bcrypt.compare(password, user.password).then(matched => {
+                if (!matched) {
+                    res
+                        .status(UNAUTHORIZED)
+                        .json({ message: 'password incorrect' })
+                }
+
+                const { id } = user
                 const token = jwt.sign({ id, roles }, jwtOptions.secretOrKey)
 
-                res.json({ message: 'ok', token: token })
-            } else {
-                res
-                    .status(UNAUTHORIZED)
-                    .json({ message: 'passwords did not match' })
-            }
+                res.json({ message: 'ok', token })
+            })
         })
 })
 
@@ -99,27 +104,17 @@ app.get(
     passport.authenticate('jwt', { session: false }),
     (req, res) => {
         const token = req.headers.authorization.split(' ')[1]
-        const { id } = jwt.verify(token, jwtOptions.secretOrKey)
+        const { roles } = jwt.verify(token, jwtOptions.secretOrKey)
 
-        return sql
-            .select()
-            .from('user')
-            .where('user.id', id)
-            .join('user_role', 'user_id', 'user.id')
-            .join('role', 'role.id', 'role_id')
-            .then(users => {
-                if (users.map(user => user.role).includes('ADMIN')) {
-                    res.json({
-                        message:
-                            'Success! You can not see this without a token',
-                    })
-                } else {
-                    res.status(UNAUTHORIZED).json({
-                        message:
-                            'Access denied! You do not have the required permissions.',
-                    })
-                }
+        if (roles.includes('ADMIN')) {
+            res.json({
+                message: 'Success! You can not see this without a token',
             })
+        }
+
+        res.status(UNAUTHORIZED).json({
+            message: 'Access denied! You do not have the required permissions.',
+        })
     },
 )
 
@@ -142,12 +137,12 @@ app.get(
                         message:
                             'Success! You can not see this without a token',
                     })
-                } else {
-                    res.status(UNAUTHORIZED).json({
-                        message:
-                            'Access denied! You do not have the required permissions.',
-                    })
                 }
+
+                res.status(UNAUTHORIZED).json({
+                    message:
+                        'Access denied! You do not have the required permissions.',
+                })
             })
     },
 )
