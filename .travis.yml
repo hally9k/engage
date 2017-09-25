@@ -10,10 +10,10 @@ node_js:
 before_script:
   - npm start &
   - sleep 30
+  - docker-compose ps
 
 script:
   - npm run i-all
-  - docker-compose ps
   - npm test
   - npm run lint
   - npm run type-check
