@@ -12,6 +12,7 @@ before_script:
   - sleep 30
 
 script:
+  - docker-compose ps
   - npm test
   - npm run lint
   - npm run type-check
