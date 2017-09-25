@@ -13,5 +13,8 @@ script:
   - npm run lint
   - npm run type-check
   - docker build -t hally9k/engage_client ./client
+  - docker push hally9k/engage_client
   - docker build -t hally9k/engage_jwt ./jwt
+  - docker push hally9k/engage_jwt
   - docker build -t hally9k/engage_server ./server
+  - docker push hally9k/engage_server
