@@ -12,6 +12,7 @@ before_script:
   - sleep 30
 
 script:
+  - npm run i-all
   - docker-compose ps
   - npm test
   - npm run lint
