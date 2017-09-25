@@ -7,7 +7,12 @@ language: node_js
 node_js:
   - "8.4.0"
 
+before_script:
+  - npm start &
+  - sleep 30
+
 script:
   - npm test
   - npm run lint
   - npm run type-check
+  - npm run e2e

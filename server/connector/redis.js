@@ -1,4 +1,4 @@
-import config from '../../config'
+import config from '../config'
 import redis from 'redis'
 
 const { service: { redis: redisConfig } } = config
