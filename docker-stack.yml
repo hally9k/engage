@@ -1,0 +1,64 @@
+version: "3"
+services:
+  jwt:
+    image: hally9k/engage_jwt
+    ports:
+      - "8082:8082"
+    environment:
+      - PG_HOST=db
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - web
+  db:
+    image: postgres
+    volumes:
+      - ./server/database/init:/docker-entrypoint-initdb.d
+    ports:
+      - "5432"
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - web
+  redis:
+    image: redis
+    ports:
+      - "6379"
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - web
+  server:
+    image: hally9k/engage_server
+    volumes:
+      - "./server:/usr/src/engage"
+    ports:
+      - "8081:8081"
+    depends_on:
+      - "redis"
+      - "db"
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - web
+  client:
+    image: hally9k/engage_client
+    volumes:
+      - "./client:/usr/src/engage"
+    ports:
+      - "8080:8080"
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - web
+networks:
+  web:
