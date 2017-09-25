@@ -8,6 +8,7 @@ node_js:
   - "8.4.0"
 
 before_script:
+  - ln -s /usr/bin/nodejs /usr/bin/node
   - docker-compose up --build -d
   - docker-compose ps
 
