@@ -4,8 +4,14 @@ language: node_js
 node_js:
   - "8.4.0"
 
+before_script:
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+
 script:
   - npm run i-all
   - npm test
   - npm run lint
   - npm run type-check
+  - docker build -t hally9k/engage_client ./client
+  - docker build -t hally9k/engage_jwt ./jwt
+  - docker build -t hally9k/engage_server ./server
