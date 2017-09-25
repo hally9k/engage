@@ -12,9 +12,9 @@ script:
   - npm test
   - npm run lint
   - npm run type-check
-  - docker build -t hally9k/engage_client ./client
-  - docker push hally9k/engage_client
-  - docker build -t hally9k/engage_jwt ./jwt
-  - docker push hally9k/engage_jwt
-  - docker build -t hally9k/engage_server ./server
-  - docker push hally9k/engage_server
+  - docker build -t $DOCKER_USERNAME/engage_client ./client
+  - docker push $DOCKER_USERNAME/engage_client
+  - docker build -t $DOCKER_USERNAME/engage_jwt ./jwt
+  - docker push $DOCKER_USERNAME/engage_jwt
+  - docker build -t $DOCKER_USERNAME/engage_server ./server
+  - docker push $DOCKER_USERNAME/engage_server
