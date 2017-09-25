@@ -12,17 +12,17 @@ services:
         condition: on-failure
     networks:
       - web
-  db:
-    image: postgres
-    volumes:
-      - ./server/database/init:/docker-entrypoint-initdb.d
-    ports:
-      - "5432"
-    deploy:
-      placement:
-        constraints: [node.role == manager]
-    networks:
-      - web
+  # db:
+  #   image: postgres
+  #   volumes:
+  #     - ./server/database/init:/docker-entrypoint-initdb.d
+  #   ports:
+  #     - "5432"
+  #   deploy:
+  #     placement:
+  #       constraints: [node.role == manager]
+  #   networks:
+  #     - web
   redis:
     image: redis
     ports:
@@ -35,8 +35,6 @@ services:
       - web
   server:
     image: hally9k/engage_server
-    volumes:
-      - "./server:/usr/src/engage"
     ports:
       - "8081:8081"
     depends_on:
@@ -50,8 +48,6 @@ services:
       - web
   client:
     image: hally9k/engage_client
-    volumes:
-      - "./client:/usr/src/engage"
     ports:
       - "8080:8080"
     deploy:
