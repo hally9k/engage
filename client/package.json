@@ -11,8 +11,7 @@
         "*.js": ["eslint"]
     },
     "scripts": {
-        "start": "./node_modules/.bin/babel-node index.js",
-        "build": "docker build . hally9k/engage_client"
+        "start": "./node_modules/.bin/babel-node index.js"
     },
     "devDependencies": {
         "babel-loader": "^7.1.1",
