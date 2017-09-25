@@ -2,7 +2,7 @@ FROM node:latest
 
 WORKDIR /usr/src/engage
 
-VOLUME ".:/usr/src/engage"
+COPY . .
 
 RUN export PATH=node_modules/.bin:$PATH
 
