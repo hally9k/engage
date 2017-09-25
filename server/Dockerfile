@@ -10,4 +10,4 @@ RUN npm i
 
 EXPOSE 8081
 
-CMD ["npm", "start"]
+CMD ["./node_modules/.bin/babel-node", "./index"]
