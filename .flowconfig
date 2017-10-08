@@ -4,6 +4,7 @@
 .*/node_modules/express-graphql
 .*/node_modules/redux-first-router
 .*/node_modules/bcryptjs
+.*/node_modules/immutable
 
 [include]
 
@@ -15,7 +16,6 @@ node_modules/fbjs/flow/lib
 emoji=true
 
 module.system.node.resolve_dirname=node_modules
-module.system.node.resolve_dirname=app
 module.system.node.resolve_dirname=server
 
 [lints]
