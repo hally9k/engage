@@ -30,19 +30,19 @@ let store
 export function configureStore() {
     store = createStore(reducers, enhancer)
 
+    // Hot Module Replacement
+    if (module.hot) {
+        module.hot.accept('duck', () => {
+            const rootEpic = require('duck').epics
+
+            epicMiddleware.replaceEpic(rootEpic) // Swap out epic middleware
+            const rootReducer = require('duck').reducers
+
+            store.replaceReducer(rootReducer)
+        })
+    }
+
     return store
 }
 
 export { store }
-
-// Hot Module Replacement
-if (module.hot) {
-    module.hot.accept('ducks', () => {
-        const rootEpic = require('ducks').epics
-
-        epicMiddleware.replaceEpic(rootEpic) // Swap out epic middleware
-        const rootReducer = require('ducks').reducers
-
-        store.replaceReducer(rootReducer)
-    })
-}

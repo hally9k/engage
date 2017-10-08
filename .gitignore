@@ -63,3 +63,5 @@ e2e/reports
 
 # webpack build
 public
+
+.esm-cache

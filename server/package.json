@@ -8,15 +8,13 @@
     "license": "ISC",
     "repository": "git@github.com:hally9k/engage.git",
     "scripts": {
-        "start": "./node_modules/.bin/babel-node server/index",
+        "start": "./node_modules/.bin/babel-node index.js",
         "db:migrations":
             "./node_modules/.bin/knex migrate:latest --knexfile ./config/database/knexfile.js"
     },
     "devDependencies": {
         "babel-preset-es2015": "^6.24.1",
         "babel-preset-flow": "^6.23.0",
-        "babel-preset-react": "^6.24.1",
-        "babel-preset-stage-2": "^6.24.1",
         "file-loader": "^0.11.2",
         "nodemon": "^1.11.0",
         "prop-types": "^15.5.10"

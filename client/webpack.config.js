@@ -1,12 +1,12 @@
-import HtmlWebpackPlugin from 'html-webpack-plugin'
-import paths from './config/path'
-import webpack from 'webpack'
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const paths = require('./config/path')
+const webpack = require('webpack')
 
-const isDev = process.env.NODE_ENV !== 'production'
-
-export default {
-    devtool: 'inline-cheap-source-map',
-    entry: paths.appIndexJs,
+module.exports = {
+    devtool: 'source-map', // 'inline-cheap-source-map',
+    entry: {
+        app: ['babel-polyfill', 'react-hot-loader/patch', paths.appIndexJs],
+    },
     output: {
         filename: 'bundle.js',
         path: paths.appBuild,
@@ -57,10 +57,9 @@ export default {
         extensions: ['.js', '.jsx', '.css', '.graphql'],
     },
     devServer: {
-        host: 'localhost',
         compress: true,
         contentBase: paths.appPublic,
-        hot: false,
+        hot: true,
         https: false,
         noInfo: true,
         publicPath: '/',
@@ -68,7 +67,7 @@ export default {
             ignored: /node_modules/,
         },
         historyApiFallback: true,
-        disableHostCheck: isDev,
-        useLocalIp: isDev,
+        // disableHostCheck: true,
+        // useLocalIp: true,
     },
 }

@@ -2,7 +2,7 @@ import config from '../config'
 
 const { service: { postgres } } = config
 
-module.exports = {
+export default {
     client: 'pg',
     connection: {
         host: postgres.host,

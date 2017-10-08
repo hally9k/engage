@@ -12,4 +12,4 @@ RUN ./node_modules/.bin/webpack
 
 EXPOSE 8080
 
-CMD ["./node_modules/.bin/babel-node", "./index"]
+CMD ["npm", "start"]
