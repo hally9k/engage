@@ -1,9 +1,9 @@
-import Activity from './activity'
-import Child from './child'
-import Conversation from './conversation'
-import Message from './message'
-import Session from './session'
-import Subject from './subject'
-import User from './user'
+import activity from './activity'
+import child from './child'
+import conversation from './conversation'
+import message from './message'
+import session from './session'
+import subject from './subject'
+import user from './user'
 
-export { Activity, Child, Conversation, Message, Session, Subject, User }
+export { activity, child, conversation, message, session, subject, user }

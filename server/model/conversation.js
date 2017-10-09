@@ -1,24 +1,18 @@
 // @flow
+import sql from '../connector/sql'
 import slug from 'slug'
-export default class Conversation {
-    sql: any
-    redis: RedisConnector
 
-    constructor(sql: any) {
-        this.sql = sql
-    }
-
+export default {
     one(conversationId: Number) {
-        return this.sql
+        return sql
             .select()
             .from('conversation')
             .where('id', conversationId)
             .then(conversation => conversation)
-    }
-
+    },
     all(userId: Number) {
         if (userId) {
-            return this.sql
+            return sql
                 .select()
                 .from('user_conversation')
                 .where('user_id', userId)
@@ -26,15 +20,14 @@ export default class Conversation {
                 .then(conversations => conversations)
         }
 
-        return this.sql
+        return sql
             .select()
             .from('user_conversation')
             .innerJoin('conversation', 'id', 'conversation_id')
             .then(conversations => conversations)
-    }
-
+    },
     add(userId: Number, channel: String) {
-        return this.sql
+        return sql
             .select()
             .from('conversation')
             .where('channel', channel)
@@ -53,10 +46,9 @@ export default class Conversation {
                         })
                     })
             })
-    }
-
+    },
     addUser(userId: Number, conversationId: Number) {
-        return this.sql('user_conversation')
+        return sql('user_conversation')
             .insert({
                 conversation_id: conversationId,
                 user_id: userId,
@@ -65,14 +57,13 @@ export default class Conversation {
             .then(([conversationId]) => {
                 return this.one(conversationId)
             })
-    }
-
+    },
     allUsers(conversationId: Number) {
-        return this.sql('conversation_user')
+        return sql('conversation_user')
             .where('conversation_id', conversationId)
             .innerJoin('user', 'id', 'user_id')
             .then(users => {
                 return users
             })
-    }
+    },
 }

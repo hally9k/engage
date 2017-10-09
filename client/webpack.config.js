@@ -67,7 +67,5 @@ module.exports = {
             ignored: /node_modules/,
         },
         historyApiFallback: true,
-        // disableHostCheck: true,
-        // useLocalIp: true,
     },
 }

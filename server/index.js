@@ -7,26 +7,16 @@ import { SubscriptionServer } from 'subscriptions-transport-ws'
 import { execute, subscribe } from 'graphql'
 
 import schema from './schema'
-import sql from './connector/sql'
 import redis from './connector/redis'
 import {
-    Activity,
-    Child,
-    Conversation,
-    Message,
-    Session,
-    Subject,
-    User,
+    activity,
+    child,
+    conversation,
+    message,
+    session,
+    subject,
+    user,
 } from './model'
-
-const user = new User(sql)
-const child = new Child(sql)
-const conversation = new Conversation(sql)
-const message = new Message(sql, redis)
-const subject = new Subject(sql)
-// const activity = new Activity(sql)
-const activity = Activity
-const session = new Session(sql)
 
 const context = {
     user,
