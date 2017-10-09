@@ -59,9 +59,10 @@ typings/
 .env
 
 # e2e testing
-e2e/reports
+test/e2e/reports
 
 # webpack build
 public
 
+# @std/esm es modules cache
 .esm-cache
