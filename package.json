@@ -26,7 +26,7 @@
         "test":
             "./node_modules/.bin/mocha $(find . -name '*test.js' ! -ipath '*node_modules*')  --opts 'test/unit/mocha.opts'",
         "e2e":
-            "docker-compose -f docker-compose.e2e.yml up -d --build && sleep 10 && ./node_modules/nightwatch/bin/nightwatch --config ./test/e2e/nightwatch.conf.js && docker-compose -f docker-compose.e2e.yml down",
+            "docker-compose -f docker-compose.e2e.yml up -d --build && sleep 30 && ./node_modules/nightwatch/bin/nightwatch --config ./test/e2e/nightwatch.conf.js && docker-compose -f docker-compose.e2e.yml down",
         "lint":
             "./node_modules/.bin/eslint client/app/* server/model/* server/schema/* jwt/index/*",
         "format":
