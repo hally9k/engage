@@ -9,7 +9,7 @@ module.exports = {
 
     test_settings: {
         default: {
-            launch_url: 'http://client:8080',
+            launch_url: 'http://localhost:8080',
             selenium_port: 4444,
             selenium_host: 'localhost',
             silent: true,
@@ -19,6 +19,7 @@ module.exports = {
             },
             desiredCapabilities: {
                 browserName: 'chrome',
+                javascriptEnabled: true,
             },
         },
     },

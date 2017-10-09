@@ -8,7 +8,7 @@ module.exports = {
         app: ['babel-polyfill', 'react-hot-loader/patch', paths.appIndexJs],
     },
     output: {
-        filename: 'bundle.js',
+        filename: 'bundle.[hash].js',
         path: paths.appBuild,
         publicPath: '/',
     },

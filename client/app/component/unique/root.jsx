@@ -37,7 +37,9 @@ export default class Root extends Component {
                     <NavLink to="/chat">Chat</NavLink>
                 </section>
                 <section className="main">
-                    {location.pathname === '/' && <h1>vvvv</h1>}
+                    {location.pathname === '/' && (
+                        <h1 className="home-title">Home</h1>
+                    )}
                     {location.pathname === '/activities' && (
                         <Activities subjectId="1" />
                     )}

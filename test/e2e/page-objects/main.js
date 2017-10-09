@@ -2,7 +2,7 @@ const TEN_SECONDS = 10000
 
 let mainCommands = {
     mainLoad: function() {
-        return this.waitForElementVisible('@main', TEN_SECONDS)
+        return this.waitForElementVisible('@homeTitle', TEN_SECONDS)
     },
 }
 
@@ -12,8 +12,8 @@ module.exports = {
         return this.api.launchUrl
     },
     elements: {
-        main: {
-            selector: '.main',
+        homeTitle: {
+            selector: '.home-title',
         },
         error: {
             selector: '.error',
