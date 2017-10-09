@@ -12,7 +12,7 @@ script:
   - npm test
   - npm run lint
   - npm run type-check
-  - npm run e2e
+  # - npm run e2e
   - docker build -t $DOCKER_USERNAME/engage_client ./client
   - docker push $DOCKER_USERNAME/engage_client
   - docker build -t $DOCKER_USERNAME/engage_jwt ./jwt
