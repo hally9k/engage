@@ -24,7 +24,8 @@ const child = new Child(sql)
 const conversation = new Conversation(sql)
 const message = new Message(sql, redis)
 const subject = new Subject(sql)
-const activity = new Activity(sql)
+// const activity = new Activity(sql)
+const activity = Activity
 const session = new Session(sql)
 
 const context = {

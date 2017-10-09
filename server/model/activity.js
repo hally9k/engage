@@ -1,31 +1,24 @@
 // @flow
+import sql from '../connector/sql'
 
-class Activity {
-    sql: Knex$QueryBuilder<Activity>
-
-    constructor(sql: Knex$QueryBuilder<Activity>) {
-        this.sql = sql
-    }
-
+export default {
     one(id: Number) {
-        return this.sql
+        return sql
             .select()
             .from('activity')
             .where('id', id)
             .first()
             .then(activity => activity)
-    }
+    },
 
     all() {
-        return this.sql
+        return sql
             .select()
             .from('activity')
             .then(activities => activities)
-    }
+    },
 
     oneOrAll(id: Number) {
         return id ? [this.one(id)] : this.all()
-    }
+    },
 }
-
-export default Activity
