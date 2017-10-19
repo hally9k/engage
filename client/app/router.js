@@ -9,10 +9,10 @@ const history = createHistory()
 const options = {
     location: state => toJS(state.get('location')),
     onBeforeChange: (dispatch, getState, action) => {
-        const authorised = isAuthorised(action.type, getState())
+        const authorised = isAuthorised(action.action.type, getState())
 
         if (!authorised) {
-            const action = redirect({ type: 'HOME' })
+            const action = redirect({ type: 'LOGIN' })
 
             dispatch(action)
         }
@@ -46,6 +46,7 @@ const { reducer, enhancer, middleware, thunk } = connectRoutes(
 )
 
 // Immutable helpers
+// TODO: Replace this with Immutable.Iterable.isIterable() check?
 const toJS = x => {
     if (x && typeof x.toJS === 'function') {
         return x.toJS()

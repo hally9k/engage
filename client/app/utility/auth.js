@@ -4,8 +4,16 @@ import jwt from 'jsonwebtoken'
 
 import AUTH_SERVER_URL from '../../config/auth'
 
-export const isAuthorised = (type, state) =>
-    routes[type].role === state.getIn(['session', 'token', 'role'])
+export const isAuthorised = (type, state) => {
+    const requiredRole = routes[type].role
+
+    if (!requiredRole) return true
+    const roles = state.getIn(['session', 'roles'])
+
+    if (!roles) return false
+
+    return roles.includes(requiredRole)
+}
 
 export const login = (username, password) =>
     fetch(`${AUTH_SERVER_URL}/login`, {
