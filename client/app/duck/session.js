@@ -36,7 +36,7 @@ export default (state = INITIAL_STATE, action) => {
     if (!action) return state
     switch (action.type) {
         case RECEIVED_LOGIN_RESPONSE:
-            return state // Store token in the localstorage??
+            return Map(action.payload)
         default:
             return state
     }
@@ -44,27 +44,20 @@ export default (state = INITIAL_STATE, action) => {
 
 // Epics
 export const sendingLoginRequestEpic = action$ =>
-    action$
-        .ofType(SENDING_LOGIN_REQUEST)
-        .mergeMap(({ payload: { username, password } }) =>
+    action$.ofType(SENDING_LOGIN_REQUEST).mergeMap(
+        ({ payload: { username, password } }) =>
             auth
                 .login(username, password)
-                .then(res => {
-                    return [
-                        receivedLoginResponse({
-                            data: res
-                        })
-                    ]
-                })
-                .catch(error => [receivedLoginResponse({}, error)])
-        )
+                .then(res => receivedLoginResponse(res))
+        // .catch(error => [receivedLoginResponse(null, error)])
+    )
 
-export const receivedLogionRequestEpic = action$ =>
-    action$.ofType(RECEIVED_LOGIN_RESPONSE).mergeMap(({ payload }) => {
-        return payload
-    })
+// export const receivedLoginRequestEpic = action$ =>
+//     action$.ofType(RECEIVED_LOGIN_RESPONSE).mergeMap(({ payload }) => {
+//         return payload
+//     })
 
 export const epics = {
-    sendingLoginRequestEpic,
-    receivedLogionRequestEpic
+    sendingLoginRequestEpic
+    // receivedLoginRequestEpic
 }

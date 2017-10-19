@@ -1,5 +1,6 @@
 /* eslint-disable compat/compat */
 import { routes } from '../router'
+import jwt from 'jsonwebtoken'
 
 import AUTH_SERVER_URL from '../../config/auth'
 
@@ -14,4 +15,13 @@ export const login = (username, password) =>
         },
         method: 'POST',
         body: JSON.stringify({ email: username, password })
-    }).then(res => res.data)
+    })
+        .then(res => res.json())
+        .then(({ token }) => {
+            const { roles } = jwt.decode(token)
+            const session = { token, roles }
+
+            localStorage.setItem('engage:session', session)
+
+            return session
+        })

@@ -21,9 +21,9 @@ export const reducers = combineReducers({
         conversation,
         message,
         subject,
-        user,
-        session
+        user
     }),
+    session,
     meta
 })
 
