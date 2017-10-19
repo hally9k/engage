@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import toJS from 'react-immutable-hoc'
-
+import { withErrorBoundary } from 'react-error-boundary'
+import Fallback from 'component/generic/fallback'
 import { updateComponentState } from 'duck/meta'
 
 import metaSelector from 'selector/meta'
@@ -15,15 +16,22 @@ import Activities from './activities'
 const mapStateToProps = (state, ownProps) => ({
     fetching: fetchingSelector(state),
     meta: metaSelector(state, 'activities'),
-    subject: subjectSelector(state, ownProps.subjectId),
+    subject: subjectSelector(state, ownProps.subjectId)
 })
 
 const mapDispatchToProps = dispatch => ({
     updateComponentState: value =>
         dispatch(updateComponentState({ key: 'activities', value })),
-    fetchingSubject: () => dispatch(fetchingSubject()),
+    fetchingSubject: () => dispatch(fetchingSubject())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-    toJS(requiredProps(Activities, Loading)),
+    toJS(
+        requiredProps(
+            withErrorBoundary(Activities, Fallback, (error, info) =>
+                alert(error, info)
+            ),
+            Loading
+        )
+    )
 )

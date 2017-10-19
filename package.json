@@ -23,20 +23,15 @@
     },
     "scripts": {
         "start": "docker-compose up -d && (cd client && npm run start:dev)",
-        "test":
-            "./node_modules/.bin/mocha $(find . -name '*test.js' ! -ipath '*node_modules*')  --opts 'test/unit/mocha.opts'",
-        "e2e":
-            "docker-compose up -d --build && sleep 5 && ./node_modules/nightwatch/bin/nightwatch --config ./test/e2e/nightwatch.conf.js && docker-compose down",
-        "lint":
-            "./node_modules/.bin/eslint client/app/* server/model/* server/schema/* jwt/index/*",
-        "format":
-            "./node_modules/.bin/prettier-eslint \"server/**/*.{js,jsx}\" \"client/**/*.{js,jsx}\" \"jwt/**/*.{js,jsx}\" \"index.js\" --write",
+        "test": "./node_modules/.bin/mocha $(find . -name '*test.js' ! -ipath '*node_modules*')  --opts 'test/unit/mocha.opts'",
+        "e2e": "docker-compose up -d --build && sleep 5 && ./node_modules/nightwatch/bin/nightwatch --config ./test/e2e/nightwatch.conf.js && docker-compose down",
+        "lint": "./node_modules/.bin/eslint client/app/* server/model/* server/schema/* jwt/index/*",
+        "format": "./node_modules/.bin/prettier-eslint \"server/**/*.{js,jsx}\" \"client/**/*.{js,jsx}\" \"jwt/**/*.{js,jsx}\" \"index.js\" --write",
         "precommit": "npm run lint && npm run type-check",
         "prepush": "npm t",
         "type-check": "./node_modules/.bin/flow",
-        "i-all":
-            "npm i && cd client && npm i && cd .. && cd server && npm i && cd .. && cd jwt && npm i && cd ..",
-        "nuke-modules":
-            "rm -rf ./node_modules ./client/node_modules ./server/node_modules ./jwt/node_modules"
-    }
+        "i-all": "npm i && cd client && npm i && cd .. && cd server && npm i && cd .. && cd jwt && npm i && cd ..",
+        "nuke-modules": "rm -rf ./node_modules ./client/node_modules ./server/node_modules ./jwt/node_modules"
+    },
+    "dependencies": {}
 }

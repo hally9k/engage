@@ -43,14 +43,9 @@
         "jsx-a11y/anchor-is-valid": ["error"],
         "jsx-a11y/label-has-for": ["warn"],
         "react/jsx-boolean-value": ["error", "always"],
-        "react/jsx-handler-names": ["error"],
+        "react/jsx-handler-names": ["off"],
         "react/jsx-no-comment-textnodes": "error",
-        "react/jsx-no-bind": [
-            "warn",
-            {
-                "ignoreRefs": true
-            }
-        ],
+        "react/jsx-no-bind": ["off"],
         "react/jsx-no-target-blank": "error",
         "react/jsx-pascal-case": ["error"],
         "react/no-danger": "off",

@@ -5,6 +5,8 @@
 .*/node_modules/redux-first-router
 .*/node_modules/bcryptjs
 .*/node_modules/immutable
+.*/node_modules/react-immutable-hoc
+.*/react-error-boundary
 
 [include]
 

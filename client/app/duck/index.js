@@ -8,7 +8,7 @@ import subject, { epics as subjectEpics } from 'duck/subject'
 import user, { epics as userEpics } from 'duck/user'
 import conversation, { epics as conversationEpics } from 'duck/conversation'
 import message, { epics as messageEpics } from 'duck/message'
-
+import session, { epics as sessionEpics } from 'duck/session'
 // Data Actions
 export const PROCESSED = 'data/PROCESSED'
 export const processed = payload => ({ type: PROCESSED, payload })
@@ -22,8 +22,9 @@ export const reducers = combineReducers({
         message,
         subject,
         user,
+        session
     }),
-    meta,
+    meta
 })
 
 // Root Epic
@@ -33,4 +34,5 @@ export const epics = combineEpics(
     ...Object.values(userEpics),
     ...Object.values(conversationEpics),
     ...Object.values(messageEpics),
+    ...Object.values(sessionEpics)
 )

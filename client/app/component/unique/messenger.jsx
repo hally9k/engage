@@ -9,13 +9,17 @@ export default class Messenger extends Component {
         creatingConversation: PropTypes.func.isRequired,
         currentUserId: PropTypes.number.isRequired,
         fetchingConversation: PropTypes.func.isRequired,
-        selectedConversation: PropTypes.object,
+        selectedConversation: PropTypes.object
     }
 
     componentWillMount = () => {
         const { fetchingConversation, currentUserId } = this.props
 
         fetchingConversation(currentUserId)
+    }
+
+    componentDidCatch = (error, errorInfo) => {
+        console.log(error, errorInfo)
     }
 
     handleCreateConversation = () => {

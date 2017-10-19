@@ -15,14 +15,14 @@ const ravenMiddleware = createRavenMiddleware()
 
 const enhancer = composeEnhancers(
     applyMiddleware(
-        router.middleware,
         batchMiddleware,
+        router.middleware,
         metaMiddleware,
         ravenMiddleware,
         epicMiddleware,
         loggerMiddleware,
-        graphQLSubscriptionsMiddleware,
-    ),
+        graphQLSubscriptionsMiddleware
+    )
 )
 
 let store

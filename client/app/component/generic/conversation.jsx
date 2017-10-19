@@ -10,13 +10,13 @@ export default class Conversation extends Component {
         currentUserId: PropTypes.number.isRequired,
         sendingNewMessage: PropTypes.func.isRequired,
         subscribeToConversation: PropTypes.func.isRequired,
-        unsubscribeFromConversation: PropTypes.func.isRequired,
+        unsubscribeFromConversation: PropTypes.func.isRequired
     }
 
     componentWillMount = () => {
         const {
             subscribeToConversation,
-            conversation: { channel },
+            conversation: { channel }
         } = this.props
 
         subscribeToConversation(channel)
@@ -25,7 +25,7 @@ export default class Conversation extends Component {
     componentWillReceiveProps = nextProps => {
         const {
             subscribeToConversation,
-            unsubscribeFromConversation,
+            unsubscribeFromConversation
         } = this.props
 
         if (this.props.conversation.id !== nextProps.conversation.id) {
@@ -37,7 +37,7 @@ export default class Conversation extends Component {
     handleSendingNewMessage = () => {
         const {
             conversation: { id: conversationId, channel },
-            currentUserId,
+            currentUserId
         } = this.props
 
         const message = this.input.value
@@ -46,7 +46,7 @@ export default class Conversation extends Component {
             message,
             currentUserId,
             conversationId,
-            channel,
+            channel
         )
 
         this.input.value = ''
@@ -83,6 +83,8 @@ export default class Conversation extends Component {
 
     render() {
         const { conversation } = this.props
+
+        throw new Error('conversation Error')
 
         return conversation
             ? this.renderConversation(conversation.channel)

@@ -9,26 +9,24 @@ export default class Activities extends Component {
 
     handleActivitySelection = id =>
         this.props.updateComponentState({
-            selectedActivityId: id,
+            selectedActivityId: id
         })
 
     handleCloseModal = () => this.handleActivitySelection(null)
 
     renderActivities = () =>
-        this.props.subject.activities.map(({ description, id }) =>
+        this.props.subject.activities.map(({ description, id }) => (
             <button
                 key={`activity-${id}`}
                 className="activity"
                 onClick={() => this.handleActivitySelection(id)}
                 onKeyPress={this.handleCloseModal}
             >
-                <h5>
-                    {description}
-                </h5>
-            </button>,
-        )
+                <h5>{description}</h5>
+            </button>
+        ))
 
-    renderModal = (selectedActivityId, { description, hint }) =>
+    renderModal = (selectedActivityId, { description, hint }) => (
         <Modal
             isOpen={Boolean(selectedActivityId)}
             // onAfterOpen={afterOpenFn}
@@ -48,31 +46,31 @@ export default class Activities extends Component {
                     </button>
                 </div>
                 <div className="modal-body">
-                    <h3>
-                        {description}
-                    </h3>
-                    <p>
-                        {hint}
-                    </p>
+                    <h3>{description}</h3>
+                    <p>{hint}</p>
                 </div>
             </div>
         </Modal>
+    )
 
     render() {
+        // throw new Error('Waaah!')
+
         const { subject, meta } = this.props
 
-        return subject
-            ? <div className="activities">
-                {meta && meta.selectedActivityId &&
-                      this.renderModal(
-                          meta.selectedActivityId,
-                          subject.activities.find(
-                              x => x.id === meta.selectedActivityId,
-                          ),
-                      )}
+        return subject ? (
+            <div className="activities">
+                {meta &&
+                    meta.selectedActivityId &&
+                    this.renderModal(
+                        meta.selectedActivityId,
+                        subject.activities.find(
+                            x => x.id === meta.selectedActivityId
+                        )
+                    )}
                 {this.renderActivities()}
             </div>
-            : null
+        ) : null
     }
 }
 
@@ -82,5 +80,5 @@ Activities.propTypes = {
     selectedActivityId: PropTypes.number,
     subject: PropTypes.object,
     subjectId: PropTypes.string.isRequired,
-    updateComponentState: PropTypes.func.isRequired,
+    updateComponentState: PropTypes.func.isRequired
 }

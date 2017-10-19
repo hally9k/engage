@@ -1,28 +1,48 @@
-import { connectRoutes } from 'redux-first-router'
+import { connectRoutes, redirect } from 'redux-first-router'
 import createHistory from 'history/createBrowserHistory'
 import { fromJS } from 'immutable'
+import { roles } from '../config/auth'
+import { isAuthorised } from './utility/auth'
 
 const history = createHistory()
 
 const options = {
     location: state => toJS(state.get('location')),
+    onBeforeChange: (dispatch, getState, action) => {
+        const authorised = isAuthorised(action.type, getState())
+
+        if (!authorised) {
+            const action = redirect({ type: 'HOME' })
+
+            dispatch(action)
+        }
+    }
+    // onAfterChange: (dispatch, getState) => {
+    // }
 }
 
-const routes = {
+export const routes = {
     HOME: '/',
-    ACTIVITIES: '/activities',
+    LOGIN: '/login',
+    REGISTER: '/register',
+    ACTIVITIES: {
+        path: '/activities',
+        role: roles.USER
+    },
     CHAT_INDEX: {
         path: '/chat',
+        role: roles.ADMIN
     },
     CHAT: {
         path: '/chat/:channel',
-    },
+        role: roles.ADMIN
+    }
 }
 
 const { reducer, enhancer, middleware, thunk } = connectRoutes(
     history,
     routes,
-    options,
+    options
 )
 
 // Immutable helpers

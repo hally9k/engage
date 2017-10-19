@@ -1,5 +1,6 @@
 import express from 'express'
 import bodyParser from 'body-parser'
+import cors from 'express-cors'
 import jwt from 'jsonwebtoken'
 import sql from './connector/sql'
 import passport from 'passport'
@@ -34,6 +35,10 @@ const strategy = new JwtStrategy(jwtOptions, ({ id }, next) => {
 passport.use(strategy)
 
 const app = express()
+
+app.use(cors({
+    allowedOrigins: ['http://localhost:8080']
+}))
 
 app.use(passport.initialize())
 
