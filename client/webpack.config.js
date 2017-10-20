@@ -5,32 +5,32 @@ const webpack = require('webpack')
 module.exports = {
     devtool: 'source-map', // 'inline-cheap-source-map',
     entry: {
-        app: ['babel-polyfill', 'react-hot-loader/patch', paths.appIndexJs],
+        app: ['babel-polyfill', 'react-hot-loader/patch', paths.appIndexJs]
     },
     output: {
         filename: 'bundle.[hash].js',
         path: paths.appBuild,
-        publicPath: '/',
+        publicPath: '/'
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: paths.appHtmlTemplate,
+            template: paths.appHtmlTemplate
         }),
         new webpack.DefinePlugin({
             NODE_ENV: process.env.NODE_ENV,
-            PORT: process.env.PORT,
-        }),
+            PORT: process.env.PORT
+        })
     ],
     module: {
         rules: [
             {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
-                loader: 'babel-loader',
+                loader: 'babel-loader'
             },
             {
                 test: /\.css$/,
-                loader: 'style-loader!css-loader',
+                loader: 'style-loader!css-loader'
                 // options: {
                 //     config: {
                 //         path: `${paths.appRoot}/postcss.config.js`
@@ -42,19 +42,19 @@ module.exports = {
                 loader: 'url-loader',
                 options: {
                     limit: 1000,
-                    name: '[path][name].[ext]',
-                },
+                    name: '[path][name].[ext]'
+                }
             },
             {
                 test: /\.(graphql|gql)$/,
                 exclude: /node_modules/,
-                loader: 'raw-loader',
-            },
-        ],
+                loader: 'raw-loader'
+            }
+        ]
     },
     resolve: {
         modules: [paths.appSrc, 'node_modules'],
-        extensions: ['.js', '.jsx', '.css', '.graphql'],
+        extensions: ['.js', '.jsx', '.css', '.graphql']
     },
     devServer: {
         compress: true,
@@ -64,8 +64,8 @@ module.exports = {
         noInfo: true,
         publicPath: '/',
         watchOptions: {
-            ignored: /node_modules/,
+            ignored: /node_modules/
         },
-        historyApiFallback: true,
-    },
+        historyApiFallback: true
+    }
 }

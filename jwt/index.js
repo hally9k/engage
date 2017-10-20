@@ -66,7 +66,18 @@ app.post('/register', (req, res) => {
                 last_name: lastName,
             })
             .returning('id')
-            .then(() => res.json({ message: 'user created' })),
+            .then(id => {
+                const token = jwt.sign({ id, roles: ['USER'] }, jwtOptions.secretOrKey)
+
+                res.json({ token })
+            })
+            .catch(error => {
+                if (error.code === '23505') {
+                    return res.json({ error: 'This email already has an account associated with it.' })
+                }
+
+                return res.json({ error: 'An unexpected error occurred.' })
+            })
     )
 })
 
@@ -99,9 +110,10 @@ app.post('/login', (req, res) => {
                 const { id } = user
                 const token = jwt.sign({ id, roles }, jwtOptions.secretOrKey)
 
-                res.json({ message: 'ok', token })
+                res.json({ token })
             })
         })
+        .catch(error => res.json({ error }))
 })
 
 app.get(
@@ -149,6 +161,7 @@ app.get(
                         'Access denied! You do not have the required permissions.',
                 })
             })
+            .catch(error => res.json({ error }))
     },
 )
 

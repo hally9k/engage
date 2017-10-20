@@ -25,6 +25,8 @@ const processLoginResponse = ({ token }) => {
 }
 
 export const isAuthorised = (type, state) => {
+    if (!routes[type]) return false
+
     const requiredRole = routes[type].role
 
     if (!requiredRole) return true

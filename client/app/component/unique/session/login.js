@@ -9,14 +9,10 @@ export default class Login extends Component {
     render() {
         return (
             <div className="login">
-                <input
-                    ref={email => (this.email = email)}
-                    value="k.shrosbree@gmail.com"
-                />
+                <input ref={email => (this.email = email)} />
                 <input
                     type="password"
                     ref={password => (this.password = password)}
-                    value="password1"
                 />
                 <button
                     onClick={() =>

@@ -12,7 +12,7 @@ const options = {
         const authorised = isAuthorised(action.action.type, getState())
 
         if (!authorised) {
-            const action = redirect({ type: 'LOGIN' })
+            const action = redirect({ type: 'UNAUTHORIZED' })
 
             dispatch(action)
         }
@@ -22,9 +22,15 @@ const options = {
 }
 
 export const routes = {
-    HOME: '/',
-    LOGIN: '/login',
-    REGISTER: '/register',
+    HOME: {
+        path: '/'
+    },
+    LOGIN: {
+        path: '/login'
+    },
+    REGISTER: {
+        path: '/register'
+    },
     ACTIVITIES: {
         path: '/activities',
         role: roles.USER
@@ -36,6 +42,9 @@ export const routes = {
     CHAT: {
         path: '/chat/:channel',
         role: roles.ADMIN
+    },
+    UNAUTHORIZED: {
+        path: '/unauthorized'
     }
 }
 

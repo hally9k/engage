@@ -1,15 +1,18 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Activities from './activities.container'
-import Messenger from './messenger.container'
-import Login from './session/login.container'
-import Register from './session/register.container'
 import { NavLink } from 'redux-first-router-link'
 import ErrorBoundary from 'react-error-boundary'
+
+import Activities from 'component/unique/activities.container'
+import Messenger from 'component/unique/messenger.container'
+import Login from 'component/unique/session/login.container'
+import Register from 'component/unique/session/register.container'
+import Fallback from 'component/generic/fallback'
 
 export default class Root extends Component {
     static propTypes = {
         location: PropTypes.object.isRequired,
+        loggingOut: PropTypes.func.isRequired,
         updateMetaState: PropTypes.func.isRequired
     }
 
@@ -40,6 +43,9 @@ export default class Root extends Component {
                     <NavLink to="/chat">Chat</NavLink>
                     <NavLink to="/login">Login</NavLink>
                     <NavLink to="/register">Register</NavLink>
+                    <NavLink to="/login" onClick={this.props.loggingOut}>
+                        Logout
+                    </NavLink>
                 </section>
                 <section className="main">
                     {location.pathname === '/' && (
@@ -51,9 +57,16 @@ export default class Root extends Component {
                         <Activities subjectId="1" />
                     )}
                     {location.pathname.startsWith('/chat') && (
-                        <ErrorBoundary>
+                        <ErrorBoundary FallbackComponent={Fallback}>
                             <Messenger channel={location.payload.channel} />
                         </ErrorBoundary>
+                    )}
+                    {location.pathname === '/unauthorized' && (
+                        <Fallback
+                            message={'Unauthorized'}
+                            link={'/'}
+                            linkname={'Home'}
+                        />
                     )}
                 </section>
             </div>

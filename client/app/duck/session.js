@@ -6,6 +6,7 @@ const SENDING_LOGIN_REQUEST = 'session/SENDING_LOGIN_REQUEST'
 const RECEIVED_LOGIN_RESPONSE = 'session/RECEIVED_LOGIN_RESPONSE'
 const SENDING_REGISTER_REQUEST = 'session/SENDING_REGISTER_REQUEST'
 const RECEIVED_REGISTER_RESPONSE = 'session/RECEIVED_REGISTER_RESPONSE'
+const LOGGING_OUT = 'session/LOGGING_OUT'
 
 // Action Creators
 export const sendingLoginRequest = (email, password) => ({
@@ -35,6 +36,8 @@ export const receivedRegisterResponse = (payload, error) => ({
     error
 })
 
+export const loggingOut = () => ({ type: LOGGING_OUT })
+
 // Reducers
 const INITIAL_STATE = Map()
 
@@ -45,6 +48,8 @@ export default (state = INITIAL_STATE, action) => {
             return Map(action.payload)
         case RECEIVED_REGISTER_RESPONSE:
             return Map(action.payload)
+        case LOGGING_OUT:
+            return Map()
         default:
             return state
     }
@@ -66,8 +71,8 @@ export const sendingRegisterRequestEpic = action$ =>
         .ofType(SENDING_REGISTER_REQUEST)
         .mergeMap(({ payload: { firstName, lastName, email, password } }) =>
             auth
-                .login(firstName, lastName, email, password)
-                .then(res => receivedRegisterResponse(res))
+                .register(firstName, lastName, email, password)
+                .then(res => [receivedRegisterResponse(res)])
                 .catch(error => [receivedRegisterResponse(null, error)])
         )
 

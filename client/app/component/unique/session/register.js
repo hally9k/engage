@@ -23,7 +23,6 @@ export default class Register extends Component {
                     <input
                         name="first-name"
                         ref={firstName => (this.firstName = firstName)}
-                        value="Kirsty"
                         required="true"
                     />
                 </label>
@@ -32,7 +31,6 @@ export default class Register extends Component {
                     <input
                         name="last-name"
                         ref={lastName => (this.lastName = lastName)}
-                        value="Smith Stevens"
                         required="true"
                     />
                 </label>
@@ -42,7 +40,6 @@ export default class Register extends Component {
                         type="email"
                         name="email"
                         ref={email => (this.email = email)}
-                        value="k.shrosbree@gmail.com"
                         required="true"
                     />
                 </label>
@@ -52,7 +49,6 @@ export default class Register extends Component {
                         type="password"
                         name="password"
                         ref={password => (this.password = password)}
-                        value="password1"
                         required="true"
                     />
                 </label>
@@ -63,7 +59,6 @@ export default class Register extends Component {
                         name="confirm-password"
                         ref={passwordConfirmed =>
                             (this.passwordConfirmed = passwordConfirmed)}
-                        value="password1"
                         required="true"
                     />
                 </label>

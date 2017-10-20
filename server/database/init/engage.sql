@@ -4,8 +4,8 @@
 
 \c engage
 
--- Dumped from database version 9.6.5
--- Dumped by pg_dump version 9.6.3
+-- Dumped from database version 10.0
+-- Dumped by pg_dump version 10.0
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -435,13 +435,6 @@ COPY activity (id, subject_id, difficulty, hint, description) FROM stdin;
 
 
 --
--- Name: activity_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('activity_id_seq', 1, true);
-
-
---
 -- Data for Name: child; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -449,13 +442,6 @@ COPY child (id, name, age) FROM stdin;
 1	Aniela	3
 2	Bella	6
 \.
-
-
---
--- Name: child_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('child_id_seq', 1, true);
 
 
 --
@@ -469,13 +455,6 @@ COPY child_subject (child_id, subject_id) FROM stdin;
 
 
 --
--- Name: comment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('comment_id_seq', 215, true);
-
-
---
 -- Data for Name: conversation; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -484,13 +463,6 @@ COPY conversation (id, channel, slug) FROM stdin;
 2	Shopping	shopping
 3	Get me tho!	get-me-tho
 \.
-
-
---
--- Name: conversation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('conversation_id_seq', 3, true);
 
 
 --
@@ -528,13 +500,6 @@ COPY role (id, role) FROM stdin;
 
 
 --
--- Name: roles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('roles_id_seq', 1, false);
-
-
---
 -- Data for Name: session; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -543,13 +508,6 @@ COPY session (id, activity_id, score, notes, user_id, child_id, created_at) FROM
 3	1	80	No fingers!	1	1	2017-07-22 22:02:07.288529
 4	2	100	Awesome work!	2	2	2017-08-03 13:17:04.819873
 \.
-
-
---
--- Name: session_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('session_id_seq', 3, true);
 
 
 --
@@ -566,19 +524,13 @@ COPY subject (id, title) FROM stdin;
 
 
 --
--- Name: subject_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('subject_id_seq', 5, true);
-
-
---
 -- Data for Name: user; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY "user" (id, email, first_name, last_name, password) FROM stdin;
 1	hally9k@gmail.com	Hal	Smith Stevens	$2a$10$w0YO2NkoNYOydQguEnwsP.D6oBVE6/Nrgcnxxpd3Ha1vaU12vWu72
 2	k.shrosbree@gmail.com	Kirsty	Smith Stevens	$2a$10$w0YO2NkoNYOydQguEnwsP.D6oBVE6/Nrgcnxxpd3Ha1vaU12vWu72
+17	b@bbb.com	Billy	bango	$2a$10$YfbvfGvhzvNCcauOhUg4XO8GS2Wk5fHN4Ia80vYlEaURSlpCjTc4m
 \.
 
 
@@ -608,13 +560,6 @@ COPY user_conversation (conversation_id, user_id) FROM stdin;
 
 
 --
--- Name: user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('user_id_seq', 3, true);
-
-
---
 -- Data for Name: user_role; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -623,6 +568,62 @@ COPY user_role (user_id, role_id) FROM stdin;
 1	2
 2	2
 \.
+
+
+--
+-- Name: activity_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('activity_id_seq', 1, true);
+
+
+--
+-- Name: child_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('child_id_seq', 1, true);
+
+
+--
+-- Name: comment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('comment_id_seq', 215, true);
+
+
+--
+-- Name: conversation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('conversation_id_seq', 3, true);
+
+
+--
+-- Name: roles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('roles_id_seq', 1, false);
+
+
+--
+-- Name: session_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('session_id_seq', 3, true);
+
+
+--
+-- Name: subject_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('subject_id_seq', 5, true);
+
+
+--
+-- Name: user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('user_id_seq', 21, true);
 
 
 --
@@ -679,6 +680,14 @@ ALTER TABLE ONLY session
 
 ALTER TABLE ONLY subject
     ADD CONSTRAINT subject_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user user_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY "user"
+    ADD CONSTRAINT user_email_key UNIQUE (email);
 
 
 --

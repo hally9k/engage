@@ -5,6 +5,7 @@ import { updateMetaState } from 'duck/meta'
 import metaSelector from 'selector/meta'
 import fetchingSelector from 'selector/fetching'
 import locationSelector from 'selector/location'
+import { loggingOut } from 'duck/session'
 
 import Root from './root'
 
@@ -15,7 +16,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    updateMetaState: value => dispatch(updateMetaState(value))
+    updateMetaState: value => dispatch(updateMetaState(value)),
+    loggingOut: () => dispatch(loggingOut())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(toJS(Root))
