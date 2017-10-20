@@ -4,13 +4,13 @@ import * as auth from 'utility/auth'
 // Actions
 const SENDING_LOGIN_REQUEST = 'session/SENDING_LOGIN_REQUEST'
 const RECEIVED_LOGIN_RESPONSE = 'session/RECEIVED_LOGIN_RESPONSE'
-// const SENDING_TOKEN_VALIDATION = 'session/SENDING_TOKEN_VALIDATION'
-// const RECEIVED_TOKEN_VALIDATION = 'session/RECEIVED_TOKEN_VALIDATION'
+const SENDING_REGISTER_REQUEST = 'session/SENDING_REGISTER_REQUEST'
+const RECEIVED_REGISTER_RESPONSE = 'session/RECEIVED_REGISTER_RESPONSE'
 
 // Action Creators
-export const sendingLoginRequest = (username, password) => ({
+export const sendingLoginRequest = (email, password) => ({
     type: SENDING_LOGIN_REQUEST,
-    payload: { username, password }
+    payload: { email, password }
 })
 
 export const receivedLoginResponse = (payload, error) => ({
@@ -19,15 +19,21 @@ export const receivedLoginResponse = (payload, error) => ({
     error
 })
 
-// export const sendingTokenValidation = payload => ({
-//     type: SENDING_TOKEN_VALIDATION,
-//     payload
-// })
-//
-// export const receivedTokenValidation = payload => ({
-//     type: RECEIVED_TOKEN_VALIDATION,
-//     payload
-// })
+export const sendingRegisterRequest = (
+    firstName,
+    lastName,
+    email,
+    password
+) => ({
+    type: SENDING_REGISTER_REQUEST,
+    payload: { firstName, lastName, email, password }
+})
+
+export const receivedRegisterResponse = (payload, error) => ({
+    type: RECEIVED_REGISTER_RESPONSE,
+    payload,
+    error
+})
 
 // Reducers
 const INITIAL_STATE = Map()
@@ -37,6 +43,8 @@ export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case RECEIVED_LOGIN_RESPONSE:
             return Map(action.payload)
+        case RECEIVED_REGISTER_RESPONSE:
+            return Map(action.payload)
         default:
             return state
     }
@@ -44,20 +52,26 @@ export default (state = INITIAL_STATE, action) => {
 
 // Epics
 export const sendingLoginRequestEpic = action$ =>
-    action$.ofType(SENDING_LOGIN_REQUEST).mergeMap(
-        ({ payload: { username, password } }) =>
+    action$
+        .ofType(SENDING_LOGIN_REQUEST)
+        .mergeMap(({ payload: { email, password } }) =>
             auth
-                .login(username, password)
+                .login(email, password)
                 .then(res => receivedLoginResponse(res))
-        // .catch(error => [receivedLoginResponse(null, error)])
-    )
+                .catch(error => [receivedLoginResponse(null, error)])
+        )
 
-// export const receivedLoginRequestEpic = action$ =>
-//     action$.ofType(RECEIVED_LOGIN_RESPONSE).mergeMap(({ payload }) => {
-//         return payload
-//     })
+export const sendingRegisterRequestEpic = action$ =>
+    action$
+        .ofType(SENDING_REGISTER_REQUEST)
+        .mergeMap(({ payload: { firstName, lastName, email, password } }) =>
+            auth
+                .login(firstName, lastName, email, password)
+                .then(res => receivedRegisterResponse(res))
+                .catch(error => [receivedRegisterResponse(null, error)])
+        )
 
 export const epics = {
-    sendingLoginRequestEpic
-    // receivedLoginRequestEpic
+    sendingLoginRequestEpic,
+    sendingRegisterRequestEpic
 }

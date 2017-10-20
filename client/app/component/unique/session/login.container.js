@@ -6,8 +6,7 @@ import Login from './login'
 // const mapStateToProps = state => ({})
 
 const mapDispatchToProps = dispatch => ({
-    login: (username, password) =>
-        dispatch(sendingLoginRequest(username, password))
+    login: (email, password) => dispatch(sendingLoginRequest(email, password))
 })
 
 export default connect(() => ({}), mapDispatchToProps)(Login)

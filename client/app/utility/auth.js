@@ -4,6 +4,26 @@ import jwt from 'jsonwebtoken'
 
 import AUTH_SERVER_URL from '../../config/auth'
 
+const options = (body, method) => ({
+    headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+    },
+    method,
+    body: JSON.stringify(body)
+})
+
+const extractJson = res => res.json()
+
+const processLoginResponse = ({ token }) => {
+    const { roles } = jwt.decode(token)
+    const session = { token, roles }
+
+    localStorage.setItem('engage:session', session)
+
+    return session
+}
+
 export const isAuthorised = (type, state) => {
     const requiredRole = routes[type].role
 
@@ -15,21 +35,15 @@ export const isAuthorised = (type, state) => {
     return roles.includes(requiredRole)
 }
 
-export const login = (username, password) =>
-    fetch(`${AUTH_SERVER_URL}/login`, {
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
-        },
-        method: 'POST',
-        body: JSON.stringify({ email: username, password })
-    })
-        .then(res => res.json())
-        .then(({ token }) => {
-            const { roles } = jwt.decode(token)
-            const session = { token, roles }
+export const login = (email, password) =>
+    fetch(`${AUTH_SERVER_URL}/login`, options({ email, password }, 'POST'))
+        .then(extractJson)
+        .then(processLoginResponse)
 
-            localStorage.setItem('engage:session', session)
-
-            return session
-        })
+export const register = (firstName, lastName, email, password) =>
+    fetch(
+        `${AUTH_SERVER_URL}/register`,
+        options({ firstName, lastName, email, password }, 'POST')
+    )
+        .then(extractJson)
+        .then(processLoginResponse)

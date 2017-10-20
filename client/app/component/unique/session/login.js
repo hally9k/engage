@@ -10,7 +10,7 @@ export default class Login extends Component {
         return (
             <div className="login">
                 <input
-                    ref={username => (this.username = username)}
+                    ref={email => (this.email = email)}
                     value="k.shrosbree@gmail.com"
                 />
                 <input
@@ -20,10 +20,7 @@ export default class Login extends Component {
                 />
                 <button
                     onClick={() =>
-                        this.props.login(
-                            this.username.value,
-                            this.password.value
-                        )}
+                        this.props.login(this.email.value, this.password.value)}
                 >
                     Login
                 </button>

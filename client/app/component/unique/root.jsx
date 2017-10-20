@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Activities from './activities.container'
 import Messenger from './messenger.container'
 import Login from './session/login.container'
+import Register from './session/register.container'
 import { NavLink } from 'redux-first-router-link'
 import ErrorBoundary from 'react-error-boundary'
 
@@ -37,13 +38,15 @@ export default class Root extends Component {
                     <NavLink to="/">Home</NavLink>
                     <NavLink to="/activities">Activities</NavLink>
                     <NavLink to="/chat">Chat</NavLink>
+                    <NavLink to="/login">Login</NavLink>
+                    <NavLink to="/register">Register</NavLink>
                 </section>
                 <section className="main">
                     {location.pathname === '/' && (
                         <h1 className="home-title">Home</h1>
                     )}
                     {location.pathname === '/login' && <Login />}
-                    {/* {location.pathname === '/register' && <Register />} */}
+                    {location.pathname === '/register' && <Register />}
                     {location.pathname === '/activities' && (
                         <Activities subjectId="1" />
                     )}
