@@ -2,11 +2,15 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
 import button from '../../../style/atom/button.css'
+import title from '../../../style/atom/title.css'
+import subTitle from '../../../style/atom/sub-title.css'
 import input from '../../../style/atom/input.css'
 import login from '../../../style/page/login.css'
 
 const css = {
     ...button,
+    ...title,
+    ...subTitle,
     ...input,
     ...login
 }
@@ -20,24 +24,31 @@ export default class Login extends Component {
         return (
             <div className={css.login}>
                 <div className={css['login-panel']}>
-                    <div>
-                        <label htmlFor="email">
-                            <input
-                                className={css.input}
-                                name="email"
-                                ref={email => (this.email = email)}
-                            />
+                    <h1 className={css.title}>Engage</h1>
+                    <h3 className={css['sub-title']}>login</h3>
+                    <div className={css['input-container']}>
+                        <label className={css['input-label']} htmlFor="email">
+                            Email
                         </label>
+                        <input
+                            className={css.input}
+                            name="email"
+                            ref={email => (this.email = email)}
+                        />
                     </div>
-                    <div>
-                        <label htmlFor="password">
-                            <input
-                                className={css.input}
-                                name="password"
-                                type="password"
-                                ref={password => (this.password = password)}
-                            />
+                    <div className={css['input-container']}>
+                        <label
+                            className={css['input-label']}
+                            htmlFor="password"
+                        >
+                            Password
                         </label>
+                        <input
+                            className={css.input}
+                            name="password"
+                            type="password"
+                            ref={password => (this.password = password)}
+                        />
                     </div>
                     <button
                         className={css.button}

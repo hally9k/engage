@@ -2,6 +2,14 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { ago } from 'utility/time'
 
+import conversation from '../../style/molecule/conversation.css'
+import input from '../../style/atom/input.css'
+
+const css = {
+    ...conversation,
+    ...input
+}
+
 const ONE_THOUSAND = 1000
 
 export default class Conversation extends Component {
@@ -56,7 +64,7 @@ export default class Conversation extends Component {
         <div>
             <input
                 ref={input => (this.input = input)}
-                className="comment-input"
+                className={css['comment-input']}
             />
             <button onClick={this.handleSendingNewMessage}>Send</button>
         </div>
@@ -67,7 +75,7 @@ export default class Conversation extends Component {
             <div key={`message-${index}`} className="message">
                 <h5>{message.user.firstName}</h5>
                 <p>{message.content}</p>
-                <p className="time-stamp">
+                <p className={css['time-stamp']}>
                     {ago(parseFloat(message.createdAt) * ONE_THOUSAND)}
                 </p>
             </div>
