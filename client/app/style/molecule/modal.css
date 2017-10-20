@@ -1,0 +1,13 @@
+.modal {
+}
+
+.modal-body {
+}
+
+.modal-header {
+    display: flex;
+}
+
+.close-button {
+    margin-left: auto;
+}

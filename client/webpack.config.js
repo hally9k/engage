@@ -30,7 +30,8 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                loader: 'style-loader!css-loader'
+                loader:
+                    'style-loader!css-loader?modules&importLoaders=1&localIdentName=[name]-[local]-[hash:base64:5]'
                 // options: {
                 //     config: {
                 //         path: `${paths.appRoot}/postcss.config.js`

@@ -9,6 +9,16 @@ import Login from 'component/unique/session/login.container'
 import Register from 'component/unique/session/register.container'
 import Fallback from 'component/generic/fallback'
 
+import index from '../../style/index.css'
+import home from '../../style/page/home.css'
+import navigationBar from '../../style/molecule/navigation-bar.css'
+
+const css = {
+    ...index,
+    ...home,
+    ...navigationBar
+}
+
 export default class Root extends Component {
     static propTypes = {
         location: PropTypes.object.isRequired,
@@ -37,7 +47,7 @@ export default class Root extends Component {
                 >
                     Two
                 </button>
-                <section className="navigation-bar">
+                <section className={css['navigation-bar']}>
                     <NavLink to="/">Home</NavLink>
                     <NavLink to="/activities">Activities</NavLink>
                     <NavLink to="/chat">Chat</NavLink>
@@ -47,9 +57,9 @@ export default class Root extends Component {
                         Logout
                     </NavLink>
                 </section>
-                <section className="main">
+                <section className={css.main}>
                     {location.pathname === '/' && (
-                        <h1 className="home-title">Home</h1>
+                        <h1 className={css['home-title']}>Home</h1>
                     )}
                     {location.pathname === '/login' && <Login />}
                     {location.pathname === '/register' && <Register />}

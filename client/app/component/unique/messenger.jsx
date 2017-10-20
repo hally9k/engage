@@ -3,6 +3,16 @@ import React, { Component } from 'react'
 import Link from 'redux-first-router-link'
 import Conversation from 'component/generic/conversation.container'
 
+import chat from '../../style/page/chat.css'
+import messenger from '../../style/organism/messenger.css'
+import conversation from '../../style/molecule/conversation.css'
+
+const css = {
+    ...chat,
+    ...messenger,
+    ...conversation
+}
+
 export default class Messenger extends Component {
     static propTypes = {
         conversations: PropTypes.array,
@@ -32,8 +42,8 @@ export default class Messenger extends Component {
         const { conversations, selectedConversation } = this.props
 
         return (
-            <div className="messenger">
-                <div className="channels">
+            <div className={css.messenger}>
+                <div className={css.channels}>
                     <label htmlFor="channel-input">
                         <input
                             name="channel-input"
@@ -54,7 +64,7 @@ export default class Messenger extends Component {
                             </div>
                         ))}
                 </div>
-                <div className="conversation">
+                <div className={css.conversation}>
                     {selectedConversation && (
                         <Conversation conversation={selectedConversation} />
                     )}

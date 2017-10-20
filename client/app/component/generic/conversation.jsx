@@ -84,8 +84,6 @@ export default class Conversation extends Component {
     render() {
         const { conversation } = this.props
 
-        throw new Error('conversation Error')
-
         return conversation
             ? this.renderConversation(conversation.channel)
             : null

@@ -2,6 +2,16 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import Modal from 'react-modal'
 
+import activities from '../../style/page/activities.css'
+import activity from '../../style/organism/activity.css'
+import modal from '../../style/molecule/modal.css'
+
+const css = {
+    ...activities,
+    ...activity,
+    ...modal
+}
+
 export default class Activities extends Component {
     componentWillMount() {
         this.props.fetchingSubject(this.props.subjectId)
@@ -18,7 +28,7 @@ export default class Activities extends Component {
         this.props.subject.activities.map(({ description, id }) => (
             <button
                 key={`activity-${id}`}
-                className="activity"
+                className={css.activity}
                 onClick={() => this.handleActivitySelection(id)}
                 onKeyPress={this.handleCloseModal}
             >
@@ -35,17 +45,17 @@ export default class Activities extends Component {
             // style={customStyle}
             contentLabel="Modal"
         >
-            <div className="modal">
-                <div className="modal-header">
+            <div className={css.modal}>
+                <div className={css['modal-header']}>
                     <button
-                        className="close-button"
+                        className={css['close-button']}
                         onClick={this.handleCloseModal}
                         onKeyPress={this.handleCloseModal}
                     >
                         x
                     </button>
                 </div>
-                <div className="modal-body">
+                <div className={css['modal-body']}>
                     <h3>{description}</h3>
                     <p>{hint}</p>
                 </div>
@@ -59,7 +69,7 @@ export default class Activities extends Component {
         const { subject, meta } = this.props
 
         return subject ? (
-            <div className="activities">
+            <div className={css.activities}>
                 {meta &&
                     meta.selectedActivityId &&
                     this.renderModal(
