@@ -9,7 +9,11 @@ const history = createHistory()
 const options = {
     location: state => toJS(state.get('location')),
     onBeforeChange: (dispatch, getState, action) => {
-        const authorised = isAuthorised(action.action.type, getState())
+        const authorised = isAuthorised(
+            action.action.type,
+            getState(),
+            dispatch
+        )
 
         if (!authorised) {
             const action = redirect({ type: 'UNAUTHORIZED' })

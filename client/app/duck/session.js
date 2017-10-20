@@ -7,6 +7,8 @@ const RECEIVED_LOGIN_RESPONSE = 'session/RECEIVED_LOGIN_RESPONSE'
 const SENDING_REGISTER_REQUEST = 'session/SENDING_REGISTER_REQUEST'
 const RECEIVED_REGISTER_RESPONSE = 'session/RECEIVED_REGISTER_RESPONSE'
 const LOGGING_OUT = 'session/LOGGING_OUT'
+const SETTING_TOKEN_FROM_LOCAL_STORAGE =
+    'session/SETTING_TOKEN_FROM_LOCAL_STORAGE'
 
 // Action Creators
 export const sendingLoginRequest = (email, password) => ({
@@ -38,6 +40,11 @@ export const receivedRegisterResponse = (payload, error) => ({
 
 export const loggingOut = () => ({ type: LOGGING_OUT })
 
+export const settingTokenFromLocalStorage = payload => ({
+    type: SETTING_TOKEN_FROM_LOCAL_STORAGE,
+    payload
+})
+
 // Reducers
 const INITIAL_STATE = Map()
 
@@ -50,6 +57,8 @@ export default (state = INITIAL_STATE, action) => {
             return Map(action.payload)
         case LOGGING_OUT:
             return Map()
+        case SETTING_TOKEN_FROM_LOCAL_STORAGE:
+            return Map(action.payload)
         default:
             return state
     }
@@ -76,7 +85,13 @@ export const sendingRegisterRequestEpic = action$ =>
                 .catch(error => [receivedRegisterResponse(null, error)])
         )
 
+export const logginOutEpic = action$ =>
+    action$.ofType(LOGGING_OUT).mergeMap(() => {
+        localStorage.removeItem('engage:session')
+    })
+
 export const epics = {
     sendingLoginRequestEpic,
-    sendingRegisterRequestEpic
+    sendingRegisterRequestEpic,
+    logginOutEpic
 }

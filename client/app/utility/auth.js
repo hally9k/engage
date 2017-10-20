@@ -1,6 +1,7 @@
 /* eslint-disable compat/compat */
 import { routes } from '../router'
 import jwt from 'jsonwebtoken'
+import { settingTokenFromLocalStorage } from 'duck/session'
 
 import AUTH_SERVER_URL from '../../config/auth'
 
@@ -19,18 +20,29 @@ const processLoginResponse = ({ token }) => {
     const { roles } = jwt.decode(token)
     const session = { token, roles }
 
-    localStorage.setItem('engage:session', session)
+    localStorage.setItem('engage:session', JSON.stringify(session))
 
     return session
 }
 
-export const isAuthorised = (type, state) => {
+export const isAuthorised = (type, state, dispatch) => {
+    const session = localStorage.getItem('engage:session')
+
+    let roles
+
+    if (session) {
+        const parsedSession = JSON.parse(session)
+
+        dispatch(settingTokenFromLocalStorage(parsedSession))
+        roles = parsedSession.roles
+    }
+
     if (!routes[type]) return false
 
     const requiredRole = routes[type].role
 
     if (!requiredRole) return true
-    const roles = state.getIn(['session', 'roles'])
+    if (!roles) roles = state.getIn(['session', 'roles'])
 
     if (!roles) return false
 

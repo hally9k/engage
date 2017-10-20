@@ -2,16 +2,22 @@
 import React from 'react'
 import { NavLink } from 'redux-first-router-link'
 
+import fallback from '../../style/page/fallback.css'
+
+const css = {
+    ...fallback
+}
+
 const Unauthorized = props => (
-    <div className="fallback">
-        <div className="info">
+    <div className={css.fallback}>
+        <div className={css.info}>
             <img
-                className="icon"
+                className={css.icon}
                 src="/icons/warning.svg"
                 alt="An error has occurred."
             />
-            {props.message && <h2 className="message">{props.message}</h2>}
-            {props.info && <p className="message">{props.info}</p>}
+            {props.message && <h2 className={css.message}>{props.message}</h2>}
+            {props.info && <p className={css.message}>{props.info}</p>}
             {props.link &&
                 props.linkname && (
                     <NavLink to={props.link}>{props.linkname}</NavLink>
