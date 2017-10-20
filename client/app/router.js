@@ -26,28 +26,28 @@ const options = {
 }
 
 export const routes = {
-    HOME: {
+    'router/HOME': {
         path: '/'
     },
-    LOGIN: {
+    'router/LOGIN': {
         path: '/login'
     },
-    REGISTER: {
+    'router/REGISTER': {
         path: '/register'
     },
-    ACTIVITIES: {
+    'router/ACTIVITIES': {
         path: '/activities',
         role: roles.USER
     },
-    CHAT_INDEX: {
+    'router/CHAT_INDEX': {
         path: '/chat',
         role: roles.ADMIN
     },
-    CHAT: {
+    'router/CHAT': {
         path: '/chat/:channel',
         role: roles.ADMIN
     },
-    UNAUTHORIZED: {
+    'router/UNAUTHORIZED': {
         path: '/unauthorized'
     }
 }

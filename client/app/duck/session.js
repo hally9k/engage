@@ -71,7 +71,10 @@ export const sendingLoginRequestEpic = action$ =>
         .mergeMap(({ payload: { email, password } }) =>
             auth
                 .login(email, password)
-                .then(res => receivedLoginResponse(res))
+                .then(res => [
+                    receivedLoginResponse(res),
+                    { type: 'router/HOME' }
+                ])
                 .catch(error => [receivedLoginResponse(null, error)])
         )
 
@@ -81,7 +84,10 @@ export const sendingRegisterRequestEpic = action$ =>
         .mergeMap(({ payload: { firstName, lastName, email, password } }) =>
             auth
                 .register(firstName, lastName, email, password)
-                .then(res => [receivedRegisterResponse(res)])
+                .then(res => [
+                    receivedRegisterResponse(res),
+                    { type: 'router/HOME' }
+                ])
                 .catch(error => [receivedRegisterResponse(null, error)])
         )
 

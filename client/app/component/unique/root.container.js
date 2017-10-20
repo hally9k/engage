@@ -1,6 +1,5 @@
 import { connect } from 'react-redux'
 import toJS from 'react-immutable-hoc'
-import { updateMetaState } from 'duck/meta'
 
 import metaSelector from 'selector/meta'
 import fetchingSelector from 'selector/fetching'
@@ -16,7 +15,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    updateMetaState: value => dispatch(updateMetaState(value)),
     loggingOut: () => dispatch(loggingOut())
 })
 

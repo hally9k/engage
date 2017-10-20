@@ -19,7 +19,8 @@ export default class Messenger extends Component {
         creatingConversation: PropTypes.func.isRequired,
         currentUserId: PropTypes.number.isRequired,
         fetchingConversation: PropTypes.func.isRequired,
-        selectedConversation: PropTypes.object
+        selectedConversation: PropTypes.object,
+        updateMetaState: PropTypes.func.isRequired
     }
 
     componentWillMount = () => {
@@ -39,35 +40,57 @@ export default class Messenger extends Component {
     }
 
     render() {
-        const { conversations, selectedConversation } = this.props
+        const {
+            conversations,
+            selectedConversation,
+            updateMetaState
+        } = this.props
 
         return (
-            <div className={css.messenger}>
-                <div className={css.channels}>
-                    <label htmlFor="channel-input">
-                        <input
-                            name="channel-input"
-                            ref={input => (this.channelInput = input)}
-                        />
-                        <button onClick={this.handleCreateConversation}>
-                            +
-                        </button>
-                    </label>
-                    {conversations &&
-                        conversations.map(conversation => (
-                            <div
-                                key={`channel-${conversation.slug}-${conversation.id}`}
-                            >
-                                <Link to={`/chat/${conversation.slug}`}>
-                                    {`#${conversation.slug}`}
-                                </Link>
-                            </div>
-                        ))}
-                </div>
-                <div className={css.conversation}>
-                    {selectedConversation && (
-                        <Conversation conversation={selectedConversation} />
-                    )}
+            <div>
+                <button
+                    onClick={() =>
+                        updateMetaState({
+                            currentUserId: 1
+                        })}
+                >
+                    One
+                </button>
+                <button
+                    onClick={() =>
+                        updateMetaState({
+                            currentUserId: 2
+                        })}
+                >
+                    Two
+                </button>
+                <div className={css.messenger}>
+                    <div className={css.channels}>
+                        <label htmlFor="channel-input">
+                            <input
+                                name="channel-input"
+                                ref={input => (this.channelInput = input)}
+                            />
+                            <button onClick={this.handleCreateConversation}>
+                                +
+                            </button>
+                        </label>
+                        {conversations &&
+                            conversations.map(conversation => (
+                                <div
+                                    key={`channel-${conversation.slug}-${conversation.id}`}
+                                >
+                                    <Link to={`/chat/${conversation.slug}`}>
+                                        {`#${conversation.slug}`}
+                                    </Link>
+                                </div>
+                            ))}
+                    </div>
+                    <div className={css.conversation}>
+                        {selectedConversation && (
+                            <Conversation conversation={selectedConversation} />
+                        )}
+                    </div>
                 </div>
             </div>
         )

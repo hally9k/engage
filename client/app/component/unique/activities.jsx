@@ -36,32 +36,34 @@ export default class Activities extends Component {
             </button>
         ))
 
-    renderModal = (selectedActivityId, { description, hint }) => (
-        <Modal
-            isOpen={Boolean(selectedActivityId)}
-            // onAfterOpen={afterOpenFn}
-            onRequestClose={this.handleCloseModal}
-            // closeTimeoutMS={n}
-            // style={customStyle}
-            contentLabel="Modal"
-        >
-            <div className={css.modal}>
-                <div className={css['modal-header']}>
-                    <button
-                        className={css['close-button']}
-                        onClick={this.handleCloseModal}
-                        onKeyPress={this.handleCloseModal}
-                    >
-                        x
-                    </button>
+    renderModal = (selectedActivityId, activity) => {
+        return (
+            <Modal
+                isOpen={Boolean(selectedActivityId)}
+                // onAfterOpen={afterOpenFn}
+                onRequestClose={this.handleCloseModal}
+                // closeTimeoutMS={n}
+                // style={customStyle}
+                contentLabel="Modal"
+            >
+                <div className={css.modal}>
+                    <div className={css['modal-header']}>
+                        <button
+                            className={css['close-button']}
+                            onClick={this.handleCloseModal}
+                            onKeyPress={this.handleCloseModal}
+                        >
+                            x
+                        </button>
+                    </div>
+                    <div className={css['modal-body']}>
+                        {activity && <h3>{activity.description}</h3>}
+                        {activity && <p>{activity.hint}</p>}
+                    </div>
                 </div>
-                <div className={css['modal-body']}>
-                    <h3>{description}</h3>
-                    <p>{hint}</p>
-                </div>
-            </div>
-        </Modal>
-    )
+            </Modal>
+        )
+    }
 
     render() {
         // throw new Error('Waaah!')
@@ -71,7 +73,6 @@ export default class Activities extends Component {
         return subject ? (
             <div className={css.activities}>
                 {meta &&
-                    meta.selectedActivityId &&
                     this.renderModal(
                         meta.selectedActivityId,
                         subject.activities.find(

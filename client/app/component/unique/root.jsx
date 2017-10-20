@@ -22,41 +22,26 @@ const css = {
 export default class Root extends Component {
     static propTypes = {
         location: PropTypes.object.isRequired,
-        loggingOut: PropTypes.func.isRequired,
-        updateMetaState: PropTypes.func.isRequired
+        loggingOut: PropTypes.func.isRequired
     }
 
     render() {
-        const { location, updateMetaState } = this.props
+        const { location } = this.props
 
         return (
             <div>
-                <button
-                    onClick={() =>
-                        updateMetaState({
-                            currentUserId: 1
-                        })}
-                >
-                    One
-                </button>
-                <button
-                    onClick={() =>
-                        updateMetaState({
-                            currentUserId: 2
-                        })}
-                >
-                    Two
-                </button>
-                <section className={css['navigation-bar']}>
-                    <NavLink to="/">Home</NavLink>
-                    <NavLink to="/activities">Activities</NavLink>
-                    <NavLink to="/chat">Chat</NavLink>
-                    <NavLink to="/login">Login</NavLink>
-                    <NavLink to="/register">Register</NavLink>
-                    <NavLink to="/login" onClick={this.props.loggingOut}>
-                        Logout
-                    </NavLink>
-                </section>
+                {!['/login', '/register'].includes(location.pathname) && (
+                    <section className={css['navigation-bar']}>
+                        <NavLink to="/">Home</NavLink>
+                        <NavLink to="/activities">Activities</NavLink>
+                        <NavLink to="/chat">Chat</NavLink>
+                        <NavLink to="/login">Login</NavLink>
+                        <NavLink to="/register">Register</NavLink>
+                        <NavLink to="/login" onClick={this.props.loggingOut}>
+                            Logout
+                        </NavLink>
+                    </section>
+                )}
                 <section className={css.main}>
                     {location.pathname === '/' && (
                         <h1 className={css['home-title']}>Home</h1>
