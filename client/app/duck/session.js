@@ -1,6 +1,6 @@
 import { Map } from 'immutable'
 import * as auth from 'utility/auth'
-
+import { routes } from 'router'
 // Actions
 const SENDING_LOGIN_REQUEST = 'session/SENDING_LOGIN_REQUEST'
 const RECEIVED_LOGIN_RESPONSE = 'session/RECEIVED_LOGIN_RESPONSE'
@@ -73,7 +73,7 @@ export const sendingLoginRequestEpic = action$ =>
                 .login(email, password)
                 .then(res => [
                     receivedLoginResponse(res),
-                    { type: 'router/HOME' }
+                    { type: routes.HOME }
                 ])
                 .catch(error => [receivedLoginResponse(null, error)])
         )
@@ -86,7 +86,7 @@ export const sendingRegisterRequestEpic = action$ =>
                 .register(firstName, lastName, email, password)
                 .then(res => [
                     receivedRegisterResponse(res),
-                    { type: 'router/HOME' }
+                    { type: routes.HOME }
                 ])
                 .catch(error => [receivedRegisterResponse(null, error)])
         )

@@ -14,6 +14,7 @@ const epicMiddleware = createEpicMiddleware(epics)
 const ravenMiddleware = createRavenMiddleware()
 
 const enhancer = composeEnhancers(
+    router.enhancer,
     applyMiddleware(
         batchMiddleware,
         router.middleware,

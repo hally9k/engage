@@ -9,14 +9,10 @@ const history = createHistory()
 const options = {
     location: state => toJS(state.get('location')),
     onBeforeChange: (dispatch, getState, action) => {
-        const authorised = isAuthorised(
-            action.action.type,
-            getState(),
-            dispatch
-        )
+        const authorised = isAuthorised(action.type, getState(), dispatch)
 
         if (!authorised) {
-            const action = redirect({ type: 'UNAUTHORIZED' })
+            const action = redirect({ type: routes.UNAUTHORIZED })
 
             dispatch(action)
         }
@@ -26,35 +22,45 @@ const options = {
 }
 
 export const routes = {
-    'router/HOME': {
+    HOME: 'router/HOME',
+    LOGIN: 'router/LOGIN',
+    REGISTER: 'router/REGISTER',
+    ACTIVITIES: 'router/ACTIVITIES',
+    CHAT_INDEX: 'router/CHAT_INDEX',
+    CHAT: 'router/CHAT',
+    UNAUTHORIZED: 'router/UNAUTHORIZED'
+}
+
+export const routeMap = {
+    [routes.HOME]: {
         path: '/'
     },
-    'router/LOGIN': {
+    [routes.LOGIN]: {
         path: '/login'
     },
-    'router/REGISTER': {
+    [routes.REGISTER]: {
         path: '/register'
     },
-    'router/ACTIVITIES': {
+    [routes.ACTIVITIES]: {
         path: '/activities',
         role: roles.USER
     },
-    'router/CHAT_INDEX': {
+    [routes.CHAT_INDEX]: {
         path: '/chat',
         role: roles.ADMIN
     },
-    'router/CHAT': {
+    [routes.CHAT]: {
         path: '/chat/:channel',
         role: roles.ADMIN
     },
-    'router/UNAUTHORIZED': {
+    [routes.UNAUTHORIZED]: {
         path: '/unauthorized'
     }
 }
 
 const { reducer, enhancer, middleware, thunk } = connectRoutes(
     history,
-    routes,
+    routeMap,
     options
 )
 

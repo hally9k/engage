@@ -1,5 +1,5 @@
 /* eslint-disable compat/compat */
-import { routes } from '../router'
+import { routeMap } from '../router'
 import jwt from 'jsonwebtoken'
 import { settingTokenFromLocalStorage } from 'duck/session'
 
@@ -37,9 +37,9 @@ export const isAuthorised = (type, state, dispatch) => {
         roles = parsedSession.roles
     }
 
-    if (!routes[type]) return false
+    if (!routeMap[type]) return false
 
-    const requiredRole = routes[type].role
+    const requiredRole = routeMap[type].role
 
     if (!requiredRole) return true
     if (!roles) roles = state.getIn(['session', 'roles'])
