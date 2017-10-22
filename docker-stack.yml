@@ -12,17 +12,17 @@ services:
         condition: on-failure
     networks:
       - web
-  # db:
-  #   image: postgres
-  #   volumes:
-  #     - ./server/database/init:/docker-entrypoint-initdb.d
-  #   ports:
-  #     - "5432"
-  #   deploy:
-  #     placement:
-  #       constraints: [node.role == manager]
-  #   networks:
-  #     - web
+  db:
+    image: postgres
+    volumes:
+      - /home/engage/server/database/init:/docker-entrypoint-initdb.d
+    ports:
+      - "5432"
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - web
   redis:
     image: redis
     ports:
