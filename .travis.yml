@@ -19,7 +19,3 @@ script:
   - docker push $DOCKER_USERNAME/engage_jwt
   - docker build -t $DOCKER_USERNAME/engage_server ./server
   - docker push $DOCKER_USERNAME/engage_server
-  # - docker-machine scp -r /Users/hally9k/Repos/Engage/docker-stack.yml engage-machine:/home/engage/docker-stack.yml
-  # - docker-machine scp -r /Users/hally9k/Repos/Engage/server/database/ engage-machine:/home/engage/server/
-  # - docker-machine ssh engage-machine
-  # - docker stack deploy --compose-file docker-stack.yml engage-stack

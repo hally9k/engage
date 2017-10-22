@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
 import { NavLink } from 'redux-first-router-link'
-
+import warningIcon from 'icon/warning.svg'
 import fallback from '../../style/page/fallback.css'
 
 const css = {
@@ -13,7 +13,7 @@ const Unauthorized = props => (
         <div className={css.info}>
             <img
                 className={css.icon}
-                src="/icons/warning.svg"
+                src={warningIcon}
                 alt="An error has occurred."
             />
             {props.message && <h2 className={css.message}>{props.message}</h2>}
