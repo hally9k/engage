@@ -1,7 +1,7 @@
 import { env } from './index'
 
 export default {
-    development: 'http://localhost:8082',
+    development: 'http://45.55.138.227:8082',
     production: 'https://auth.engage'
 }[env]
 
