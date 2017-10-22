@@ -56,5 +56,7 @@ services:
         condition: on-failure
     networks:
       - web
+    environment:
+      - NODE_ENV=production
 networks:
   web:

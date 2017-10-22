@@ -37,7 +37,7 @@ passport.use(strategy)
 const app = express()
 
 app.use(cors({
-    allowedOrigins: ['http://localhost:8080', 'http://45.55.138.227:8080']
+    allowedOrigins: ['http://localhost:8080', 'http://engage.smith-stevens.com']
 }))
 
 app.use(passport.initialize())
