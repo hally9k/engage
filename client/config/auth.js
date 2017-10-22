@@ -1,8 +1,8 @@
 import { env } from './index'
 
 export default {
-    development: 'http://45.55.138.227:8082',
-    production: 'http://engage.smith-stevens.com:80802'
+    development: 'http://localhost:8082',
+    production: 'http://engage.smith-stevens.com:8082'
 }[env]
 
 export const roles = { USER: 'USER', ADMIN: 'ADMIN' }
