@@ -23,9 +23,9 @@ export default class Login extends Component {
     render() {
         return (
             <div className={css.login}>
+                <h1 className={css.title}>Engage</h1>
+                <h3 className={css['sub-title']}>login</h3>
                 <div className={css['login-panel']}>
-                    <h1 className={css.title}>Engage</h1>
-                    <h3 className={css['sub-title']}>login</h3>
                     <div className={css['input-container']}>
                         <label className={css['input-label']} htmlFor="email">
                             Email
@@ -36,6 +36,7 @@ export default class Login extends Component {
                             ref={email => (this.email = email)}
                         />
                     </div>
+                    <br />
                     <div className={css['input-container']}>
                         <label
                             className={css['input-label']}
@@ -50,6 +51,7 @@ export default class Login extends Component {
                             ref={password => (this.password = password)}
                         />
                     </div>
+                    <br />
                     <button
                         className={css.button}
                         onClick={() =>

@@ -12,7 +12,7 @@ const options = {
         const authorised = isAuthorised(action.type, getState(), dispatch)
 
         if (!authorised) {
-            const action = redirect({ type: routes.UNAUTHORIZED })
+            const action = redirect({ type: routes.LOGIN })
 
             dispatch(action)
         }
@@ -33,7 +33,8 @@ export const routes = {
 
 export const routeMap = {
     [routes.HOME]: {
-        path: '/'
+        path: '/',
+        role: roles.USER
     },
     [routes.LOGIN]: {
         path: '/login'

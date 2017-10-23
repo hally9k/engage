@@ -49,6 +49,7 @@ export default class Register extends Component {
                             required="true"
                         />
                     </div>
+                    <br />
                     <div className={css['input-container']}>
                         <label
                             className={css['input-label']}
@@ -63,6 +64,7 @@ export default class Register extends Component {
                             required="true"
                         />
                     </div>
+                    <br />
                     <div className={css['input-container']}>
                         <label className={css['input-label']} htmlFor="email">
                             Email
@@ -75,6 +77,7 @@ export default class Register extends Component {
                             required="true"
                         />
                     </div>
+                    <br />
                     <div className={css['input-container']}>
                         <label
                             className={css['input-label']}
@@ -90,6 +93,7 @@ export default class Register extends Component {
                             required="true"
                         />
                     </div>
+                    <br />
                     <div className={css['input-container']}>
                         <label
                             className={css['input-label']}
@@ -106,6 +110,7 @@ export default class Register extends Component {
                             required="true"
                         />
                     </div>
+                    <br />
                     <button
                         className={css.button}
                         onClick={this.handleRegister}
