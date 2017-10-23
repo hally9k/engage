@@ -1,9 +1,12 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const paths = require('./config/path')
 const webpack = require('webpack')
+const MinifyPlugin = require('babel-minify-webpack-plugin')
+
+const isDev = process.env.BUILD_ENV !== 'production'
 
 module.exports = {
-    devtool: 'source-map', // 'inline-cheap-source-map',
+    devtool: isDev ? 'source-map' : 'inline-cheap-source-map',
     entry: {
         app: ['babel-polyfill', 'react-hot-loader/patch', paths.appIndexJs]
     },
@@ -19,7 +22,8 @@ module.exports = {
         new webpack.DefinePlugin({
             BUILD_ENV: JSON.stringify(process.env.BUILD_ENV),
             PORT: JSON.stringify(process.env.PORT)
-        })
+        }),
+        isDev ? null : new MinifyPlugin()
     ],
     module: {
         rules: [
