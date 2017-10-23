@@ -17,8 +17,8 @@ module.exports = {
             template: paths.appHtmlTemplate
         }),
         new webpack.DefinePlugin({
-            NODE_ENV: process.env.NODE_ENV,
-            PORT: process.env.PORT
+            BUILD_ENV: JSON.stringify(process.env.BUILD_ENV),
+            PORT: JSON.stringify(process.env.PORT)
         })
     ],
     module: {
