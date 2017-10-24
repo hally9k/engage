@@ -15,4 +15,5 @@ module.exports = {
     appPackageJson: resolveApp('package.json'),
     appPublic: resolveApp('static'),
     appSrc: resolveApp('app'),
+    postCssConfig: resolveApp('./postcss.config.js')
 }

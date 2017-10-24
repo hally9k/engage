@@ -2,8 +2,26 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const paths = require('./config/path')
 const webpack = require('webpack')
 const MinifyPlugin = require('babel-minify-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 const isDev = process.env.BUILD_ENV !== 'production'
+const isTest = process.env.BUILD_ENV === 'test'
+
+const plugins = [
+    new HtmlWebpackPlugin({
+        template: paths.appHtmlTemplate
+    }),
+    new webpack.DefinePlugin({
+        BUILD_ENV: JSON.stringify(process.env.BUILD_ENV),
+        PORT: JSON.stringify(process.env.PORT)
+    }),
+    new ExtractTextPlugin({
+        disable: isDev,
+        filename: 'bundle.[hash].css'
+    })
+]
+
+if (isDev) plugins.push(new MinifyPlugin())
 
 module.exports = {
     devtool: isDev ? 'source-map' : 'inline-cheap-source-map',
@@ -15,16 +33,7 @@ module.exports = {
         path: paths.appBuild,
         publicPath: '/'
     },
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: paths.appHtmlTemplate
-        }),
-        new webpack.DefinePlugin({
-            BUILD_ENV: JSON.stringify(process.env.BUILD_ENV),
-            PORT: JSON.stringify(process.env.PORT)
-        }),
-        isDev ? null : new MinifyPlugin()
-    ],
+    plugins,
     module: {
         rules: [
             {
@@ -33,14 +42,32 @@ module.exports = {
                 loader: 'babel-loader'
             },
             {
-                test: /\.css$/,
-                loader:
-                    'style-loader!css-loader?modules&importLoaders=1&localIdentName=[name]-[local]-[hash:base64:5]'
-                // options: {
-                //     config: {
-                //         path: `${paths.appRoot}/postcss.config.js`
-                //     }
-                // }
+                test: /\.(css|scss)$/,
+                loader: ExtractTextPlugin.extract({
+                    fallback: {
+                        loader: 'style-loader',
+                        options: { sourceMap: true }
+                    },
+                    use: [
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                modules: true,
+                                importLoaders: 1,
+                                sourceMap: true
+                            }
+                        },
+                        {
+                            loader: 'postcss-loader',
+                            options: {
+                                config: {
+                                    ctx: { isTest },
+                                    path: paths.postCssConfig
+                                }
+                            }
+                        }
+                    ]
+                })
             },
             {
                 test: /\.(jpe?g|png|gif|svg|webp)$/,
