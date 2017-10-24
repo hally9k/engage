@@ -21,7 +21,7 @@ const plugins = [
     })
 ]
 
-if (isDev) plugins.push(new MinifyPlugin())
+if (!isDev) plugins.push(new MinifyPlugin())
 
 module.exports = {
     devtool: isDev ? 'source-map' : 'inline-cheap-source-map',
