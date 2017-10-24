@@ -1,2 +1,5 @@
+@import '../variables.css';
+
 .home-title {
+    color: $color-primary;
 }

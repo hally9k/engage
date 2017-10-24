@@ -1,0 +1,19 @@
+$color-purp: #5e35b1;
+$color-orangutan: #e64a19;
+$color-silver: #bdbdbd;
+
+$color-primary: $color-purp;
+$color-primary-tint-1: color($color-purp tint(15%));
+$color-primary-tint-2: color($color-purp tint(40%));
+$color-primary-shade-1: color($color-purp shade(15%));
+
+$color-secondary: $color-orangutan;
+$color-secondary-tint-1: $color-orangutan;
+$color-secondary-tint-2: $color-orangutan;
+$color-secondary-shade-1: $color-orangutan;
+
+$color-tertiary: $color-silver;
+$color-tertiary-shade-1: $color-silver;
+$color-tertiary-shade-2: color($$color-silver shade(12%));
+$color-tertiary-shade-3: $color-silver;
+$color-tertiary-shade-4: $color-silver;
