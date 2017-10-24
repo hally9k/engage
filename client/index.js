@@ -13,5 +13,5 @@ server.use(staticFiles('public'))
 
 server.listen(PORT, () => {
     // eslint-disable-next-line no-console
-    console.log(`Engage Frontend is now running on http://localhost:${PORT}...`)
+    console.log(`Engage Frontend is now running on port ${PORT}...`)
 })

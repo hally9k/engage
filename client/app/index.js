@@ -23,7 +23,15 @@ render(
 )
 
 if (module.hot) {
-    module.hot.accept(() => {
-        render(Root)
+    module.hot.accept('component/unique/root.container', () => {
+        const store = configureStore()
+
+        render(
+            <AppContainer>
+                <Provider store={store}>
+                    <Root />
+                </Provider>
+            </AppContainer>
+        )
     })
 }

@@ -33,14 +33,12 @@ export function configureStore() {
 
     // Hot Module Replacement
     if (module.hot) {
-        module.hot.accept('duck', () => {
-            const rootEpic = require('duck').epics
+        const rootEpic = require('duck').epics
 
-            epicMiddleware.replaceEpic(rootEpic) // Swap out epic middleware
-            const rootReducer = require('duck').reducers
+        epicMiddleware.replaceEpic(rootEpic) // Swap out epic middleware
+        const rootReducer = require('duck').reducers
 
-            store.replaceReducer(rootReducer)
-        })
+        store.replaceReducer(rootReducer)
     }
 
     return store
