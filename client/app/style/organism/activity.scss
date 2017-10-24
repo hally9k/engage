@@ -1,8 +1,10 @@
+@import 'variables.scss';
+
 .activity {
     text-align: center;
     border-radius: 50%;
     border-width: 0;
     width: 200px;
     height: 200px;
-    background-color: lightblue;
+    background-color: $color-secondary-tint-1;
 }

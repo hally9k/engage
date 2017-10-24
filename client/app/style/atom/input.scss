@@ -1,20 +1,22 @@
+@import 'variables.scss';
+
 .input {
     font-size: 1rem;
     text-align: center;
     transition: all 0.2s ease;
     margin: 0.2rem 3rem;
-    border: solid #f2f1f1 1px;
+    border: solid $color-tertiary-shade-3 1px;
     padding: 0.5rem 0.5rem 0.5rem 0.5rem;
     width: 300px;
 }
 
 .input:hover {
-    background-color: #f5f5f5;
+    background-color: $color-tertiary-shade-4;
 }
 
 .input-label {
     font-size: 1rem;
-    color: #b3b3b3;
+    color: $color-tertiary-shade-1;
     display: block;
 }
 

@@ -49,6 +49,10 @@ export const isAuthorised = (type, state, dispatch) => {
     return roles.includes(requiredRole)
 }
 
+export const isLoggedIn = state => {
+    return Boolean(state.getIn(['session', 'token']))
+}
+
 export const login = (email, password) =>
     fetch(`${AUTH_SERVER_URL}/login`, options({ email, password }, 'POST'))
         .then(extractJson)

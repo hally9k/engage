@@ -1,6 +1,8 @@
+@import 'variables.scss';
+
 .title {
     font-size: 7rem;
-    color: red;
+    color: $color-tertiary;
     margin-top: 3rem;
     margin-bottom: 2rem;
 }

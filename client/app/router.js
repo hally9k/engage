@@ -2,7 +2,7 @@ import { connectRoutes, redirect } from 'redux-first-router'
 import createHistory from 'history/createBrowserHistory'
 import { fromJS } from 'immutable'
 import { roles } from '../config/auth'
-import { isAuthorised } from './utility/auth'
+import { isAuthorised, isLoggedIn } from './utility/auth'
 
 const history = createHistory()
 
@@ -12,9 +12,13 @@ const options = {
         const authorised = isAuthorised(action.type, getState(), dispatch)
 
         if (!authorised) {
-            const action = redirect({ type: routes.LOGIN })
+            const loggedIn = isLoggedIn(getState())
 
-            dispatch(action)
+            if (loggedIn) {
+                dispatch(redirect({ type: routes.UNAUTHORIZED }))
+            } else {
+                dispatch(redirect({ type: routes.LOGIN }))
+            }
         }
     }
     // onAfterChange: (dispatch, getState) => {

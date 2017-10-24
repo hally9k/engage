@@ -1,6 +1,5 @@
-/*
-    Fallback
- */
+@import 'variables.scss';
+
 .fallback {
     position: relative;
 
@@ -26,5 +25,5 @@
 
 .fallback .message {
     text-align: center;
-    color: red;
+    color: $color-error;
 }
