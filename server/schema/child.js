@@ -25,6 +25,10 @@ const ChildType = new GraphQLObjectType({
             type: GraphQLInt,
             description: 'The age of a child.'
         },
+        avatar: {
+            type: GraphQLString,
+            description: 'The image reference of the avatar of a child.'
+        },
         subjects: {
             type: new GraphQLList(SubjectType),
             description: 'The subjects of a child.',

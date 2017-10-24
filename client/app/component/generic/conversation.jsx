@@ -1,13 +1,16 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { ago } from 'utility/time'
+import { avatarUrl } from 'utility/image'
 
 import conversation from '../../style/molecule/conversation.scss'
 import input from '../../style/atom/input.scss'
+import button from '../../style/atom/button.scss'
 
 const css = {
     ...conversation,
-    ...input
+    ...input,
+    ...button
 }
 
 const ONE_THOUSAND = 1000
@@ -61,23 +64,34 @@ export default class Conversation extends Component {
     }
 
     renderMessageInput = () => (
-        <div>
-            <input
-                ref={input => (this.input = input)}
-                className={css['comment-input']}
-            />
-            <button onClick={this.handleSendingNewMessage}>Send</button>
+        <div className={css['message-input']}>
+            <input ref={input => (this.input = input)} className={css.input} />
+            <button
+                onClick={this.handleSendingNewMessage}
+                className={css.button}
+            >
+                Send
+            </button>
         </div>
     )
 
     renderMessages = () =>
         this.props.conversation.messages.map((message, index) => (
-            <div key={`message-${index}`} className="message">
-                <h5>{message.user.firstName}</h5>
-                <p>{message.content}</p>
-                <p className={css['time-stamp']}>
-                    {ago(parseFloat(message.createdAt) * ONE_THOUSAND)}
-                </p>
+            <div key={`message-${index}`} className={css.message}>
+                <div className={css.body}>
+                    <img
+                        className={css.avatar}
+                        src={`${avatarUrl}${message.user.avatar}`}
+                        alt="user's avatar."
+                    />
+                    <p className={css.message}>{message.content}</p>
+                </div>
+                <div className={css.footer}>
+                    <h5 className={css.name}>{message.user.firstName}</h5>
+                    <p className={css['time-stamp']}>
+                        {ago(parseFloat(message.createdAt) * ONE_THOUSAND)}
+                    </p>
+                </div>
             </div>
         ))
 

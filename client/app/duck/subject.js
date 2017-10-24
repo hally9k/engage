@@ -20,7 +20,7 @@ export default (state = INITIAL_STATE, action) => {
     if (!action) return state
     switch (action.type) {
         case PROCESSED:
-            return state.merge(fromJS(action.payload.entities.subject))
+            return state.mergeDeep(fromJS(action.payload.entities.subject))
         default:
             return state
     }

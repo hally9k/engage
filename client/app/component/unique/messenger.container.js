@@ -9,7 +9,6 @@ import {
 import { currentUserIdSelector } from 'selector/meta'
 import Loading from 'component/generic/loading'
 import RequiredProps from 'component/generic/required-props'
-import { updateMetaState } from 'duck/meta'
 
 import Messenger from './messenger'
 
@@ -22,8 +21,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     creatingConversation: (userId, channel) =>
         dispatch(creatingConversation(userId, channel)),
-    fetchingConversation: userId => dispatch(fetchingConversation(userId)),
-    updateMetaState: value => dispatch(updateMetaState(value))
+    fetchingConversation: userId => dispatch(fetchingConversation(userId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(

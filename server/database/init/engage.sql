@@ -3,7 +3,6 @@
 --
 
 \c engage
-
 -- Dumped from database version 10.0
 -- Dumped by pg_dump version 10.0
 
@@ -79,7 +78,8 @@ ALTER SEQUENCE activity_id_seq OWNED BY activity.id;
 CREATE TABLE child (
     id integer NOT NULL,
     name text,
-    age integer
+    age integer,
+    avatar text
 );
 
 
@@ -301,7 +301,8 @@ CREATE TABLE "user" (
     email text,
     first_name text,
     last_name text,
-    password text
+    password text,
+    avatar text
 );
 
 
@@ -438,9 +439,9 @@ COPY activity (id, subject_id, difficulty, hint, description) FROM stdin;
 -- Data for Name: child; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY child (id, name, age) FROM stdin;
-1	Aniela	3
-2	Bella	6
+COPY child (id, name, age, avatar) FROM stdin;
+1	Aniela	3	neelee_xxvqqs.jpg
+2	Bella	6	bells_uqakut.jpg
 \.
 
 
@@ -527,10 +528,10 @@ COPY subject (id, title) FROM stdin;
 -- Data for Name: user; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY "user" (id, email, first_name, last_name, password) FROM stdin;
-1	hally9k@gmail.com	Hal	Smith Stevens	$2a$10$w0YO2NkoNYOydQguEnwsP.D6oBVE6/Nrgcnxxpd3Ha1vaU12vWu72
-2	k.shrosbree@gmail.com	Kirsty	Smith Stevens	$2a$10$w0YO2NkoNYOydQguEnwsP.D6oBVE6/Nrgcnxxpd3Ha1vaU12vWu72
-17	b@bbb.com	Billy	bango	$2a$10$YfbvfGvhzvNCcauOhUg4XO8GS2Wk5fHN4Ia80vYlEaURSlpCjTc4m
+COPY "user" (id, email, first_name, last_name, password, avatar) FROM stdin;
+17	b@bbb.com	Billy	bango	$2a$10$YfbvfGvhzvNCcauOhUg4XO8GS2Wk5fHN4Ia80vYlEaURSlpCjTc4m	\N
+1	hally9k@gmail.com	Hal	Smith Stevens	$2a$10$w0YO2NkoNYOydQguEnwsP.D6oBVE6/Nrgcnxxpd3Ha1vaU12vWu72	IMG_7441_xgx0ml.png
+2	k.shrosbree@gmail.com	Kirsty	Smith Stevens	$2a$10$w0YO2NkoNYOydQguEnwsP.D6oBVE6/Nrgcnxxpd3Ha1vaU12vWu72	kir_qccfmx.jpg
 \.
 
 

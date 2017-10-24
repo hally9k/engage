@@ -19,18 +19,13 @@ export default class Messenger extends Component {
         creatingConversation: PropTypes.func.isRequired,
         currentUserId: PropTypes.number.isRequired,
         fetchingConversation: PropTypes.func.isRequired,
-        selectedConversation: PropTypes.object,
-        updateMetaState: PropTypes.func.isRequired
+        selectedConversation: PropTypes.object
     }
 
     componentWillMount = () => {
         const { fetchingConversation, currentUserId } = this.props
 
         fetchingConversation(currentUserId)
-    }
-
-    componentDidCatch = (error, errorInfo) => {
-        console.log(error, errorInfo)
     }
 
     handleCreateConversation = () => {
@@ -40,30 +35,10 @@ export default class Messenger extends Component {
     }
 
     render() {
-        const {
-            conversations,
-            selectedConversation,
-            updateMetaState
-        } = this.props
+        const { conversations, selectedConversation } = this.props
 
         return (
             <div>
-                <button
-                    onClick={() =>
-                        updateMetaState({
-                            currentUserId: 1
-                        })}
-                >
-                    One
-                </button>
-                <button
-                    onClick={() =>
-                        updateMetaState({
-                            currentUserId: 2
-                        })}
-                >
-                    Two
-                </button>
                 <div className={css.messenger}>
                     <div className={css.channels}>
                         <label htmlFor="channel-input">

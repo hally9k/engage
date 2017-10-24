@@ -19,23 +19,23 @@ export const creatingConversation = (userId, channel) => ({
     type: CREATING_CONVERSATION,
     payload: {
         userId,
-        channel,
-    },
+        channel
+    }
 })
 
 export const fetchingConversation = payload => ({
     type: FETCHING_CONVERSATION,
-    payload,
+    payload
 })
 
 export const receivedConversation = payload => ({
     type: RECEIVED_CONVERSATION,
-    payload,
+    payload
 })
 
 export const addMessage = payload => ({
     type: ADD_MESSAGE,
-    payload,
+    payload
 })
 
 export const subscribeToConversation = channel =>
@@ -47,7 +47,7 @@ export const unsubscribeFromConversation = channel => unsubscribe(channel)
 const conversation = {
     query: conversationSubscription,
     success: receivedNewMessage,
-    failure: receivedNewMessageWithErrors,
+    failure: receivedNewMessageWithErrors
 }
 
 // Reducers
@@ -63,10 +63,10 @@ export default (state = INITIAL_STATE, action) => {
                     messages
                         .toOrderedSet()
                         .union(OrderedSet([action.payload.id]))
-                        .toList(),
+                        .toList()
             )
         case PROCESSED:
-            return state.merge(fromJS(action.payload.entities.conversation))
+            return state.mergeDeep(fromJS(action.payload.entities.conversation))
         default:
             return state
     }
@@ -79,7 +79,7 @@ export const creatingConversationEpic = action$ =>
         .mergeMap(({ payload: { userId, channel } }) =>
             graphql
                 .request(conversationMutation, { userId, channel })
-                .then(conversation => [receivedConversation(conversation)]),
+                .then(conversation => [receivedConversation(conversation)])
         )
 
 export const fetchingConversationEpic = action$ =>
@@ -88,7 +88,7 @@ export const fetchingConversationEpic = action$ =>
         .mergeMap(({ payload: userId }) =>
             graphql
                 .request(conversationQuery, { userId })
-                .then(conversation => [receivedConversation(conversation)]),
+                .then(conversation => [receivedConversation(conversation)])
         )
 
 export const receivedConversationEpic = action$ =>
@@ -101,5 +101,5 @@ export const receivedConversationEpic = action$ =>
 export const epics = {
     creatingConversationEpic,
     fetchingConversationEpic,
-    receivedConversationEpic,
+    receivedConversationEpic
 }

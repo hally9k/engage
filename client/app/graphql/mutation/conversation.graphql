@@ -9,6 +9,7 @@ mutation($userId: ID!, $channel: String!) {
             user {
                 firstName
                 id
+                avatar
             }
             createdAt
             content

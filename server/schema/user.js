@@ -31,6 +31,10 @@ const UserType = new GraphQLObjectType({
             type: GraphQLString,
             description: 'The email address of a user.'
         },
+        avatar: {
+            type: GraphQLString,
+            description: 'The image reference of the avatar of a user.'
+        },
         children: {
             type: new GraphQLList(ChildType),
             description: 'The children of a user.',

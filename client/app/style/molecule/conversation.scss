@@ -1,5 +1,61 @@
 @import 'variables.scss';
 
-.conversation .time-stamp {
-    color: $color-tertiary;
+.conversation {
+    .message-input {
+        display: flex;
+        justify-content: space-between;
+        border-top: solid $color-tertiary 1px;
+        margin: 0.5rem 0 0 0;
+        padding: 0.5rem 0 0 0;
+
+        input {
+            text-align: left;
+            height: 2rem;
+            margin: 0;
+            width: 100%;
+        }
+        button {
+            margin: 0;
+            height: 2rem;
+            width: 100%;
+        }
+    }
+}
+
+.message {
+    margin: 0.1rem;
+
+    .body {
+        display: flex;
+
+        .message {
+            padding-left: 2rem;
+            font-size: 0.8rem;
+            line-height: 40px;
+        }
+
+        .avatar {
+            height: 40px;
+            width: 40px;
+        }
+    }
+
+    .footer {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 0 0.5rem 0;
+        color: $color-tertiary;
+
+        .name {
+            margin: 0;
+            font-size: 0.7rem;
+        }
+
+        .time-stamp {
+            font-size: 0.6rem;
+            padding-top: 0.2rem;
+            margin-top: 0;
+            text-align: right;
+        }
+    }
 }
