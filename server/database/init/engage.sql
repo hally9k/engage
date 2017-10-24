@@ -463,6 +463,7 @@ COPY conversation (id, channel, slug) FROM stdin;
 1	babies	babies
 2	Shopping	shopping
 3	Get me tho!	get-me-tho
+4	woot	woot
 \.
 
 
@@ -563,6 +564,7 @@ COPY user_conversation (conversation_id, user_id) FROM stdin;
 1	2
 2	2
 3	1
+4	1
 \.
 
 
@@ -602,7 +604,7 @@ SELECT pg_catalog.setval('comment_id_seq', 221, true);
 -- Name: conversation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('conversation_id_seq', 3, true);
+SELECT pg_catalog.setval('conversation_id_seq', 4, true);
 
 
 --
