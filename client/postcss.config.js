@@ -1,4 +1,5 @@
-/* eslint-disable filenames/match-regex */
+const paths = require('./config/path')
+
 const CSS_NANO_OPTIONS = {
     autoprefixer: false,
     calc: true,
@@ -29,7 +30,9 @@ const CSS_NANO_OPTIONS = {
 module.exports = context => ({
     parser: 'postcss-scss',
     plugins: {
-        'postcss-import': {},
+        'postcss-import': {
+            resolve: id => `${paths.appStyle}/${id}`
+        },
         'postcss-simple-vars': {},
         'postcss-strip-inline-comments': {},
         'postcss-remify': {},
@@ -40,7 +43,6 @@ module.exports = context => ({
                 autoprefixer: {
                     flexbox: false,
                     grid: false
-                    // remove: false // Enable for 10% performance improvement
                 },
                 customProperties: false
             }
