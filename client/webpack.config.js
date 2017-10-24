@@ -17,7 +17,7 @@ const plugins = [
     }),
     new ExtractTextPlugin({
         disable: isDev,
-        filename: isDev ? 'bundle.css' : 'bundle.[hash].css'
+        filename: 'bundle.[hash].css'
     })
 ]
 
@@ -29,7 +29,7 @@ module.exports = {
         app: ['babel-polyfill', 'react-hot-loader/patch', paths.appIndexJs]
     },
     output: {
-        filename: isDev ? 'bundle.js' : 'bundle.[hash].js',
+        filename: 'bundle.[hash].js',
         path: paths.appBuild,
         publicPath: '/'
     },

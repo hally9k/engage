@@ -1,4 +1,3 @@
-/* eslint-disable sort-imports */
 import { AppContainer } from 'react-hot-loader'
 import { configureStore } from './store'
 import { Provider } from 'react-redux'
@@ -13,26 +12,20 @@ const store =
         ? module.hot.data.store
         : configureStore()
 
-render(
+const getApp = store => (
     <AppContainer>
         <Provider store={store}>
             <Root />
         </Provider>
-    </AppContainer>,
-    document.getElementById('root')
+    </AppContainer>
 )
+
+render(getApp(store), document.getElementById('root'))
 
 if (module.hot) {
     module.hot.accept('component/unique/root.container', () => {
         const store = require('./store').store
 
-        render(
-            <AppContainer>
-                <Provider store={store}>
-                    <Root />
-                </Provider>
-            </AppContainer>,
-            document.getElementById('root')
-        )
+        render(getApp(store), document.getElementById('root'))
     })
 }
