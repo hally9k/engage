@@ -37,7 +37,7 @@ export default {
                     return this.addUser(userId, conversation.id)
                 }
 
-                return this.sql('conversation')
+                return sql('conversation')
                     .insert({ channel, slug: slug(channel, { lower: true }) })
                     .returning('id')
                     .then(([conversationId]) => {
