@@ -3,9 +3,9 @@ import React, { Component } from 'react'
 import Link from 'redux-first-router-link'
 import Conversation from 'component/generic/conversation.container'
 
-import chat from '../../style/page/chat.css'
-import messenger from '../../style/organism/messenger.css'
-import conversation from '../../style/molecule/conversation.css'
+import chat from '../../style/page/chat.scss'
+import messenger from '../../style/organism/messenger.scss'
+import conversation from '../../style/molecule/conversation.scss'
 
 const css = {
     ...chat,

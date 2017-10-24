@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
-import button from '../../../style/atom/button.css'
-import title from '../../../style/atom/title.css'
-import subTitle from '../../../style/atom/sub-title.css'
-import input from '../../../style/atom/input.css'
-import login from '../../../style/page/login.css'
+import button from '../../../style/atom/button.scss'
+import title from '../../../style/atom/title.scss'
+import subTitle from '../../../style/atom/sub-title.scss'
+import input from '../../../style/atom/input.scss'
+import login from '../../../style/page/login.scss'
 
 const css = {
     ...button,

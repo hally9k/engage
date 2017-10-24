@@ -9,9 +9,9 @@ import Login from 'component/unique/session/login.container'
 import Register from 'component/unique/session/register.container'
 import Fallback from 'component/generic/fallback'
 
-import index from '../../style/index.css'
-import home from '../../style/page/home.css'
-import navigationBar from '../../style/molecule/navigation-bar.css'
+import index from '../../style/index.scss'
+import home from '../../style/page/home.scss'
+import navigationBar from '../../style/molecule/navigation-bar.scss'
 
 const css = {
     ...index,

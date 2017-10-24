@@ -2,7 +2,7 @@
 import React from 'react'
 import { NavLink } from 'redux-first-router-link'
 import warningIcon from 'icon/warning.svg'
-import fallback from '../../style/page/fallback.css'
+import fallback from '../../style/page/fallback.scss'
 
 const css = {
     ...fallback

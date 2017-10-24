@@ -2,8 +2,8 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { ago } from 'utility/time'
 
-import conversation from '../../style/molecule/conversation.css'
-import input from '../../style/atom/input.css'
+import conversation from '../../style/molecule/conversation.scss'
+import input from '../../style/atom/input.scss'
 
 const css = {
     ...conversation,

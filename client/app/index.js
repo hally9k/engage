@@ -6,7 +6,7 @@ import React from 'react'
 import { render } from 'react-dom'
 import './rxjs'
 import Root from 'component/unique/root.container'
-import './style/index.css'
+import './style/index.scss'
 
 const store =
     module.hot && module.hot.data && module.hot.data.store
