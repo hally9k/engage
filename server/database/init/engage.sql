@@ -487,6 +487,12 @@ COPY message (id, user_id, content, created_at, conversation_id) FROM stdin;
 213	1		1506062819.66495	3
 214	1		1506062819.82199	3
 215	1	Yo!	1506062827.15776	3
+216	1	Sheeeeet alhwefljhl	1508829376.96782	1
+217	1	dscdsackjsdchksdhckjsdhcksjdhckjsdhcsdhckjsdhckjsdhckjsdhckjsdhcksdchksdjchdksj	1508829398.93223	1
+218	1	kjhkuj	1508829432.9935	1
+219	1	kjkj	1508829631.57692	1
+220	1	Yessy!	1508829638.58747	1
+221	1	Boom!	1508830880.98777	1
 \.
 
 
@@ -589,7 +595,7 @@ SELECT pg_catalog.setval('child_id_seq', 1, true);
 -- Name: comment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('comment_id_seq', 215, true);
+SELECT pg_catalog.setval('comment_id_seq', 221, true);
 
 
 --
