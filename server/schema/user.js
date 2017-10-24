@@ -19,11 +19,13 @@ const UserType = new GraphQLObjectType({
         },
         firstName: {
             type: GraphQLString,
-            description: 'The first name of a user.'
+            description: 'The first name of a user.',
+            resolve: obj => obj.first_name,
         },
         lastName: {
             type: GraphQLString,
-            description: 'The last name of a user.'
+            description: 'The last name of a user.',
+            resolve: obj => obj.last_name,
         },
         email: {
             type: GraphQLString,

@@ -27,7 +27,9 @@ const MessageType = new GraphQLObjectType({
         user: {
             type: new GraphQLNonNull(UserType),
             description: 'The messaging user.',
-            resolve: (obj, args, ctx) => ctx.user.one(obj.user_id),
+            resolve: (obj, args, ctx) => {
+                return ctx.user.one(obj.user_id)
+            }
         },
         content: {
             type: new GraphQLNonNull(GraphQLString),

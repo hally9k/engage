@@ -8,7 +8,9 @@ export default {
             .from('user')
             .where('id', id)
             .first()
-            .then(user => user)
+            .then(user => {
+                return user
+            })
     },
     all() {
         return sql
