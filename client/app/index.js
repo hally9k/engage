@@ -24,14 +24,15 @@ render(
 
 if (module.hot) {
     module.hot.accept('component/unique/root.container', () => {
-        const store = configureStore()
+        const store = require('./store').store
 
         render(
             <AppContainer>
                 <Provider store={store}>
                     <Root />
                 </Provider>
-            </AppContainer>
+            </AppContainer>,
+            document.getElementById('root')
         )
     })
 }
