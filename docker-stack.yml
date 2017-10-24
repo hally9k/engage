@@ -17,7 +17,7 @@ services:
     volumes:
       - /home/engage/server/database/init:/docker-entrypoint-initdb.d
     ports:
-      - "5432"
+      - "5432:5432"
     deploy:
       placement:
         constraints: [node.role == manager]
