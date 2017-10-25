@@ -8,6 +8,7 @@ import uuid from 'uuid'
 import cloudinary from 'cloudinary'
 import sql from './connector/sql'
 import jwt from 'jsonwebtoken'
+import queue from 'queue'
 
 dotenv.config()
 
@@ -30,56 +31,95 @@ const server = new Koa()
 
 server.use(koaBody({ multipart: true }))
 
+const fileSystemJobQueue = queue({ autostart: true })
+const cloudinaryJobQueue = queue({ autostart: true })
+const databaseJobQueue = queue({ autostart: true })
+
+const processUpload = async(userId, files) => {
+    console.log(`processUpload => ${JSON.stringify(userId)}`)
+    // create a temporary folder to store files
+    const tmpdir = path.join(os.tmpdir(), uuid())
+
+    // make the temporary directory
+    await fs.mkdir(tmpdir)
+    const filePaths = []
+
+    for (let key in files) {
+        const file = files[key]
+        const filePath = path.join(tmpdir, file.name)
+        const reader = fs.createReadStream(file.path)
+        const writer = fs.createWriteStream(filePath)
+
+        reader.pipe(writer)
+        filePaths.push(filePath)
+        /* eslint-disable no-loop-func */
+
+        return new Promise((resolve) => {
+            reader.on('end', () => {
+                cloudinaryJobQueue.push(() => uploadToCloudinary(filePath, userId))
+                resolve()
+            })
+        })
+    }
+}
+
+const uploadToCloudinary = (filePath, userId) => {
+    console.log(`uploadToCloudinary => ${filePath} - ${userId}`)
+
+    return cloudinaryJobQueue.push(() =>
+        cloudinary.v2.uploader.upload(filePath,
+            (error, result) => {
+                if (error) console.error(`error => ${error}`)
+                console.log(`result => ${JSON.stringify(result.url)}`)
+                fileSystemJobQueue.push(() => deleteFile(filePath, result.url, userId))
+            })
+    )
+}
+
+const deleteFile = (filePath, url, userId) => {
+    console.log(`deleteFile => ${filePath} - ${url} - ${userId}`)
+
+    return fs.unlink(filePath, error => {
+        if (error) {
+            console.error(`error => ${error}`)
+        } else {
+            databaseJobQueue.push(() => setAvatarInTheDb(url, userId))
+        }
+    })
+}
+
+const setAvatarInTheDb = (url, userId) => {
+    console.log(`setAvatarInTheDb => ${url} - ${userId}`)
+
+    return sql('user')
+        .where('id', userId)
+        .update({
+            avatar: url
+        })
+        .then(x => {
+            console.log('DONE!', x)
+
+            return x
+        })
+}
+
 server.use(async function(ctx) {
     // decode jwt and check auth against jwt server.
     const authHeader = ctx.headers.authorization
     const token = authHeader.split(' ')[1]
     const decodedToken = jwt.decode(token)
+    const { id: userId } = decodedToken
 
     if (decodedToken) {
-        // create a temporary folder to store files
-        const tmpdir = path.join(os.tmpdir(), uuid())
+        console.log(`decodedToken => ${JSON.stringify(decodedToken)}`)
 
-        // make the temporary directory
-        await fs.mkdir(tmpdir)
-        const filePaths = []
         const files = ctx.request.body.files || {}
 
-        for (let key in files) {
-            const file = files[key]
-            const filePath = path.join(tmpdir, file.name)
-            const reader = fs.createReadStream(file.path)
-            const writer = fs.createWriteStream(filePath)
-
-            reader.pipe(writer)
-            filePaths.push(filePath)
-            reader.on('end', () => {
-                cloudinary.v2.uploader.upload(filePath,
-                    (error, result) => {
-                        if (error) console.error(`error => ${error}`)
-                        console.log(`result => ${JSON.stringify(result.url)}`)
-                        fs.unlink(filePath, error => {
-                            if (error) {
-                                console.error(`error => ${error}`)
-                            } else {
-                                sql('user')
-                                    .where('id', decodedToken.id)
-                                    .update({
-                                        avatar: result.url
-                                    })
-                                    .then(x => {
-                                        return x
-                                    })
-                            }
-                        })
-                    })
-            })
-        }
-
-        ctx.body = 'Successful'
+        fileSystemJobQueue.push(() => processUpload(userId, files))
     } else {
         ctx.status = 401
         ctx.body = 'Unauthorized'
+        throw new Error(ctx.body)
     }
 })
 
