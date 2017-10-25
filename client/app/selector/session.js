@@ -7,9 +7,9 @@ export default getSession
 
 export const currentUserSelector = createSelector(
     [getSession, getUser],
-    ({ userId }, users) => {
-        return users.find(({ id }) => {
-            return id === userId
+    (session, users) => {
+        return users.find(user => {
+            return user.get('id') === session.get('userId')
         })
     }
 )

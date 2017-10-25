@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { ago } from 'utility/time'
-import { avatarUrl } from 'utility/image'
+
+import UserAvatar from 'component/molecule/user-avatar'
 
 import conversation from 'style/molecule/conversation.scss'
 import input from 'style/atom/input.scss'
@@ -79,11 +80,7 @@ export default class Conversation extends Component {
         this.props.conversation.messages.map((message, index) => (
             <div key={`message-${index}`} className={css.message}>
                 <div className={css.body}>
-                    <img
-                        className={css.avatar}
-                        src={`${avatarUrl}${message.user.avatar}`}
-                        alt="user's avatar."
-                    />
+                    <UserAvatar user={message.user} />
                     <p className={css.message}>{message.content}</p>
                 </div>
                 <div className={css.footer}>

@@ -537,8 +537,8 @@ COPY subject (id, title) FROM stdin;
 
 COPY "user" (id, email, first_name, last_name, password, avatar) FROM stdin;
 17	b@bbb.com	Billy	bango	$2a$10$YfbvfGvhzvNCcauOhUg4XO8GS2Wk5fHN4Ia80vYlEaURSlpCjTc4m	\N
-1	hally9k@gmail.com	Hal	Smith Stevens	$2a$10$w0YO2NkoNYOydQguEnwsP.D6oBVE6/Nrgcnxxpd3Ha1vaU12vWu72	IMG_7441_xgx0ml.png
-2	k.shrosbree@gmail.com	Kirsty	Smith Stevens	$2a$10$w0YO2NkoNYOydQguEnwsP.D6oBVE6/Nrgcnxxpd3Ha1vaU12vWu72	kir_qccfmx.jpg
+1	hally9k@gmail.com	Hal	Smith Stevens	$2a$10$w0YO2NkoNYOydQguEnwsP.D6oBVE6/Nrgcnxxpd3Ha1vaU12vWu72	http://res.cloudinary.com/hally9k/image/upload/v1508909819/chodb7pjyi9wiyxazeuv.jpg
+2	k.shrosbree@gmail.com	Kirsty	Smith Stevens	$2a$10$w0YO2NkoNYOydQguEnwsP.D6oBVE6/Nrgcnxxpd3Ha1vaU12vWu72	http://res.cloudinary.com/hally9k/image/upload/v1508827617/kir_qccfmx.jpg
 \.
 
 

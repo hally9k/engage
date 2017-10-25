@@ -1,6 +1,7 @@
 import { Map } from 'immutable'
 import * as auth from 'utility/auth'
 import { routes } from 'router'
+
 // Actions
 const SENDING_LOGIN_REQUEST = 'session/SENDING_LOGIN_REQUEST'
 const RECEIVED_LOGIN_RESPONSE = 'session/RECEIVED_LOGIN_RESPONSE'

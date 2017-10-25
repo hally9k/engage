@@ -13,10 +13,12 @@ import SessionWidget from 'component/organism/session-widget.container'
 import index from 'style/index.scss'
 import home from 'style/page/home.scss'
 import navigationBar from 'style/molecule/navigation-bar.scss'
+import header from 'style/organism/header.scss'
 
 const css = {
     ...index,
     ...home,
+    ...header,
     ...navigationBar
 }
 
@@ -30,14 +32,17 @@ export default class Root extends Component {
 
         return (
             <div>
-                {!['/login', '/register'].includes(location.pathname) && (
-                    <section className={css['navigation-bar']}>
-                        <NavLink to="/">Home</NavLink>
-                        <NavLink to="/activities">Activities</NavLink>
-                        <NavLink to="/chat">Chat</NavLink>
-                        <SessionWidget />
-                    </section>
-                )}
+                <section className={css.header}>
+                    {!['/login', '/register'].includes(location.pathname) && (
+                        <div className={css['navigation-bar']}>
+                            <NavLink to="/">Home</NavLink>
+                            <NavLink to="/activities">Activities</NavLink>
+                            <NavLink to="/chat">Chat</NavLink>
+                        </div>
+                    )}
+                    <SessionWidget />
+                </section>
+
                 <section className={css.main}>
                     {location.pathname === '/' && (
                         <h1 className={css['home-title']}>Home</h1>

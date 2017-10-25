@@ -3,8 +3,11 @@ import toJS from 'react-immutable-hoc'
 import { withErrorBoundary } from 'react-error-boundary'
 
 import { loggingOut } from 'duck/session'
+import { fetchingUser } from 'duck/user'
 
+import Loading from 'component/molecule/loading'
 import Fallback from 'component/utility/fallback'
+import requiredProps from 'component/utility/required-props'
 
 import sessionSelector, { currentUserSelector } from 'selector/session'
 
@@ -16,9 +19,10 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
+    fetchingUser: userId => dispatch(fetchingUser(userId)),
     loggingOut: () => dispatch(loggingOut())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-    toJS(withErrorBoundary(SessionWidget, Fallback))
+    toJS(requiredProps(withErrorBoundary(SessionWidget, Fallback), Loading))
 )

@@ -9,7 +9,7 @@ import { fromJS, Map } from 'immutable'
 const FETCHING = 'user/FETCHING'
 const RECEIVED = 'user/RECEIVED'
 
-export const fetchingUser = () => ({ type: FETCHING })
+export const fetchingUser = payload => ({ type: FETCHING, payload })
 const receivedUser = payload => ({ type: RECEIVED, payload })
 
 // Reducers
