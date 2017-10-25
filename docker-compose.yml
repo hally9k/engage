@@ -8,6 +8,14 @@ services:
     environment:
       - PG_HOST=db
     command: node -r @std/esm --inspect=0.0.0.0:9202 index.js
+  image-upload:
+    build: ./image-upload
+    ports:
+      - "8083:8083"
+      - "9203:9203"
+    environment:
+      - PG_HOST=db
+    command: node -r @std/esm --inspect=0.0.0.0:9203 index.js
   db:
     image: postgres
     volumes:

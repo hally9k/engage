@@ -12,6 +12,18 @@ services:
         condition: on-failure
     networks:
       - web
+  image-upload:
+    image: hally9k/engage_image-upload
+    ports:
+      - "8083:8083"
+    environment:
+      - PG_HOST=db
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - web
   db:
     image: postgres
     volumes:
