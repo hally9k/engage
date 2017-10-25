@@ -1,3 +1,5 @@
+/* eslint-disable no-loop-func */
+/* eslint-disable no-console */
 import dotenv from 'dotenv'
 import os from 'os'
 import path from 'path'
@@ -27,6 +29,9 @@ cloudinary.config({
 const DEFAULT_PORT = 8083
 const PORT = process.env.PORT || DEFAULT_PORT
 
+const RETRIES = 1000
+const RETRY_TIMEOUT = 500
+
 const server = new Koa()
 
 server.use(koaBody({ multipart: true }))
@@ -35,87 +40,133 @@ const fileSystemJobQueue = queue({ autostart: true })
 const cloudinaryJobQueue = queue({ autostart: true })
 const databaseJobQueue = queue({ autostart: true })
 
-const processUpload = async(userId, files) => {
-    console.log(`processUpload => ${JSON.stringify(userId)}`)
-    // create a temporary folder to store files
-    const tmpdir = path.join(os.tmpdir(), uuid())
+const processUpload = async(userId, files, retries) => {
+    try {
+        // create a temporary folder to store files
+        const tmpdir = path.join(os.tmpdir(), uuid())
 
-    // make the temporary directory
-    await fs.mkdir(tmpdir)
-    const filePaths = []
+        // make the temporary directory
+        await fs.mkdir(tmpdir)
+        const filePaths = []
 
-    for (let key in files) {
-        const file = files[key]
-        const filePath = path.join(tmpdir, file.name)
-        const reader = fs.createReadStream(file.path)
-        const writer = fs.createWriteStream(filePath)
+        for (let key in files) {
+            try {
+                const file = files[key]
 
-        reader.pipe(writer)
-        filePaths.push(filePath)
-        /* eslint-disable no-loop-func */
+                console.log(`\nUploading ${file.name}.`)
+                const filePath = path.join(tmpdir, file.name)
+                const reader = fs.createReadStream(file.path)
+                const writer = fs.createWriteStream(filePath)
 
-        return new Promise((resolve) => {
-            reader.on('end', () => {
-                cloudinaryJobQueue.push(() => uploadToCloudinary(filePath, userId))
-                resolve()
-            })
-        })
+                reader.pipe(writer)
+                filePaths.push(filePath)
+
+                return new Promise((resolve) => {
+                    reader.on('end', () => {
+                        console.log(filePath)
+                        cloudinaryJobQueue.push(() => uploadToCloudinary(filePath, userId, RETRIES))
+                        resolve()
+                    })
+                })
+            } catch (error) {
+                throw new Error(error)
+            }
+        }
+    } catch (error) {
+        console.log('Failed to write to disk', error)
+        if (retries > 0) {
+            console.log(`Retrying ${error}`)
+            setTimeout(() =>
+                fileSystemJobQueue.push(() => processUpload(userId, files, retries - 1)),
+            RETRY_TIMEOUT)
+        } else {
+            console.log(`Failed to write ${error} to disk after ${RETRIES} retries`)
+        }
     }
 }
 
-const uploadToCloudinary = (filePath, userId) => {
-    console.log(`uploadToCloudinary => ${filePath} - ${userId}`)
-
-    return cloudinaryJobQueue.push(() =>
-        cloudinary.v2.uploader.upload(filePath,
-            (error, result) => {
-                if (error) console.error(`error => ${error}`)
-                console.log(`result => ${JSON.stringify(result.url)}`)
-                fileSystemJobQueue.push(() => deleteFile(filePath, result.url, userId))
-            })
-    )
-}
-
-const deleteFile = (filePath, url, userId) => {
-    console.log(`deleteFile => ${filePath} - ${url} - ${userId}`)
-
-    return fs.unlink(filePath, error => {
-        if (error) {
-            console.error(`error => ${error}`)
+const uploadToCloudinary = (filePath, userId, retries) => {
+    try {
+        return cloudinaryJobQueue.push(() =>
+            cloudinary.v2.uploader.upload(filePath,
+                (error, result) => {
+                    if (error) throw new Error(filePath)
+                    fileSystemJobQueue.push(() => deleteFile(filePath, result.url, userId, RETRIES))
+                })
+        )
+    } catch (error) {
+        console.log(`Failed to upload ${error}`)
+        if (retries > 0) {
+            console.log(`Retrying ${error}`)
+            setTimeout(() =>
+                cloudinaryJobQueue.push(() => uploadToCloudinary(filePath, userId, retries - 1)),
+            RETRY_TIMEOUT)
         } else {
-            databaseJobQueue.push(() => setAvatarInTheDb(url, userId))
+            console.log(`Failed to upload ${filePath} after ${RETRIES} retries`)
         }
-    })
+    }
 }
 
-const setAvatarInTheDb = (url, userId) => {
-    console.log(`setAvatarInTheDb => ${url} - ${userId}`)
-
-    return sql('user')
-        .where('id', userId)
-        .update({
-            avatar: url
+const deleteFile = (filePath, url, userId, retries) => {
+    try {
+        return fs.unlink(filePath, error => {
+            if (error) throw new Error(filePath)
+            databaseJobQueue.push(() => setAvatarInTheDb(url, userId, RETRIES))
         })
-        .then(x => {
-            console.log('DONE!', x)
+    } catch (error) {
+        console.log(`Failed to delete ${error}`)
+        if (retries > 0) {
+            console.log(`Retrying ${error}`)
+            setTimeout(() =>
+                fileSystemJobQueue.push(() => deleteFile(filePath, url, userId, retries - 1)),
+            RETRY_TIMEOUT)
+        } else {
+            console.error(`Failed to delete ${filePath} after ${RETRIES} retries`)
+        }
+    }
+}
 
-            return x
-        })
+const setAvatarInTheDb = (url, userId, retries) => {
+    try {
+        return sql('user')
+            .where('id', userId)
+            .update({
+                avatar: url
+            })
+            .returning('avatar')
+            .then(url => {
+                console.log(`Added uploaded image url to the db, ${url}`)
+                console.log('Done.\n')
+
+                return
+            })
+    } catch (error) {
+        console.log(`Failed to set ${error} in the db`)
+        if (retries > 0) {
+            console.log(`Retrying ${error}`)
+            setTimeout(() =>
+                // eslint-disable-next-line no-param-reassign
+                fileSystemJobQueue.push(() => setAvatarInTheDb(url, userId, retries - 1)),
+            RETRY_TIMEOUT)
+        } else {
+            console.error(`Failed to set ${url} in the db after ${RETRIES} retries`)
+        }
+    }
 }
 
 server.use(async function(ctx) {
-    // decode jwt and check auth against jwt server.
     const authHeader = ctx.headers.authorization
     const token = authHeader.split(' ')[1]
     const decodedToken = jwt.decode(token)
     const { id: userId } = decodedToken
 
     if (decodedToken) {
-        console.log(`decodedToken => ${JSON.stringify(decodedToken)}`)
-
         const files = ctx.request.body.files || {}
 
-        fileSystemJobQueue.push(() => processUpload(userId, files))
+        fileSystemJobQueue.push(() => processUpload(userId, files, RETRIES))
+
+        ctx.status = 200
+        ctx.body = 'Scheduled'
     } else {
         ctx.status = 401
         ctx.body = 'Unauthorized'
