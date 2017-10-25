@@ -4,7 +4,6 @@ import toJS from 'react-immutable-hoc'
 import metaSelector from 'selector/meta'
 import fetchingSelector from 'selector/fetching'
 import locationSelector from 'selector/location'
-import { loggingOut } from 'duck/session'
 
 import Root from './root'
 
@@ -14,8 +13,6 @@ const mapStateToProps = state => ({
     location: locationSelector(state)
 })
 
-const mapDispatchToProps = dispatch => ({
-    loggingOut: () => dispatch(loggingOut())
-})
+const mapDispatchToProps = () => ({})
 
 export default connect(mapStateToProps, mapDispatchToProps)(toJS(Root))

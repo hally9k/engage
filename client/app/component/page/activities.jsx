@@ -2,9 +2,9 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import Modal from 'react-modal'
 
-import activities from '../../style/page/activities.scss'
-import activity from '../../style/organism/activity.scss'
-import modal from '../../style/molecule/modal.scss'
+import activities from 'style/page/activities.scss'
+import activity from 'style/organism/activity.scss'
+import modal from 'style/molecule/modal.scss'
 
 const css = {
     ...activities,

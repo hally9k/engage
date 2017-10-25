@@ -3,9 +3,9 @@ import React, { Component } from 'react'
 import { ago } from 'utility/time'
 import { avatarUrl } from 'utility/image'
 
-import conversation from '../../style/molecule/conversation.scss'
-import input from '../../style/atom/input.scss'
-import button from '../../style/atom/button.scss'
+import conversation from 'style/molecule/conversation.scss'
+import input from 'style/atom/input.scss'
+import button from 'style/atom/button.scss'
 
 const css = {
     ...conversation,

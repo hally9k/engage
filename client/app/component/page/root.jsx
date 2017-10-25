@@ -8,6 +8,7 @@ import Messenger from 'component/page/messenger.container'
 import Login from 'component/page/login.container'
 import Register from 'component/page/register.container'
 import Fallback from 'component/utility/fallback'
+import SessionWidget from 'component/organism/session-widget.container'
 
 import index from 'style/index.scss'
 import home from 'style/page/home.scss'
@@ -21,8 +22,7 @@ const css = {
 
 export default class Root extends Component {
     static propTypes = {
-        location: PropTypes.object.isRequired,
-        loggingOut: PropTypes.func.isRequired
+        location: PropTypes.object.isRequired
     }
 
     render() {
@@ -35,11 +35,7 @@ export default class Root extends Component {
                         <NavLink to="/">Home</NavLink>
                         <NavLink to="/activities">Activities</NavLink>
                         <NavLink to="/chat">Chat</NavLink>
-                        <NavLink to="/login">Login</NavLink>
-                        <NavLink to="/register">Register</NavLink>
-                        <NavLink to="/login" onClick={this.props.loggingOut}>
-                            Logout
-                        </NavLink>
+                        <SessionWidget />
                     </section>
                 )}
                 <section className={css.main}>

@@ -4,7 +4,7 @@ const RequiredProps = (WrappedComponent, LoadingComponent) => {
     return class RequiredPropsWrapper extends React.Component {
         static propTypes = WrappedComponent.propTypes
         static displayName = `RequiredPropsWrapper(${getDisplayName(
-            WrappedComponent,
+            WrappedComponent
         )})`
 
         constructor(props) {
@@ -18,10 +18,10 @@ const RequiredProps = (WrappedComponent, LoadingComponent) => {
                     .filter(propKey => {
                         return (
                             Object.keys(WrappedComponent.propTypes).includes(
-                                propKey,
+                                propKey
                             ) &&
                             Boolean(
-                                !WrappedComponent.propTypes[propKey].isRequired,
+                                !WrappedComponent.propTypes[propKey].isRequired
                             )
                         )
                     })
@@ -29,7 +29,7 @@ const RequiredProps = (WrappedComponent, LoadingComponent) => {
                         (current, propKey) =>
                             current ||
                             [undefined, null].includes(this.props[propKey]),
-                        false,
+                        false
                     )
             )
         }
