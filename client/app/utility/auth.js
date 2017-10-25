@@ -17,8 +17,8 @@ const options = (body, method) => ({
 const extractJson = res => res.json()
 
 const processLoginResponse = ({ token }) => {
-    const { roles } = jwt.decode(token)
-    const session = { token, roles }
+    const { roles, id: userId } = jwt.decode(token)
+    const session = { token, roles, userId }
 
     localStorage.setItem('engage:session', JSON.stringify(session))
 
