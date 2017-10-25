@@ -1,15 +1,17 @@
 import { connect } from 'react-redux'
 import toJS from 'react-immutable-hoc'
 import { withErrorBoundary } from 'react-error-boundary'
-import Fallback from 'component/generic/fallback'
-import { updateComponentState } from 'duck/meta'
 
 import metaSelector from 'selector/meta'
 import subjectSelector from 'selector/subject'
 import fetchingSelector from 'selector/fetching'
+
 import { fetchingSubject } from 'duck/subject'
-import Loading from 'component/generic/loading'
-import requiredProps from 'component/generic/required-props'
+import { updateComponentState } from 'duck/meta'
+
+import Loading from 'component/molecule/loading'
+import Fallback from 'component/utility/fallback'
+import requiredProps from 'component/utility/required-props'
 
 import Activities from './activities'
 

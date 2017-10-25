@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import Link from 'redux-first-router-link'
-import Conversation from 'component/generic/conversation.container'
 
-import chat from '../../style/page/chat.scss'
-import messenger from '../../style/organism/messenger.scss'
-import conversation from '../../style/molecule/conversation.scss'
+import Conversation from 'component/organism/conversation.container'
+
+import chat from 'style/page/chat.scss'
+import messenger from 'style/organism/messenger.scss'
+import conversation from 'style/molecule/conversation.scss'
 
 const css = {
     ...chat,

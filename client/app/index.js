@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import React from 'react'
 import { render } from 'react-dom'
 import './rxjs'
-import Root from 'component/unique/root.container'
+import Root from 'component/page/root.container'
 import './style/index.scss'
 
 const store =
@@ -23,7 +23,7 @@ const getApp = store => (
 render(getApp(store), document.getElementById('root'))
 
 if (module.hot) {
-    module.hot.accept('component/unique/root.container', () => {
+    module.hot.accept('component/page/root.container', () => {
         const store = require('./store').store
 
         render(getApp(store), document.getElementById('root'))

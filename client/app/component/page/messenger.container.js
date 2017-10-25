@@ -7,8 +7,8 @@ import {
     selectedConversationSelector
 } from 'selector/conversation'
 import { currentUserIdSelector } from 'selector/meta'
-import Loading from 'component/generic/loading'
-import RequiredProps from 'component/generic/required-props'
+import Loading from 'component/molecule/loading'
+import RequiredProps from 'component/utility/required-props'
 
 import Messenger from './messenger'
 

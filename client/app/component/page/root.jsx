@@ -3,15 +3,15 @@ import PropTypes from 'prop-types'
 import { NavLink } from 'redux-first-router-link'
 import ErrorBoundary from 'react-error-boundary'
 
-import Activities from 'component/unique/activities.container'
-import Messenger from 'component/unique/messenger.container'
-import Login from 'component/unique/session/login.container'
-import Register from 'component/unique/session/register.container'
-import Fallback from 'component/generic/fallback'
+import Activities from 'component/page/activities.container'
+import Messenger from 'component/page/messenger.container'
+import Login from 'component/page/login.container'
+import Register from 'component/page/register.container'
+import Fallback from 'component/utility/fallback'
 
-import index from '../../style/index.scss'
-import home from '../../style/page/home.scss'
-import navigationBar from '../../style/molecule/navigation-bar.scss'
+import index from 'style/index.scss'
+import home from 'style/page/home.scss'
+import navigationBar from 'style/molecule/navigation-bar.scss'
 
 const css = {
     ...index,

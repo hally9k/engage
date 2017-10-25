@@ -2,19 +2,21 @@ import { connect } from 'react-redux'
 import toJS from 'react-immutable-hoc'
 
 import { currentUserIdSelector } from 'selector/meta'
+
 import { sendingNewMessage } from 'duck/message'
 import {
     subscribeToConversation,
-    unsubscribeFromConversation,
+    unsubscribeFromConversation
 } from 'duck/conversation'
-import Loading from 'component/generic/loading'
-import RequiredProps from 'component/generic/required-props'
+
+import Loading from 'component/molecule/loading'
+import RequiredProps from 'component/utility/required-props'
 
 import Conversation from './conversation'
 
 const mapStateToProps = (state, { conversation }) => ({
     currentUserId: currentUserIdSelector(state),
-    conversation,
+    conversation
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -23,9 +25,9 @@ const mapDispatchToProps = dispatch => ({
     subscribeToConversation: channel =>
         dispatch(subscribeToConversation(channel)),
     unsubscribeFromConversation: channel =>
-        dispatch(unsubscribeFromConversation(channel)),
+        dispatch(unsubscribeFromConversation(channel))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-    toJS(RequiredProps(Conversation, Loading)),
+    toJS(RequiredProps(Conversation, Loading))
 )

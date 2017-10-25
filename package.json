@@ -31,7 +31,7 @@
         "precommit": "npm run lint && npm run type-check",
         "prepush": "npm t",
         "type-check": "./node_modules/.bin/flow",
-        "i-all": "npm i && cd client && npm i && cd .. && cd server && npm i && cd .. && cd jwt && npm i && cd ..",
+        "i-all": "npm i && cd client && npm i && cd .. && cd server && npm i && cd .. && cd jwt && npm i && cd .. && cd image-upload && npm i ** cd ..",
         "nuke-modules": "rm -rf ./node_modules ./client/node_modules ./server/node_modules ./jwt/node_modules"
     },
     "dependencies": {}
