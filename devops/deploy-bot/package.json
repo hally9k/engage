@@ -1,0 +1,22 @@
+{
+  "name": "docker-stack-auto-refresh",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "pm2 start index.js",
+    "build": "pkg index.js --targets=node8-linux-x64"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com-hally9k:hally9k/docker-stack-auto-refresh.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.3.0",
+    "koa-cors": "0.0.16",
+    "koa-router": "^7.2.1"
+  },
+  "devDependencies": {}
+}
