@@ -9,6 +9,7 @@ import Login from 'component/page/login.container'
 import Register from 'component/page/register.container'
 import Fallback from 'component/utility/fallback'
 import SessionWidget from 'component/organism/session-widget.container'
+import ErrorBar from 'component/organism/error-bar.container.js'
 
 import index from 'style/index.scss'
 import home from 'style/page/home.scss'
@@ -32,6 +33,10 @@ export default class Root extends Component {
 
         return (
             <div>
+                <section>
+                    <ErrorBar />
+                </section>
+
                 <section className={css.header}>
                     {!['/login', '/register'].includes(location.pathname) && (
                         <div className={css['navigation-bar']}>

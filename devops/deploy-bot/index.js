@@ -1,14 +1,14 @@
 const Koa = require('koa')
 const cors = require('koa-cors')
 const router = require('koa-router')()
-const child_process = require('child_process');
+const child_process = require('child_process')
 
 const app = new Koa()
 
 const DEFAULT_PORT = 8089
 const PORT = process.env.PORT || DEFAULT_PORT
 
-const SCRIPT_PATH = process.env.SCRIPT_PATH || './deploy.sh'
+const SCRIPT_PATH = process.env.SCRIPT_PATH || '/home/engage/deploy-bot/deploy.sh'
 
 app.use(cors())
 

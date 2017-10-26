@@ -1,6 +1,7 @@
 docker-machine create --driver digitalocean --digitalocean-image ubuntu-16-04-x64 --digitalocean-access-token $DO_TOKEN engage-machine
 
 docker-machine ssh engage-machine
+docker swarm init --advertise-addr=$IP
 mkdir /home/engage
 mkdir /home/engage/server
 exit

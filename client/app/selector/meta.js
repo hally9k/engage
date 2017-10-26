@@ -9,3 +9,5 @@ export default createSelector([getComponentMeta], meta => {
 
 export const currentUserIdSelector = state =>
     state.getIn(['meta', 'currentUserId'])
+
+export const errorSelector = state => state.getIn(['meta', 'error'])
