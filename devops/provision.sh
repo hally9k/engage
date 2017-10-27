@@ -1,5 +1,7 @@
 docker-machine create --driver digitalocean --digitalocean-image ubuntu-16-04-x64 --digitalocean-access-token $DO_TOKEN engage-machine
 
+# Set new IP in DNS
+
 docker-machine ssh engage-machine
 docker swarm init --advertise-addr=$IP
 mkdir /home/engage
@@ -15,7 +17,7 @@ docker-machine scp ./devops/deploy-bot.service engage-machine:/etc/systemd/syste
 
 docker-machine ssh engage-machine
 
-chmod -x /home/engage/deploy-bot/deploy.sh
-chmod -x /home/engage/deploy-bot/deploy-bot
+chmod +x deploy.sh
+chmod +x /home/engage/deploy-bot
 systemctl enable deploy-bot
 systemctl start deploy-bot
