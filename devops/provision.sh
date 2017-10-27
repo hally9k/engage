@@ -6,16 +6,16 @@ mkdir /home/engage
 mkdir /home/engage/server
 exit
 
-docker-machine scp -r ./docker-stack.yml engage-machine:/home/engage/docker-stack.yml
+docker-machine scp ./docker-stack.yml engage-machine:/home/engage/docker-stack.yml
 docker-machine scp -r ./server/database/ engage-machine:/home/engage/server/
-docker-machine scp -r ./devops/deploy-bot engage-machine:/home/engage/deploy-bot
+docker-machine scp ./devops/deploy-bot engage-machine:/home/engage/deploy-bot
+docker-machine scp ./devops/deploy.sh engage-machine:/home/engage/deploy.sh
+docker-machine scp ./devops/deploy-bot.service engage-machine:/etc/systemd/system/deploy-bot.service
+
 
 docker-machine ssh engage-machine
 
-curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-sudo apt-get install -y nodejs
-chmod 755 /home/engage/deploy-bot/deploy.sh
-npm i -g pm2
-cd ./deploy-bot
-pm2 start /home/engage/deploy-bot/index.js
-exit
+chmod -x /home/engage/deploy-bot/deploy.sh
+chmod -x /home/engage/deploy-bot/deploy-bot
+systemctl enable deploy-bot
+systemctl start deploy-bot
