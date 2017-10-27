@@ -1,0 +1,13 @@
+[Unit]
+Description=Deploy Bot
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/home/engage
+ExecStart=deploy-bot
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target

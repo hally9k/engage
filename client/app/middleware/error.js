@@ -7,6 +7,4 @@ function createErrorMiddleware() {
     }
 }
 
-const errorMiddleware = createErrorMiddleware()
-
-export default errorMiddleware
+export default createErrorMiddleware()

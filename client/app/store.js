@@ -2,6 +2,7 @@ import batchMiddleware from 'middleware/batch'
 import metaMiddleware from 'middleware/meta'
 import { createEpicMiddleware } from 'redux-observable'
 import createRavenMiddleware from 'middleware/raven'
+import errorMiddleware from 'middleware/error'
 import loggerMiddleware from 'middleware/logger'
 import graphQLSubscriptionsMiddleware from 'middleware/subscriptions'
 import { applyMiddleware, compose, createStore } from 'redux'
@@ -17,6 +18,7 @@ const enhancer = composeEnhancers(
     router.enhancer,
     applyMiddleware(
         batchMiddleware,
+        errorMiddleware,
         router.middleware,
         metaMiddleware,
         ravenMiddleware,

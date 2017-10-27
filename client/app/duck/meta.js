@@ -40,6 +40,6 @@ export default createReducer(INITIAL_STATE, {
     [UPDATE_COMPONENT_STATE]: (state, { payload }) =>
         state.mergeIn(['components', payload.key], fromJS(payload.value)),
     [UPDATE_META_STATE]: (state, { payload }) => state.merge(fromJS(payload)),
-    [ERROR]: (state, { error }) => state.set('error', error),
+    [ERROR]: (state, { payload }) => state.set('error', payload),
     [ERROR_RESET]: state => state.set('error', null)
 })
