@@ -17,12 +17,20 @@ export default class Profile extends Component {
     }
 
     render() {
-        const { avatarUploadRequested, currentUser } = this.props
+        const {
+            avatarUploadRequested,
+            currentUser,
+            currentUser: { firstName, lastName }
+        } = this.props
 
         return (
             <div className={css.profile}>
-                <UserAvatar user={currentUser} />
-                <ImageUpload onUpload={avatarUploadRequested} />
+                <div>
+                    <UserAvatar user={currentUser} size={'large'} />
+                    <ImageUpload onUpload={avatarUploadRequested} />
+                </div>
+                <h1>{firstName}</h1>
+                <h1>{lastName}</h1>
             </div>
         )
     }
