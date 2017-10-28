@@ -11,7 +11,7 @@ import {
     selectedConversationSelector
 } from 'selector/conversation'
 import { currentUserIdSelector } from 'selector/meta'
-import Loading from 'component/molecule/loading'
+import Loading from 'component/atom/loading'
 import RequiredProps from 'component/utility/required-props'
 
 import Messenger from './messenger'

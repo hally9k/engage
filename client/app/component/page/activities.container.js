@@ -9,7 +9,7 @@ import fetchingSelector from 'selector/fetching'
 import { fetchingSubject } from 'duck/data/subject'
 import { updateComponentState } from 'duck/meta'
 
-import Loading from 'component/molecule/loading'
+import Loading from 'component/atom/loading'
 import Fallback from 'component/utility/fallback'
 import requiredProps from 'component/utility/required-props'
 

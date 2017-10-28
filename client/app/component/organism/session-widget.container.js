@@ -5,7 +5,7 @@ import { withErrorBoundary } from 'react-error-boundary'
 import { loggingOut } from 'duck/meta/session'
 import { fetchingUser } from 'duck/data/user'
 
-import Loading from 'component/molecule/loading'
+import Loading from 'component/atom/loading'
 import Fallback from 'component/utility/fallback'
 import requiredProps from 'component/utility/required-props'
 

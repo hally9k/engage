@@ -9,7 +9,7 @@ import {
     unsubscribeFromConversation
 } from 'duck/data/conversation'
 
-import Loading from 'component/molecule/loading'
+import Loading from 'component/atom/loading'
 import RequiredProps from 'component/utility/required-props'
 
 import Conversation from './conversation'
