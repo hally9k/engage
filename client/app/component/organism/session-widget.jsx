@@ -41,7 +41,9 @@ export default class SessionWidget extends Component {
                 {session &&
                     currentUser && (
                         <div>
-                            <UserAvatar user={currentUser} />
+                            <NavLink key="profile" to="/profile">
+                                <UserAvatar user={currentUser} />
+                            </NavLink>
                             <NavLink
                                 to="/login"
                                 onClick={this.props.loggingOut}

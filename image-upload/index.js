@@ -1,5 +1,6 @@
 /* eslint-disable no-loop-func */
 /* eslint-disable no-console */
+import cors from 'koa-cors'
 import dotenv from 'dotenv'
 import os from 'os'
 import path from 'path'
@@ -34,6 +35,7 @@ const RETRY_TIMEOUT = 500
 
 const server = new Koa()
 
+server.use(cors())
 server.use(koaBody({ multipart: true }))
 
 const fileSystemJobQueue = queue({ autostart: true })
@@ -166,10 +168,10 @@ server.use(async function(ctx) {
         fileSystemJobQueue.push(() => processUpload(userId, files, RETRIES))
 
         ctx.status = 200
-        ctx.body = 'Scheduled'
+        ctx.body = { 200: 'Scheduled' }
     } else {
         ctx.status = 401
-        ctx.body = 'Unauthorized'
+        ctx.body = { 401: 'Unauthorized' }
         throw new Error(ctx.body)
     }
 })

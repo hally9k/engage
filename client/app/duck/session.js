@@ -4,6 +4,8 @@ import { routes } from 'router'
 
 import { error } from 'duck/meta'
 
+import { LOCAL_STORAGE_SESSION_KEY } from '../../config/auth'
+
 // Actions
 const SENDING_LOGIN_REQUEST = 'session/SENDING_LOGIN_REQUEST'
 const RECEIVED_LOGIN_RESPONSE = 'session/RECEIVED_LOGIN_RESPONSE'
@@ -106,7 +108,7 @@ export const sendingRegisterRequestEpic = action$ =>
 
 export const logginOutEpic = action$ =>
     action$.ofType(LOGGING_OUT).mergeMap(() => {
-        localStorage.removeItem('engage:session')
+        localStorage.removeItem(LOCAL_STORAGE_SESSION_KEY)
     })
 
 export const epics = {

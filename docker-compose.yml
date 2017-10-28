@@ -15,7 +15,7 @@ services:
       - "9203:9203"
     environment:
       - PG_HOST=db
-    command: node -r @std/esm --inspect=0.0.0.0:9203 index.js
+    command: ./node_modules/.bin/babel-node --inspect=0.0.0.0:9203 index.js
   db:
     image: postgres
     volumes:

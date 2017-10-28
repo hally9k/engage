@@ -9,6 +9,8 @@ import user, { epics as userEpics } from 'duck/user'
 import conversation, { epics as conversationEpics } from 'duck/conversation'
 import message, { epics as messageEpics } from 'duck/message'
 import session, { epics as sessionEpics } from 'duck/session'
+import { epics as profileEpics } from 'duck/profile'
+
 // Data Actions
 export const PROCESSED = 'data/PROCESSED'
 export const processed = payload => ({ type: PROCESSED, payload })
@@ -34,5 +36,6 @@ export const epics = combineEpics(
     ...Object.values(userEpics),
     ...Object.values(conversationEpics),
     ...Object.values(messageEpics),
-    ...Object.values(sessionEpics)
+    ...Object.values(sessionEpics),
+    ...Object.values(profileEpics)
 )

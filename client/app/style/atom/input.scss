@@ -10,6 +10,10 @@
     width: 300px;
 }
 
+.error {
+    background-color: $color-error-tint-1;
+}
+
 .input:hover {
     background-color: $color-tertiary-shade-4;
 }

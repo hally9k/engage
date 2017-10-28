@@ -7,10 +7,10 @@ import Activities from 'component/page/activities.container'
 import Messenger from 'component/page/messenger.container'
 import Login from 'component/page/login.container'
 import Register from 'component/page/register.container'
+import Profile from 'component/page/profile.container'
 import Fallback from 'component/utility/fallback'
 import SessionWidget from 'component/organism/session-widget.container'
 import ErrorBar from 'component/organism/error-bar.container.js'
-
 import index from 'style/index.scss'
 import home from 'style/page/home.scss'
 import navigationBar from 'style/molecule/navigation-bar.scss'
@@ -57,6 +57,7 @@ export default class Root extends Component {
                     {location.pathname === '/activities' && (
                         <Activities subjectId="1" />
                     )}
+                    {location.pathname === '/profile' && <Profile />}
                     {location.pathname.startsWith('/chat') && (
                         <ErrorBoundary FallbackComponent={Fallback}>
                             <Messenger channel={location.payload.channel} />

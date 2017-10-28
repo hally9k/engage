@@ -32,6 +32,7 @@ export const routes = {
     ACTIVITIES: 'router/ACTIVITIES',
     CHAT_INDEX: 'router/CHAT_INDEX',
     CHAT: 'router/CHAT',
+    PROFILE: 'router/PROFILE',
     UNAUTHORIZED: 'router/UNAUTHORIZED'
 }
 
@@ -57,6 +58,10 @@ export const routeMap = {
     [routes.CHAT]: {
         path: '/chat/:channel',
         role: roles.ADMIN
+    },
+    [routes.PROFILE]: {
+        path: '/profile',
+        role: roles.USER
     },
     [routes.UNAUTHORIZED]: {
         path: '/unauthorized'

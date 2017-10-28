@@ -3,7 +3,7 @@ import { routeMap } from '../router'
 import jwt from 'jsonwebtoken'
 import { settingTokenFromLocalStorage } from 'duck/session'
 
-import AUTH_SERVER_URL from '../../config/auth'
+import AUTH_SERVER_URL, { LOCAL_STORAGE_SESSION_KEY } from '../../config/auth'
 
 const options = (body, method) => ({
     headers: {
@@ -13,6 +13,17 @@ const options = (body, method) => ({
     method,
     body: JSON.stringify(body)
 })
+
+export const withToken = headers => {
+    const session = localStorage.getItem(LOCAL_STORAGE_SESSION_KEY)
+
+    return session
+        ? {
+            ...headers,
+            authorization: `JWT ${JSON.parse(session).token}`
+        }
+        : headers
+}
 
 const extractJson = res => res.json()
 
@@ -24,13 +35,13 @@ const processLoginResponse = ({ token }) => {
     const { roles, id: userId } = decodedToken
     const session = { token, roles, userId }
 
-    localStorage.setItem('engage:session', JSON.stringify(session))
+    localStorage.setItem(LOCAL_STORAGE_SESSION_KEY, JSON.stringify(session))
 
     return session
 }
 
 export const isAuthorised = (type, state, dispatch) => {
-    const session = localStorage.getItem('engage:session')
+    const session = localStorage.getItem(LOCAL_STORAGE_SESSION_KEY)
 
     let roles
 

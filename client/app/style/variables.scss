@@ -8,7 +8,7 @@ $color-silver: #d6d5d5;
 $color-platinaum: #efefef;
 $color-hydrogen: #f5f5f5;
 
-$color-tomato-red: #ce4015;
+$color-tomato-red: rgba(206, 64, 21);
 
 $color-white: #ffffff;
 
@@ -30,3 +30,4 @@ $color-tertiary-shade-3: $color-platinaum;
 $color-tertiary-shade-4: $color-hydrogen;
 
 $color-error: $color-tomato-red;
+$color-error-tint-1: color($color-tomato-red tint(85%));

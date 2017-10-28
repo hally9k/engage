@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
+import classnames from 'classnames'
 
 import button from 'style/atom/button.scss'
 import title from 'style/atom/title.scss'
@@ -17,10 +18,13 @@ const css = {
 
 export default class Login extends Component {
     static propTypes = {
+        error: PropTypes.string,
         login: PropTypes.func.isRequired
     }
 
     render() {
+        const { error } = this.props
+
         return (
             <div className={css.login}>
                 <h1 className={css.title}>Engage</h1>
@@ -31,7 +35,9 @@ export default class Login extends Component {
                             Email
                         </label>
                         <input
-                            className={css.input}
+                            className={classnames(css.input, {
+                                [css.error]: Boolean(error)
+                            })}
                             name="email"
                             ref={email => (this.email = email)}
                         />
@@ -45,7 +51,9 @@ export default class Login extends Component {
                             Password
                         </label>
                         <input
-                            className={css.input}
+                            className={classnames(css.input, {
+                                [css.error]: Boolean(error)
+                            })}
                             name="password"
                             type="password"
                             ref={password => (this.password = password)}
