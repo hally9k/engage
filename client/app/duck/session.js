@@ -2,6 +2,8 @@ import { Map } from 'immutable'
 import * as auth from 'utility/auth'
 import { routes } from 'router'
 
+import { error } from 'duck/meta'
+
 // Actions
 const SENDING_LOGIN_REQUEST = 'session/SENDING_LOGIN_REQUEST'
 const RECEIVED_LOGIN_RESPONSE = 'session/RECEIVED_LOGIN_RESPONSE'
@@ -72,11 +74,16 @@ export const sendingLoginRequestEpic = action$ =>
         .mergeMap(({ payload: { email, password } }) =>
             auth
                 .login(email, password)
-                .then(res => [
-                    receivedLoginResponse(res),
-                    { type: routes.HOME }
-                ])
-                .catch(error => [receivedLoginResponse(null, error)])
+                .then(
+                    res =>
+                        res
+                            ? [
+                                receivedLoginResponse(res),
+                                { type: routes.HOME }
+                            ]
+                            : [error('Username or password incorrect.')]
+                )
+                .catch(error => [error(error)])
         )
 
 export const sendingRegisterRequestEpic = action$ =>
@@ -85,11 +92,16 @@ export const sendingRegisterRequestEpic = action$ =>
         .mergeMap(({ payload: { firstName, lastName, email, password } }) =>
             auth
                 .register(firstName, lastName, email, password)
-                .then(res => [
-                    receivedRegisterResponse(res),
-                    { type: routes.HOME }
-                ])
-                .catch(error => [receivedRegisterResponse(null, error)])
+                .then(
+                    res =>
+                        res
+                            ? [
+                                receivedLoginResponse(res),
+                                { type: routes.HOME }
+                            ]
+                            : [error('Username or password incorrect.')]
+                )
+                .catch(error => [error(error)])
         )
 
 export const logginOutEpic = action$ =>

@@ -17,7 +17,7 @@ docker-machine scp ./devops/deploy-bot.service engage-machine:/etc/systemd/syste
 
 docker-machine ssh engage-machine
 
-chmod +x deploy.sh
+chmod +x /home/engage/deploy.sh
 chmod +x /home/engage/deploy-bot
 systemctl enable deploy-bot
 systemctl start deploy-bot
