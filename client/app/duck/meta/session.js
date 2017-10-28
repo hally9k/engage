@@ -4,7 +4,7 @@ import { routes } from 'router'
 
 import { error } from 'duck/meta'
 
-import { LOCAL_STORAGE_SESSION_KEY } from '../../config/auth'
+import { LOCAL_STORAGE_SESSION_KEY } from '../../../config/auth'
 
 // Actions
 const SENDING_LOGIN_REQUEST = 'session/SENDING_LOGIN_REQUEST'

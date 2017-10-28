@@ -2,8 +2,8 @@ import { connect } from 'react-redux'
 import toJS from 'react-immutable-hoc'
 import { withErrorBoundary } from 'react-error-boundary'
 
-import { loggingOut } from 'duck/session'
-import { fetchingUser } from 'duck/user'
+import { loggingOut } from 'duck/meta/session'
+import { fetchingUser } from 'duck/data/user'
 
 import Loading from 'component/molecule/loading'
 import Fallback from 'component/utility/fallback'

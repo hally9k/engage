@@ -1,5 +1,8 @@
+import { combineReducers, createReducer } from 'redux-immutablejs'
 import { fromJS, Map } from 'immutable'
-import { createReducer } from 'redux-immutablejs'
+
+import profile, { epics as profileEpics } from 'duck/meta/profile'
+import session, { epics as sessionEpics } from 'duck/meta/session'
 
 // Actions
 const LOADING = 'meta/LOADING'
@@ -28,13 +31,14 @@ export const error = payload => ({
 export const errorReset = () => ({ type: ERROR_RESET })
 
 // Reducer
-export const INITIAL_STATE = new Map({
+const INITIAL_STATE = Map({
     error: null,
     currentUserId: 1,
     fetching: false
 })
 
-export default createReducer(INITIAL_STATE, {
+// App Reducer
+const app = createReducer(INITIAL_STATE, {
     [LOADING]: state => state.set('fetching', true),
     [LOADED]: state => state.set('fetching', false),
     [UPDATE_COMPONENT_STATE]: (state, { payload }) =>
@@ -43,3 +47,16 @@ export default createReducer(INITIAL_STATE, {
     [ERROR]: (state, { payload }) => state.set('error', payload),
     [ERROR_RESET]: state => state.set('error', null)
 })
+
+// Root Data Reducer
+export default combineReducers({
+    app,
+    session,
+    profile
+})
+
+// Root Meta Epic
+export const epics = {
+    ...profileEpics,
+    ...sessionEpics
+}

@@ -1,3 +1,5 @@
+import { Map } from 'immutable'
+import { createReducer } from 'redux-immutablejs'
 import { uploadImage } from 'utility/image'
 import { error } from 'duck/meta'
 
@@ -12,6 +14,16 @@ export const avatarUploadRequested = payload => ({
 
 export const avatarUploadScheduled = () => ({
     type: AVATAR_UPLOAD_SCHEDULED
+})
+
+// Reducer
+export const INITIAL_STATE = Map({
+    success: false
+})
+
+export default createReducer(INITIAL_STATE, {
+    [AVATAR_UPLOAD_REQUESTED]: state => state.set('success', false),
+    [AVATAR_UPLOAD_SCHEDULED]: state => state.set('success', true)
 })
 
 // Epics

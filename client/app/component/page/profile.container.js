@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { avatarUploadRequested } from 'duck/profile'
+import { avatarUploadRequested } from 'duck/meta/profile'
 import { errorSelector } from 'selector/meta'
 
 import Profile from './profile'

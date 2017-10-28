@@ -25,6 +25,7 @@ export default class Activities extends Component {
     handleCloseModal = () => this.handleActivitySelection(null)
 
     renderActivities = () =>
+        this.props.subject.activities &&
         this.props.subject.activities.map(({ description, id }) => (
             <button
                 key={`activity-${id}`}

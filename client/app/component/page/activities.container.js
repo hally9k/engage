@@ -6,7 +6,7 @@ import metaSelector from 'selector/meta'
 import subjectSelector from 'selector/subject'
 import fetchingSelector from 'selector/fetching'
 
-import { fetchingSubject } from 'duck/subject'
+import { fetchingSubject } from 'duck/data/subject'
 import { updateComponentState } from 'duck/meta'
 
 import Loading from 'component/molecule/loading'

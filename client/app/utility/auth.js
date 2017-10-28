@@ -1,7 +1,7 @@
 /* eslint-disable compat/compat */
 import { routeMap } from '../router'
 import jwt from 'jsonwebtoken'
-import { settingTokenFromLocalStorage } from 'duck/session'
+import { settingTokenFromLocalStorage } from 'duck/meta/session'
 
 import AUTH_SERVER_URL, { LOCAL_STORAGE_SESSION_KEY } from '../../config/auth'
 

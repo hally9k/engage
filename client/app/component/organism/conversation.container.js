@@ -3,11 +3,11 @@ import toJS from 'react-immutable-hoc'
 
 import { currentUserIdSelector } from 'selector/meta'
 
-import { sendingNewMessage } from 'duck/message'
+import { sendingNewMessage } from 'duck/data/message'
 import {
     subscribeToConversation,
     unsubscribeFromConversation
-} from 'duck/conversation'
+} from 'duck/data/conversation'
 
 import Loading from 'component/molecule/loading'
 import RequiredProps from 'component/utility/required-props'

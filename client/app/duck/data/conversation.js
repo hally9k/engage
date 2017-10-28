@@ -1,13 +1,18 @@
-import graphql from 'utility/graphql'
 import { normalize } from 'normalizr'
+import { fromJS, Map, OrderedSet } from 'immutable'
+import { subscribe, unsubscribe } from 'redux-graphql-subscriptions'
+
+import graphql from 'utility/graphql'
+
 import { processed, PROCESSED } from 'duck'
 import { conversationSchema } from 'schema'
 import conversationQuery from 'graphql/query/conversation'
 import conversationMutation from 'graphql/mutation/conversation'
 import conversationSubscription from 'graphql/subscription/conversation'
-import { fromJS, Map, OrderedSet } from 'immutable'
-import { subscribe, unsubscribe } from 'redux-graphql-subscriptions'
-import { receivedNewMessage, receivedNewMessageWithErrors } from 'duck/message'
+import {
+    receivedNewMessage,
+    receivedNewMessageWithErrors
+} from 'duck/data/message'
 
 // Actions
 const CREATING_CONVERSATION = 'conversation/CREATING_CONVERSATION'

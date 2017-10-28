@@ -1,10 +1,11 @@
 import graphql from 'utility/graphql'
 import { normalize } from 'normalizr'
+import { fromJS, Map } from 'immutable'
+
 import { processed, PROCESSED } from 'duck'
 import { messageSchema } from 'schema'
 import messageMutation from 'graphql/mutation/message'
-import { addMessage } from 'duck/conversation'
-import { fromJS, Map } from 'immutable'
+import { addMessage } from 'duck/data/conversation'
 
 // Actions
 const SENDING_NEW_MESSAGE = 'message/SENDING_NEW_MESSAGE'
@@ -17,25 +18,25 @@ export const sendingNewMessage = (
     content,
     userId,
     conversationId,
-    channel,
+    channel
 ) => ({
     type: SENDING_NEW_MESSAGE,
     payload: {
         content,
         userId,
         conversationId,
-        channel,
-    },
+        channel
+    }
 })
 
 export const receivedNewMessage = payload => ({
     type: RECEIVED_NEW_MESSAGE,
-    payload,
+    payload
 })
 
 export const receivedNewMessageWithErrors = payload => ({
     type: RECEIVED_NEW_MESSAGE_WITH_ERRORS,
-    payload,
+    payload
 })
 
 // Reducers
@@ -61,15 +62,15 @@ export const sendingNewMessageEpic = action$ =>
                     content,
                     userId,
                     conversationId,
-                    channel,
+                    channel
                 })
                 .then(res => {
                     return [
                         receivedNewMessage({
-                            data: { conversation: res.message },
-                        }),
+                            data: { conversation: res.message }
+                        })
                     ]
-                }),
+                })
         )
 
 export const receivedNewMessageEpic = action$ =>
@@ -78,11 +79,11 @@ export const receivedNewMessageEpic = action$ =>
         .mergeMap(({ payload: { data: { conversation: message } } }) => {
             return [
                 processed(normalize(message, messageSchema)),
-                addMessage(message),
+                addMessage(message)
             ]
         })
 
 export const epics = {
     sendingNewMessageEpic,
-    receivedNewMessageEpic,
+    receivedNewMessageEpic
 }

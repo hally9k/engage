@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { sendingRegisterRequest } from 'duck/session'
+import { sendingRegisterRequest } from 'duck/meta/session'
 
 import Register from './register'
 

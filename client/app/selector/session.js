@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect'
 import { getUser } from 'selector/user'
 
-const getSession = state => state.get('session')
+const getSession = state => state.getIn(['meta', 'session'])
 
 export default getSession
 

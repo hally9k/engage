@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { sendingLoginRequest } from 'duck/session'
+import { sendingLoginRequest } from 'duck/meta/session'
 import { errorSelector } from 'selector/meta'
 
 import Login from './login'

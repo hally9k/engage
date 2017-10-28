@@ -1,7 +1,11 @@
 import { connect } from 'react-redux'
 import toJS from 'react-immutable-hoc'
 
-import { creatingConversation, fetchingConversation } from 'duck/conversation'
+import {
+    creatingConversation,
+    fetchingConversation
+} from 'duck/data/conversation'
+
 import {
     conversationSelector,
     selectedConversationSelector
