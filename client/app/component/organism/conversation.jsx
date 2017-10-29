@@ -80,7 +80,7 @@ export default class Conversation extends Component {
         this.props.conversation.messages.map((message, index) => (
             <div key={`message-${index}`} className={css.message}>
                 <div className={css.body}>
-                    <UserAvatar user={message.user} />
+                    <UserAvatar user={message.user} size={'small'} />
                     <p className={css.message}>{message.content}</p>
                 </div>
                 <div className={css.footer}>

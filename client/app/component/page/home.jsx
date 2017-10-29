@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import UserAvatar from 'component/molecule/user-avatar'
+import Child from 'component/molecule/child'
+
 import home from 'style/page/home.scss'
 
 const css = {
@@ -27,19 +28,7 @@ export default class Home extends Component {
             <div className={css.home}>
                 {currentUser &&
                     currentUser.children.map(child => (
-                        <div className={css.child} key={`child-${child.id}`}>
-                            <div className={css.avatar}>
-                                <UserAvatar user={child} size={'medium'} />
-                            </div>
-                            <div className={css.details}>
-                                <div>
-                                    <h1>{child.firstName}</h1>
-                                </div>
-                                <div>
-                                    <h1>{child.lastName}</h1>
-                                </div>
-                            </div>
-                        </div>
+                        <Child child={child} key={`child-${child.id}`} />
                     ))}
             </div>
         )
