@@ -2,7 +2,8 @@ query($id: ID) {
     child(id: $id) {
         id
         age
-        name
+        firstName
+        lastName
         avatar
         subjects {
             id

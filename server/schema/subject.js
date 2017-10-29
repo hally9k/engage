@@ -23,7 +23,11 @@ const SubjectType = new GraphQLObjectType({
         activities: {
             type: new GraphQLList(ActivityType),
             description: 'The activities for a subject.',
-            resolve: (obj, args, { subject }) => subject.activities(obj.id)
+            resolve: (obj, args, ctx) => {
+                ctx.ref.subjectId = obj.id
+
+                return ctx.subject.activities(obj.id)
+            }
         }
     })
 })

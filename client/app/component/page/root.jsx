@@ -8,6 +8,8 @@ import Messenger from 'component/page/messenger.container'
 import Login from 'component/page/login.container'
 import Register from 'component/page/register.container'
 import Profile from 'component/page/profile.container'
+import Home from 'component/page/home.container'
+
 import Fallback from 'component/utility/fallback'
 import SessionWidget from 'component/organism/session-widget.container'
 import ErrorBar from 'component/organism/error-bar.container.js'
@@ -49,9 +51,7 @@ export default class Root extends Component {
                 </section>
 
                 <section className={css.main}>
-                    {location.pathname === '/' && (
-                        <h1 className={css['home-title']}>Home</h1>
-                    )}
+                    {location.pathname === '/' && <Home />}
                     {location.pathname === '/login' && <Login />}
                     {location.pathname === '/register' && <Register />}
                     {location.pathname === '/activities' && (

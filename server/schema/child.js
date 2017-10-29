@@ -17,9 +17,15 @@ const ChildType = new GraphQLObjectType({
             type: GraphQLInt,
             description: 'The id of a child.'
         },
-        name: {
+        firstName: {
             type: GraphQLString,
-            description: 'The name of a child.'
+            description: 'The first name of a child.',
+            resolve: obj => obj.first_name
+        },
+        lastName: {
+            type: GraphQLString,
+            description: 'The last name of a child.',
+            resolve: obj => obj.last_name
         },
         age: {
             type: GraphQLInt,
@@ -32,7 +38,11 @@ const ChildType = new GraphQLObjectType({
         subjects: {
             type: new GraphQLList(SubjectType),
             description: 'The subjects of a child.',
-            resolve: (obj, args, { child }) => child.subjects(obj.id)
+            resolve: (obj, args, ctx) => {
+                ctx.ref.childId = obj.id
+
+                return ctx.child.subjects(obj.id)
+            }
         }
     })
 })

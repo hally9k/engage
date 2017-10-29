@@ -1,6 +1,7 @@
-import Subject from './subject'
+import SubjectType from './subject'
+import SessionType from './session'
 
-import { GraphQLInt, GraphQLObjectType, GraphQLString } from 'graphql'
+import { GraphQLInt, GraphQLObjectType, GraphQLString, GraphQLList } from 'graphql'
 
 const ActivityType = new GraphQLObjectType({
     name: 'Activity',
@@ -23,9 +24,16 @@ const ActivityType = new GraphQLObjectType({
             description: 'The description of an activity.'
         },
         subject: {
-            type: Subject,
+            type: SubjectType,
             description: 'The subject an activity belongs to.',
             resolve: (obj, args, { subject }) => subject.one(obj.subject_id)
+        },
+        sessions: {
+            type: new GraphQLList(SessionType),
+            description: 'The sessions for an activity.',
+            resolve: (obj, args, ctx) => {
+                return ctx.session.allForChildsActivity(ctx.ref.childId, obj.id)
+            }
         }
     })
 })

@@ -7,12 +7,16 @@ import conversation, {
 import message, { epics as messageEpics } from 'duck/data/message'
 import subject, { epics as subjectEpics } from 'duck/data/subject'
 import user, { epics as userEpics } from 'duck/data/user'
+import activity from 'duck/data/activity'
+import session from 'duck/data/session'
 
 // Root Data Reducer
 export default combineReducers({
+    activity,
     child,
     conversation,
     message,
+    session,
     subject,
     user
 })

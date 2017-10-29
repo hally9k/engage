@@ -3,8 +3,9 @@
 --
 
 \c engage
--- Dumped from database version 10.0
--- Dumped by pg_dump version 10.0
+
+-- Dumped from database version 9.6.5
+-- Dumped by pg_dump version 9.6.3
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -77,9 +78,10 @@ ALTER SEQUENCE activity_id_seq OWNED BY activity.id;
 
 CREATE TABLE child (
     id integer NOT NULL,
-    name text,
+    first_name text,
     age integer,
-    avatar text
+    avatar text,
+    last_name text
 );
 
 
@@ -436,13 +438,27 @@ COPY activity (id, subject_id, difficulty, hint, description) FROM stdin;
 
 
 --
+-- Name: activity_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('activity_id_seq', 1, true);
+
+
+--
 -- Data for Name: child; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY child (id, name, age, avatar) FROM stdin;
-1	Aniela	3	neelee_xxvqqs.jpg
-2	Bella	6	bells_uqakut.jpg
+COPY child (id, first_name, age, avatar, last_name) FROM stdin;
+1	Aniela	3	neelee_xxvqqs.jpg	Smith Stevens
+2	Bella	6	bells_uqakut.jpg	Smith Stevens
 \.
+
+
+--
+-- Name: child_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('child_id_seq', 1, true);
 
 
 --
@@ -456,6 +472,13 @@ COPY child_subject (child_id, subject_id) FROM stdin;
 
 
 --
+-- Name: comment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('comment_id_seq', 221, true);
+
+
+--
 -- Data for Name: conversation; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -465,6 +488,13 @@ COPY conversation (id, channel, slug) FROM stdin;
 3	Get me tho!	get-me-tho
 4	woot	woot
 \.
+
+
+--
+-- Name: conversation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('conversation_id_seq', 4, true);
 
 
 --
@@ -508,6 +538,13 @@ COPY role (id, role) FROM stdin;
 
 
 --
+-- Name: roles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('roles_id_seq', 1, false);
+
+
+--
 -- Data for Name: session; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -516,6 +553,13 @@ COPY session (id, activity_id, score, notes, user_id, child_id, created_at) FROM
 3	1	80	No fingers!	1	1	2017-07-22 22:02:07.288529
 4	2	100	Awesome work!	2	2	2017-08-03 13:17:04.819873
 \.
+
+
+--
+-- Name: session_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('session_id_seq', 3, true);
 
 
 --
@@ -529,6 +573,13 @@ COPY subject (id, title) FROM stdin;
 4	Words
 5	Colors
 \.
+
+
+--
+-- Name: subject_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('subject_id_seq', 5, true);
 
 
 --
@@ -569,6 +620,13 @@ COPY user_conversation (conversation_id, user_id) FROM stdin;
 
 
 --
+-- Name: user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('user_id_seq', 21, true);
+
+
+--
 -- Data for Name: user_role; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -577,62 +635,6 @@ COPY user_role (user_id, role_id) FROM stdin;
 1	2
 2	2
 \.
-
-
---
--- Name: activity_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('activity_id_seq', 1, true);
-
-
---
--- Name: child_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('child_id_seq', 1, true);
-
-
---
--- Name: comment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('comment_id_seq', 221, true);
-
-
---
--- Name: conversation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('conversation_id_seq', 4, true);
-
-
---
--- Name: roles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('roles_id_seq', 1, false);
-
-
---
--- Name: session_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('session_id_seq', 3, true);
-
-
---
--- Name: subject_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('subject_id_seq', 5, true);
-
-
---
--- Name: user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('user_id_seq', 21, true);
 
 
 --

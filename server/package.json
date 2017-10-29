@@ -8,7 +8,7 @@
     "license": "ISC",
     "repository": "git@github.com:hally9k/engage.git",
     "scripts": {
-        "start": "./node_modules/.bin/babel-node index.js",
+        "start": "NODE_ENV=local ./node_modules/.bin/babel-node --inspect=0.0.0.0:9201 index.js",
         "db:migrations":
             "./node_modules/.bin/knex migrate:latest --knexfile ./config/database/knexfile.js"
     },

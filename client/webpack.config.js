@@ -24,7 +24,7 @@ const plugins = [
 if (!isDev) plugins.push(new MinifyPlugin())
 
 module.exports = {
-    devtool: isDev ? 'source-map' : 'inline-cheap-source-map',
+    devtool: isDev ? 'inline-cheap-source-map' : 'inline-cheap-source-map',
     entry: {
         app: ['babel-polyfill', 'react-hot-loader/patch', paths.appIndexJs]
     },

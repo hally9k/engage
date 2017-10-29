@@ -1,6 +1,18 @@
 const env = process.env.NODE_ENV || 'development'
 
 export default {
+    local: {
+        service: {
+            redis: {
+                host: 'localhost',
+                port: 6379,
+            },
+            postgres: {
+                host: 'localhost',
+                port: 5432,
+            },
+        },
+    },
     development: {
         service: {
             redis: {

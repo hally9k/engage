@@ -19,6 +19,7 @@ import {
 } from './model'
 
 const context = {
+    ref: {},
     user,
     child,
     conversation,

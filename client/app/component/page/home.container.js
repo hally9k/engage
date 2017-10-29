@@ -6,21 +6,20 @@ import Loading from 'component/atom/loading'
 import Fallback from 'component/utility/fallback'
 import requiredProps from 'component/utility/required-props'
 
-import { avatarUploadRequested } from 'duck/meta/profile'
-import { errorSelector } from 'selector/meta'
+import { fetchingUser } from 'duck/data/user'
+
 import { currentUserSelector } from 'selector/session'
 
-import Profile from './profile'
+import Home from './home'
 
 const mapStateToProps = state => ({
-    error: errorSelector(state),
     currentUser: currentUserSelector(state)
 })
 
 const mapDispatchToProps = dispatch => ({
-    avatarUploadRequested: file => dispatch(avatarUploadRequested(file))
+    fetchingUser: currentUserId => dispatch(fetchingUser(currentUserId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-    toJS(withErrorBoundary(requiredProps(Profile, Loading), Fallback))
+    toJS(withErrorBoundary(requiredProps(Home, Loading), Fallback))
 )

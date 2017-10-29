@@ -8,10 +8,24 @@ query($id: ID) {
         children {
             id
             age
-            name
+            firstName
+            lastName
+            avatar
             subjects {
                 id
                 title
+                activities {
+                    id
+                    difficulty
+                    hint
+                    description
+                    sessions {
+                        id
+                        score
+                        notes
+                        createdAt
+                    }
+                }
             }
         }
     }

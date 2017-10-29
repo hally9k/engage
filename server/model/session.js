@@ -19,4 +19,14 @@ export default {
     oneOrAll(id: Number) {
         return id ? [this.one(id)] : this.all()
     },
+    allForChildsActivity(childId, activityId) {
+        return sql
+            .select()
+            .from('session')
+            .where('child_id', childId)
+            .where('activity_id', activityId)
+            .then(sessions => {
+                return sessions
+            })
+    }
 }
