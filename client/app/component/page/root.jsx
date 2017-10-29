@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { NavLink } from 'redux-first-router-link'
 import ErrorBoundary from 'react-error-boundary'
 
 import Activities from 'component/page/activities.container'
@@ -11,18 +10,17 @@ import Profile from 'component/page/profile.container'
 import Home from 'component/page/home.container'
 
 import Fallback from 'component/utility/fallback'
+import NavigationBar from 'component/molecule/navigation-bar'
 import SessionWidget from 'component/organism/session-widget.container'
-import ErrorBar from 'component/organism/error-bar.container.js'
+import ErrorBar from 'component/organism/error-bar.container'
 import index from 'style/index.scss'
 import home from 'style/page/home.scss'
-import navigationBar from 'style/molecule/navigation-bar.scss'
 import header from 'style/organism/header.scss'
 
 const css = {
     ...index,
     ...home,
-    ...header,
-    ...navigationBar
+    ...header
 }
 
 export default class Root extends Component {
@@ -40,12 +38,11 @@ export default class Root extends Component {
                 </section>
 
                 <section className={css.header}>
+                    <div className={css['logo-wrapper']}>
+                        <h1 className={css.logo}>e</h1>
+                    </div>
                     {!['/login', '/register'].includes(location.pathname) && (
-                        <div className={css['navigation-bar']}>
-                            <NavLink to="/">Home</NavLink>
-                            <NavLink to="/activities">Activities</NavLink>
-                            <NavLink to="/chat">Chat</NavLink>
-                        </div>
+                        <NavigationBar />
                     )}
                     <SessionWidget />
                 </section>

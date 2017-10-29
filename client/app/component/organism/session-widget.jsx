@@ -27,7 +27,7 @@ export default class SessionWidget extends Component {
         const { session, currentUser } = this.props
 
         return (
-            <h1 className={css['session-widget']}>
+            <div className={css['session-widget']}>
                 {!session && (
                     <div>
                         <NavLink key="login" to="/login">
@@ -53,7 +53,7 @@ export default class SessionWidget extends Component {
                             </NavLink>
                         </div>
                     )}
-            </h1>
+            </div>
         )
     }
 }

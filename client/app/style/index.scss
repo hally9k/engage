@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Comfortaa');
+@import 'variables.scss';
 
 html,
 body {
@@ -7,4 +8,22 @@ body {
 
 .main {
     padding: 1rem;
+}
+
+.logo-wrapper {
+    background-color: $color-tertiary-shade-3;
+    position: fixed;
+    width: 73px;
+    height: 73px;
+    border-radius: 36.5px;
+}
+
+.logo {
+    font-size: 4rem;
+    color: $color-nectarine;
+    transform: rotate(-45deg);
+    margin: 0;
+    text-align: center;
+    position: relative;
+    left: -2px;
 }
