@@ -1,5 +1,32 @@
 @import 'variables.scss';
 
 .session {
-    background-color: $color-secondary;
+    padding: 0.3rem;
+}
+
+.activity {
+    color: $color-secondary;
+    font-size: 1.4rem;
+    margin: 0;
+    margin: 0.5rem;
+}
+
+.subject {
+    color: $color-tertiary-shade-2;
+    font-size: 1rem;
+    margin: 0.5rem;
+}
+
+.score {
+    font-size: 4rem;
+    font-weight: 900;
+    color: $color-primary;
+    margin: 0;
+}
+
+.badge {
+    text-align: center;
+    background-color: $color-tertiary-shade-3;
+    border-radius: 2rem;
+    padding: 1rem;
 }

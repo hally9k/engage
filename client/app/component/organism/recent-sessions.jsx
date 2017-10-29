@@ -11,10 +11,13 @@ const css = {
 
 const RecentSessions = props => {
     return (
-        <div className={css['recent-sessions']}>
-            {props.recentSessions.map(session => (
-                <Session session={session} key={`session-${session.id}`} />
-            ))}
+        <div>
+            <h1 className={css.title}>Recent sessions...</h1>
+            <div className={css['recent-sessions']}>
+                {props.recentSessions.map(session => (
+                    <Session session={session} key={`session-${session.id}`} />
+                ))}
+            </div>
         </div>
     )
 }

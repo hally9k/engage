@@ -1,7 +1,14 @@
-/* Purple */
+/* Base Colors */
 $color-purp: #5e35b1;
-/* Orange */
-$color-orangutan: #cffcc9;
+
+$color-slime: #cffcc9;
+
+$color-coral: #fe0e4c;
+
+$color-peachy: #fe652b;
+
+$color-nectarine: #ffc707;
+
 /* Grays */
 $color-titanium: #b3b3b3;
 $color-silver: #d6d5d5;
@@ -13,15 +20,15 @@ $color-tomato-red: rgba(206, 64, 21);
 $color-white: #ffffff;
 
 /* Colors */
-$color-primary: $color-purp;
-$color-primary-tint-1: color($color-purp tint(15%));
-$color-primary-tint-2: color($color-purp tint(40%));
-$color-primary-shade-1: color($color-purp shade(15%));
+$color-primary: $color-peachy;
+$color-primary-tint-1: color($color-primary tint(15%));
+$color-primary-tint-2: color($color-primary tint(40%));
+$color-primary-shade-1: color($color-primary shade(15%));
 
-$color-secondary: $color-orangutan;
-$color-secondary-tint-1: color($color-orangutan tint(12%));
-$color-secondary-tint-2: color($color-orangutan tint(24%));
-$color-secondary-shade-1: color($color-orangutan shade(12%));
+$color-secondary: $color-purp;
+$color-secondary-tint-1: color($color-secondary tint(12%));
+$color-secondary-tint-2: color($color-secondary tint(24%));
+$color-secondary-shade-1: color($color-secondary shade(12%));
 
 $color-tertiary: $color-silver;
 $color-tertiary-shade-1: $color-titanium;

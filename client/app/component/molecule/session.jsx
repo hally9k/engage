@@ -17,7 +17,7 @@ export default class Session extends Component {
 
         return (
             <div className={css.session}>
-                <div>
+                <div className={css.badge}>
                     <h2 className={css.activity}>
                         {session.activity.description}
                     </h2>

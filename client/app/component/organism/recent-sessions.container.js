@@ -6,12 +6,12 @@ import Loading from 'component/atom/loading'
 import Fallback from 'component/utility/fallback'
 import requiredProps from 'component/utility/required-props'
 
-import recentSessionSelector from 'selector/data/session'
+import recentSessionsSelector from 'selector/data/session'
 
 import RecentSessions from './recent-sessions'
 
 const mapStateToProps = (state, { childId, n }) => ({
-    recentSessions: recentSessionSelector(state, childId, n)
+    recentSessions: recentSessionsSelector(state, childId, n)
 })
 
 const mapDispatchToProps = () => ({})
