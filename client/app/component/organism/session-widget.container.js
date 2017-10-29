@@ -24,5 +24,5 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-    toJS(requiredProps(withErrorBoundary(SessionWidget, Fallback), Loading))
+    toJS(withErrorBoundary(requiredProps(SessionWidget, Loading), Fallback))
 )

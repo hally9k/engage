@@ -28,6 +28,13 @@ query($id: ID) {
                         score
                         notes
                         createdAt
+                        child {
+                            id
+                            age
+                            firstName
+                            lastName
+                            avatar
+                        }
                         activity {
                             id
                             difficulty

@@ -6,16 +6,16 @@ import Loading from 'component/atom/loading'
 import Fallback from 'component/utility/fallback'
 import requiredProps from 'component/utility/required-props'
 
-import { mostRecentSessionSelector } from 'selector/data/session'
+import recentSessionSelector from 'selector/data/session'
 
-import SessionWidget from './session-widget'
+import RecentSessions from './recent-sessions'
 
 const mapStateToProps = (state, { childId, n }) => ({
-    mostRecentSessions: mostRecentSessionSelector(state, childId, n)
+    recentSessions: recentSessionSelector(state, childId, n)
 })
 
 const mapDispatchToProps = () => ({})
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-    toJS(requiredProps(withErrorBoundary(SessionWidget, Fallback), Loading))
+    toJS(withErrorBoundary(requiredProps(RecentSessions, Loading), Fallback))
 )

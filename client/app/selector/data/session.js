@@ -3,20 +3,22 @@ import { denormalize } from 'normalizr'
 import getData from 'selector/data'
 import { sessionSchema } from 'schema'
 
-const getMostRecentSessions = (state, childId, n) => {
+const getRecentSessions = (state, childId, n) => {
     return state
         .getIn(['data', 'session'])
-        .filter(session => {
-            return session.childId === childId
-        })
-        .sortBy('createdAt')
+        .filter(session => session.get('child') === childId)
+        .sortBy(session => session.createdAt)
         .take(n)
+        .toList()
 }
 
-const mostRecentSessionSelector = createSelector(
-    [getData, getMostRecentSessions],
-    (data, sessions) =>
-        sessions ? denormalize(sessions, [sessionSchema], data) : null
+const recentSessionsSelector = createSelector(
+    [getData, getRecentSessions],
+    (data, sessions) => {
+        return sessions.size
+            ? denormalize(sessions, [sessionSchema], data)
+            : null
+    }
 )
 
-export default mostRecentSessionSelector
+export default recentSessionsSelector

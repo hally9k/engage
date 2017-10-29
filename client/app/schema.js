@@ -26,10 +26,11 @@ export const conversationSchema = new schema.Entity('conversation', {
     messages: [messageSchema]
 })
 
-sessionSchema.define({
-    activity: activitySchema
-})
+// activitySchema.define({
+//     subject: subjectSchema
+// })
 
-activitySchema.define({
-    subject: subjectSchema
+sessionSchema.define({
+    activity: activitySchema,
+    child: childSchema
 })

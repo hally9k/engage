@@ -28,5 +28,5 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-    toJS(requiredProps(withErrorBoundary(Activities, Fallback), Loading))
+    toJS(withErrorBoundary(requiredProps(Activities, Loading), Fallback))
 )
