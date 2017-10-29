@@ -2,7 +2,6 @@ import React from 'react'
 
 const RequiredProps = (WrappedComponent, LoadingComponent) => {
     return class RequiredPropsWrapper extends React.Component {
-        static propTypes = WrappedComponent.propTypes
         static displayName = `RequiredPropsWrapper(${getDisplayName(
             WrappedComponent
         )})`

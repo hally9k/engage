@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+
 import errorBar from 'style/organism/error-bar.scss'
 
 const css = {
