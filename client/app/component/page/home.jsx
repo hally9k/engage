@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import Child from 'component/molecule/child'
+import Session from 'component/molecule/session'
 
 import home from 'style/page/home.scss'
 
@@ -28,7 +29,38 @@ export default class Home extends Component {
             <div className={css.home}>
                 {currentUser &&
                     currentUser.children.map(child => (
-                        <Child child={child} key={`child-${child.id}`} />
+                        <div key={`child-${child.id}`}>
+                            <Child child={child} />
+                            <div className={css.sessions}>
+                                {child.subjects &&
+                                    child.subjects.map(subject => {
+                                        return (
+                                            subject.activities &&
+                                            subject.activities.map(activity => {
+                                                return (
+                                                    activity.sessions &&
+                                                    activity.sessions.map(
+                                                        session => (
+                                                            <Session
+                                                                session={
+                                                                    session
+                                                                }
+                                                                activity={
+                                                                    activity
+                                                                }
+                                                                subject={
+                                                                    subject
+                                                                }
+                                                                key={`session-${session.id}`}
+                                                            />
+                                                        )
+                                                    )
+                                                )
+                                            })
+                                        )
+                                    })}
+                            </div>
+                        </div>
                     ))}
             </div>
         )

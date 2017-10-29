@@ -19,11 +19,25 @@ query($id: ID) {
                     difficulty
                     hint
                     description
+                    subject {
+                        id
+                        title
+                    }
                     sessions {
                         id
                         score
                         notes
                         createdAt
+                        activity {
+                            id
+                            difficulty
+                            hint
+                            description
+                            subject {
+                                id
+                                title
+                            }
+                        }
                     }
                 }
             }
