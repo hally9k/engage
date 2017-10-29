@@ -8,7 +8,7 @@ import requiredProps from 'component/utility/required-props'
 
 import { fetchingUser } from 'duck/data/user'
 
-import { currentUserSelector } from 'selector/session'
+import { currentUserSelector } from 'selector/meta/session'
 
 import Home from './home'
 

@@ -8,7 +8,7 @@ import requiredProps from 'component/utility/required-props'
 
 import { avatarUploadRequested } from 'duck/meta/profile'
 import { errorSelector } from 'selector/meta'
-import { currentUserSelector } from 'selector/session'
+import { currentUserSelector } from 'selector/meta/session'
 
 import Profile from './profile'
 

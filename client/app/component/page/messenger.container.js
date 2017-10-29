@@ -9,7 +9,7 @@ import {
 import {
     conversationSelector,
     selectedConversationSelector
-} from 'selector/conversation'
+} from 'selector/data/conversation'
 import { currentUserIdSelector } from 'selector/meta'
 import Loading from 'component/atom/loading'
 import RequiredProps from 'component/utility/required-props'

@@ -9,7 +9,7 @@ import Loading from 'component/atom/loading'
 import Fallback from 'component/utility/fallback'
 import requiredProps from 'component/utility/required-props'
 
-import sessionSelector, { currentUserSelector } from 'selector/session'
+import sessionSelector, { currentUserSelector } from 'selector/meta/session'
 
 import SessionWidget from './session-widget'
 

@@ -3,8 +3,8 @@ import toJS from 'react-immutable-hoc'
 import { withErrorBoundary } from 'react-error-boundary'
 
 import metaSelector from 'selector/meta'
-import subjectSelector from 'selector/subject'
-import fetchingSelector from 'selector/fetching'
+import subjectSelector from 'selector/data/subject'
+import fetchingSelector from 'selector/meta/app'
 
 import { fetchingSubject } from 'duck/data/subject'
 import { updateComponentState } from 'duck/meta'
