@@ -2,10 +2,15 @@ import { Map } from 'immutable'
 import { createReducer } from 'redux-immutablejs'
 import { uploadImage } from 'utility/image'
 import { error } from 'duck/meta'
+import imageUploadSubscription from 'graphql/subscription/image-upload'
+import { subscribe, unsubscribe } from 'redux-graphql-subscriptions'
 
 // Actions
 const AVATAR_UPLOAD_REQUESTED = 'avatar/UPLOAD_REQUESTED'
 const AVATAR_UPLOAD_SCHEDULED = 'avatar/AVATAR_UPLOAD_SCHEDULED'
+
+const AVATAR_UPLOAD_SUCCESS = 'avatar/AVATAR_UPLOAD_SUCCESS'
+const AVATAR_UPLOAD_FAILURE = 'avatar/AVATAR_UPLOAD_FAILURE'
 
 export const avatarUploadRequested = payload => ({
     type: AVATAR_UPLOAD_REQUESTED,
@@ -15,6 +20,27 @@ export const avatarUploadRequested = payload => ({
 export const avatarUploadScheduled = () => ({
     type: AVATAR_UPLOAD_SCHEDULED
 })
+
+export const avatarUploadSuccess = success => ({
+    type: AVATAR_UPLOAD_SUCCESS,
+    success
+})
+
+export const avatarUploadFailure = error => ({
+    type: AVATAR_UPLOAD_FAILURE,
+    error
+})
+
+const imageUpload = {
+    query: imageUploadSubscription,
+    success: avatarUploadSuccess,
+    failure: avatarUploadFailure
+}
+
+export const subscribeToImageUpload = () =>
+    subscribe({ ...imageUpload, variables: { channel: 'image-upload' } })
+
+export const unsubscribeFromImageUpload = () => unsubscribe('image-upload')
 
 // Reducer
 export const INITIAL_STATE = Map({

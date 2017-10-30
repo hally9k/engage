@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { subscribe } from 'redux-graphql-subscriptions'
 
 import ImageUpload from 'component/molecule/image-upload'
 import UserAvatar from 'component/molecule/user-avatar'
@@ -13,7 +14,17 @@ export default class Profile extends Component {
     static propTypes = {
         avatarUploadRequested: PropTypes.func.isRequired,
         currentUser: PropTypes.object.isRequired,
-        error: PropTypes.string
+        error: PropTypes.string,
+        subscribeToImageUpload: PropTypes.func.isRequired,
+        unsubscribeFromImageUpload: PropTypes.func.isRequired
+    }
+
+    componentWillMount() {
+        this.props.subscribeToImageUpload()
+    }
+
+    componentWillUnmount() {
+        this.props.unsubscribeFromImageUpload()
     }
 
     render() {

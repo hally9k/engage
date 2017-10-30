@@ -24,6 +24,18 @@ const schema = new GraphQLSchema({
     subscription: new GraphQLObjectType({
         name: 'RootSubscriptionType',
         fields: {
+            image: {
+                type: GraphQLString,
+                subscribe: (_, args, { redis }) => {
+                    redis.sub.subscribe('image-upload')
+
+                    redis.sub.on('message', function(channel, message) {
+                        pubsub.publish('image-upload', message)
+                    })
+
+                    return pubsub.asyncIterator('image-upload')
+                },
+            },
             conversation: {
                 type: MessageType,
                 args: {

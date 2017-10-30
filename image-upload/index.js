@@ -10,6 +10,7 @@ import koaBody from 'koa-body'
 import uuid from 'uuid'
 import cloudinary from 'cloudinary'
 import sql from './connector/sql'
+import redis from './connector/redis'
 import jwt from 'jsonwebtoken'
 import queue from 'queue'
 
@@ -138,6 +139,7 @@ const setAvatarInTheDb = (url, userId, retries) => {
             .returning('avatar')
             .then(url => {
                 console.log(`Added uploaded image url to the db, ${url}`)
+                redis.pub.publish('image-upload', JSON.stringify('Image uploaded successfully.'))
                 console.log('Done.\n')
 
                 return

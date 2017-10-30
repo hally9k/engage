@@ -19,7 +19,7 @@ export default class Home extends Component {
     componentWillMount = () => {
         const { fetchingUser, currentUser } = this.props
 
-        fetchingUser(currentUser.id)
+        currentUser && fetchingUser(currentUser.id)
     }
 
     render() {

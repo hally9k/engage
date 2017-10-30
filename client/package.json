@@ -13,7 +13,7 @@
     },
     "scripts": {
         "start": "NODE_ENV=production node -r @std/esm index.js",
-        "start:dev": "webpack-dev-server --hot",
+        "start:dev": "NODE_ENV=development BUILD_ENV=development webpack-dev-server --hot",
         "clean": "rm -rf ./public/*",
         "build": "NODE_ENV=production BUILD_ENV=production ./node_modules/.bin/webpack"
     },

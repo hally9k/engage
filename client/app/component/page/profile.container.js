@@ -6,7 +6,11 @@ import Loading from 'component/atom/loading'
 import Fallback from 'component/utility/fallback'
 import requiredProps from 'component/utility/required-props'
 
-import { avatarUploadRequested } from 'duck/meta/profile'
+import {
+    avatarUploadRequested,
+    subscribeToImageUpload,
+    unsubscribeFromImageUpload
+} from 'duck/meta/profile'
 import { errorSelector } from 'selector/meta'
 import { currentUserSelector } from 'selector/meta/session'
 
@@ -18,7 +22,9 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    avatarUploadRequested: file => dispatch(avatarUploadRequested(file))
+    avatarUploadRequested: file => dispatch(avatarUploadRequested(file)),
+    subscribeToImageUpload: () => dispatch(subscribeToImageUpload()),
+    unsubscribeFromImageUpload: () => dispatch(unsubscribeFromImageUpload())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(
