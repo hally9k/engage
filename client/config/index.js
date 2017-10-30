@@ -2,5 +2,5 @@
 
 const DEFAULT_PORT = 8081
 
-export const env = BUILD_ENV || 'development'
-export const port = PORT || DEFAULT_PORT
+export const env = process.env.BUILD_ENV || 'development'
+export const port = process.env.PORT || DEFAULT_PORT

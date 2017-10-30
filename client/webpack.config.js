@@ -3,17 +3,53 @@ const paths = require('./config/path')
 const webpack = require('webpack')
 const MinifyPlugin = require('babel-minify-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+    .BundleAnalyzerPlugin
 
+const isAnalysis = Boolean(process.env.ANALYSIS)
 const isDev = process.env.BUILD_ENV !== 'production'
 const isTest = process.env.BUILD_ENV === 'test'
 
+const vendor = [
+    'classnames',
+    'date-fns',
+    'graphql-request',
+    'history',
+    'immutable',
+    'jsonwebtoken',
+    'normalizr',
+    'react',
+    'react-dom',
+    'react-error-boundary',
+    'react-immutable-hoc',
+    'react-modal',
+    'react-redux',
+    'redux',
+    'redux-first-router',
+    'redux-first-router-link',
+    'redux-graphql-subscriptions',
+    'redux-immutablejs',
+    'redux-logger',
+    'redux-observable',
+    'redux-raven-middleware',
+    'reselect'
+]
+
 const plugins = [
+    new webpack.optimize.CommonsChunkPlugin({
+        name: 'vendor',
+        filename: 'vendor.[hash].js',
+        minChunks: Infinity
+    }),
     new HtmlWebpackPlugin({
         template: paths.appHtmlTemplate
     }),
     new webpack.DefinePlugin({
-        BUILD_ENV: JSON.stringify(process.env.BUILD_ENV),
-        PORT: JSON.stringify(process.env.PORT)
+        'process.env': {
+            NODE_ENV: `"${process.env.NODE_ENV}"`,
+            BUILD_ENV: `"${process.env.BUILD_ENV}"`,
+            PORT: process.env.PORT
+        }
     }),
     new ExtractTextPlugin({
         disable: isDev,
@@ -21,15 +57,18 @@ const plugins = [
     })
 ]
 
+if (isAnalysis) plugins.push(new BundleAnalyzerPlugin())
+
 if (!isDev) plugins.push(new MinifyPlugin())
 
 module.exports = {
     devtool: isDev ? 'source-map' : 'inline-cheap-source-map',
     entry: {
-        app: ['babel-polyfill', 'react-hot-loader/patch', paths.appIndexJs]
+        app: ['babel-polyfill', 'react-hot-loader/patch', paths.appIndexJs],
+        vendor
     },
     output: {
-        filename: 'bundle.[hash].js',
+        filename: 'app.[chunkhash].js',
         path: paths.appBuild,
         publicPath: '/'
     },
