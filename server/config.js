@@ -37,5 +37,16 @@ export default {
             },
         },
     },
-    production: {},
+    production: {
+      service: {
+          redis: {
+              host: 'redis',
+              port: 6379,
+          },
+          postgres: {
+              host: 'db',
+              port: 5432,
+          },
+      },
+    },
 }[env]
