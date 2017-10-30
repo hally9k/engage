@@ -8,7 +8,7 @@ RUN export PATH=node_modules/.bin:$PATH
 
 RUN npm i
 
-RUN BUILD_ENV=production ./node_modules/.bin/webpack
+RUN npm run build
 
 EXPOSE 8080
 
