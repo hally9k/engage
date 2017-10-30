@@ -7,10 +7,10 @@ import { subscribe, unsubscribe } from 'redux-graphql-subscriptions'
 
 // Actions
 const AVATAR_UPLOAD_REQUESTED = 'avatar/UPLOAD_REQUESTED'
-const AVATAR_UPLOAD_SCHEDULED = 'avatar/AVATAR_UPLOAD_SCHEDULED'
+const AVATAR_UPLOAD_SCHEDULED = 'avatar/UPLOAD_SCHEDULED'
 
-const AVATAR_UPLOAD_SUCCESS = 'avatar/AVATAR_UPLOAD_SUCCESS'
-const AVATAR_UPLOAD_FAILURE = 'avatar/AVATAR_UPLOAD_FAILURE'
+const AVATAR_UPLOAD_SUCCESS = 'avatar/UPLOAD_SUCCESS'
+const AVATAR_UPLOAD_FAILURE = 'avatar/UPLOAD_FAILURE'
 
 export const avatarUploadRequested = payload => ({
     type: AVATAR_UPLOAD_REQUESTED,

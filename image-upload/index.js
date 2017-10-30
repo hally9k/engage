@@ -139,7 +139,7 @@ const setAvatarInTheDb = (url, userId, retries) => {
             .returning('avatar')
             .then(url => {
                 console.log(`Added uploaded image url to the db, ${url}`)
-                redis.pub.publish('image-upload', JSON.stringify('Image uploaded successfully.'))
+                redis.pub.publish('image-upload', 'Image uploaded successfully.')
                 console.log('Done.\n')
 
                 return
