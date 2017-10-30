@@ -475,7 +475,7 @@ COPY child_subject (child_id, subject_id) FROM stdin;
 -- Name: comment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('comment_id_seq', 221, true);
+SELECT pg_catalog.setval('comment_id_seq', 222, true);
 
 
 --
@@ -524,6 +524,7 @@ COPY message (id, user_id, content, created_at, conversation_id) FROM stdin;
 219	1	kjkj	1508829631.57692	1
 220	1	Yessy!	1508829638.58747	1
 221	1	Boom!	1508830880.98777	1
+222	1	kgku	1509345589.93483	1
 \.
 
 
@@ -549,9 +550,11 @@ SELECT pg_catalog.setval('roles_id_seq', 1, false);
 --
 
 COPY session (id, activity_id, score, notes, user_id, child_id, created_at) FROM stdin;
-1	1	75	Getting better!	1	1	2017-07-22 21:57:11.758383
-3	1	80	No fingers!	1	1	2017-07-22 22:02:07.288529
-4	2	100	Awesome work!	2	2	2017-08-03 13:17:04.819873
+3	1	80	No fingers!	1	1	1506049690.8704
+1	1	75	Getting better!	1	1	1506049673.8704
+5	1	60	Tired today.	1	1	1506080654.8704
+6	1	90	Nailed it.	1	1	1506090654.8704
+7	1	100	Done and dusted. So happy!	1	1	1506190654.8704
 \.
 
 
