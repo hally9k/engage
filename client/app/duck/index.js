@@ -19,6 +19,6 @@ export const reducers = combineReducers({
 
 // Root Epic
 export const epics = combineEpics(
-    ...Object.values(dataEpics),
-    ...Object.values(metaEpics)
+    ...Object.values(metaEpics),
+    ...Object.values(dataEpics)
 )

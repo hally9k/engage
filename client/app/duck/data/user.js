@@ -4,13 +4,7 @@ import { processed, PROCESSED } from 'duck'
 import userQuery from 'graphql/query/user'
 import { userSchema } from 'schema'
 import { fromJS, Map } from 'immutable'
-
-// Actions
-const FETCHING = 'user/FETCHING'
-const RECEIVED = 'user/RECEIVED'
-
-export const fetchingUser = payload => ({ type: FETCHING, payload })
-const receivedUser = payload => ({ type: RECEIVED, payload })
+import { FETCHING, RECEIVED, receivedUser } from './user-actions'
 
 // Reducers
 const INITIAL_STATE = Map()

@@ -8,7 +8,7 @@ const css = {
     ...errorBar
 }
 
-const Error = props => (
+const ErrorBar = props => (
     <div
         className={classnames(css['error-bar'], {
             [css.active]: props.error
@@ -18,8 +18,8 @@ const Error = props => (
     </div>
 )
 
-Error.propTypes = {
+ErrorBar.propTypes = {
     error: PropTypes.string
 }
 
-export default Error
+export default ErrorBar

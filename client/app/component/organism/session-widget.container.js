@@ -3,7 +3,7 @@ import toJS from 'react-immutable-hoc'
 import { withErrorBoundary } from 'react-error-boundary'
 
 import { loggingOut } from 'duck/meta/session'
-import { fetchingUser } from 'duck/data/user'
+import { fetchingUser } from 'duck/data/user-actions'
 
 import Loading from 'component/atom/loading'
 import Fallback from 'component/utility/fallback'

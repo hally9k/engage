@@ -28,6 +28,8 @@ cloudinary.config({
     api_secret: CLOUDINARY_API_SECRET
 })
 
+const IMAGE_UPLOAD_CHANNEL = 'imageUpload'
+
 const DEFAULT_PORT = 8083
 const PORT = process.env.PORT || DEFAULT_PORT
 
@@ -64,10 +66,12 @@ const processUpload = async(userId, files, retries) => {
                 reader.pipe(writer)
                 filePaths.push(filePath)
 
-                return new Promise((resolve) => {
+                return new Promise(resolve => {
                     reader.on('end', () => {
                         console.log(filePath)
-                        cloudinaryJobQueue.push(() => uploadToCloudinary(filePath, userId, RETRIES))
+                        cloudinaryJobQueue.push(() =>
+                            uploadToCloudinary(filePath, userId, RETRIES)
+                        )
                         resolve()
                     })
                 })
@@ -79,11 +83,21 @@ const processUpload = async(userId, files, retries) => {
         console.log('Failed to write to disk', error)
         if (retries > 0) {
             console.log(`Retrying ${error}`)
-            setTimeout(() =>
-                fileSystemJobQueue.push(() => processUpload(userId, files, retries - 1)),
-            RETRY_TIMEOUT)
+            setTimeout(
+                () =>
+                    fileSystemJobQueue.push(() =>
+                        processUpload(userId, files, retries - 1)
+                    ),
+                RETRY_TIMEOUT
+            )
         } else {
-            console.log(`Failed to write ${error} to disk after ${RETRIES} retries`)
+            console.log(
+                `Failed to write ${error} to disk after ${RETRIES} retries`
+            )
+            redis.pub.publish(
+                'image-upload',
+                `{ "userId": ${userId}, "message": "Image upload failed." }`
+            )
         }
     }
 }
@@ -91,21 +105,30 @@ const processUpload = async(userId, files, retries) => {
 const uploadToCloudinary = (filePath, userId, retries) => {
     try {
         return cloudinaryJobQueue.push(() =>
-            cloudinary.v2.uploader.upload(filePath,
-                (error, result) => {
-                    if (error) throw new Error(filePath)
-                    fileSystemJobQueue.push(() => deleteFile(filePath, result.url, userId, RETRIES))
-                })
+            cloudinary.v2.uploader.upload(filePath, (error, result) => {
+                if (error) throw new Error(filePath)
+                fileSystemJobQueue.push(() =>
+                    deleteFile(filePath, result.url, userId, RETRIES)
+                )
+            })
         )
     } catch (error) {
         console.log(`Failed to upload ${error}`)
         if (retries > 0) {
             console.log(`Retrying ${error}`)
-            setTimeout(() =>
-                cloudinaryJobQueue.push(() => uploadToCloudinary(filePath, userId, retries - 1)),
-            RETRY_TIMEOUT)
+            setTimeout(
+                () =>
+                    cloudinaryJobQueue.push(() =>
+                        uploadToCloudinary(filePath, userId, retries - 1)
+                    ),
+                RETRY_TIMEOUT
+            )
         } else {
             console.log(`Failed to upload ${filePath} after ${RETRIES} retries`)
+            redis.pub.publish(
+                'image-upload',
+                `{ "userId": ${userId}, "message": "Image upload failed." }`
+            )
         }
     }
 }
@@ -120,11 +143,21 @@ const deleteFile = (filePath, url, userId, retries) => {
         console.log(`Failed to delete ${error}`)
         if (retries > 0) {
             console.log(`Retrying ${error}`)
-            setTimeout(() =>
-                fileSystemJobQueue.push(() => deleteFile(filePath, url, userId, retries - 1)),
-            RETRY_TIMEOUT)
+            setTimeout(
+                () =>
+                    fileSystemJobQueue.push(() =>
+                        deleteFile(filePath, url, userId, retries - 1)
+                    ),
+                RETRY_TIMEOUT
+            )
         } else {
-            console.error(`Failed to delete ${filePath} after ${RETRIES} retries`)
+            console.error(
+                `Failed to delete ${filePath} after ${RETRIES} retries`
+            )
+            redis.pub.publish(
+                'image-upload',
+                `{ "userId": ${userId}, "message": "Image upload failed." }`
+            )
         }
     }
 }
@@ -139,7 +172,10 @@ const setAvatarInTheDb = (url, userId, retries) => {
             .returning('avatar')
             .then(url => {
                 console.log(`Added uploaded image url to the db, ${url}`)
-                redis.pub.publish('image-upload', 'Image uploaded successfully.')
+                redis.pub.publish(
+                    `${userId}-${IMAGE_UPLOAD_CHANNEL}`,
+                    `{ "userId": ${userId}, "message": "Image uploaded successfully." }`
+                )
                 console.log('Done.\n')
 
                 return
@@ -148,12 +184,22 @@ const setAvatarInTheDb = (url, userId, retries) => {
         console.log(`Failed to set ${error} in the db`)
         if (retries > 0) {
             console.log(`Retrying ${error}`)
-            setTimeout(() =>
-                // eslint-disable-next-line no-param-reassign
-                fileSystemJobQueue.push(() => setAvatarInTheDb(url, userId, retries - 1)),
-            RETRY_TIMEOUT)
+            setTimeout(
+                () =>
+                    // eslint-disable-next-line no-param-reassign
+                    fileSystemJobQueue.push(() =>
+                        setAvatarInTheDb(url, userId, retries - 1)
+                    ),
+                RETRY_TIMEOUT
+            )
         } else {
-            console.error(`Failed to set ${url} in the db after ${RETRIES} retries`)
+            console.error(
+                `Failed to set ${url} in the db after ${RETRIES} retries`
+            )
+            redis.pub.publish(
+                'image-upload',
+                `{ "userId": ${userId}, "message": "Image upload failed." }`
+            )
         }
     }
 }
@@ -178,4 +224,6 @@ server.use(async function(ctx) {
     }
 })
 
-server.listen(PORT, () => console.log(`Image upload server running on port ${PORT}...`))
+server.listen(PORT, () =>
+    console.log(`Image upload server running on port ${PORT}...`)
+)

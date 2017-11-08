@@ -11,3 +11,5 @@ export const currentUserIdSelector = state =>
     state.getIn(['meta', 'app', 'currentUserId'])
 
 export const errorSelector = state => state.getIn(['meta', 'app', 'error'])
+
+export const successSelector = state => state.getIn(['meta', 'app', 'success'])

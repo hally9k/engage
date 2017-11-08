@@ -13,6 +13,7 @@ import Fallback from 'component/utility/fallback'
 import NavigationBar from 'component/molecule/navigation-bar'
 import SessionWidget from 'component/organism/session-widget.container'
 import ErrorBar from 'component/organism/error-bar.container'
+import SuccessBar from 'component/organism/success-bar.container'
 import index from 'style/index.scss'
 import home from 'style/page/home.scss'
 import header from 'style/organism/header.scss'
@@ -35,6 +36,7 @@ export default class Root extends Component {
             <div>
                 <section>
                     <ErrorBar />
+                    <SuccessBar />
                 </section>
 
                 <section className={css.header}>

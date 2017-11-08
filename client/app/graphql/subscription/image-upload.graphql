@@ -1,3 +1,3 @@
-subscription {
-    image
+subscription($userId: String!) {
+    imageUpload(userId: $userId)
 }

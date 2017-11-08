@@ -9,6 +9,8 @@ $color-peachy: #fe652b;
 
 $color-nectarine: #ffc707;
 
+$color-grass-green: #4ec145;
+
 /* Grays */
 $color-titanium: #b3b3b3;
 $color-silver: #d6d5d5;
@@ -38,3 +40,6 @@ $color-tertiary-shade-4: $color-hydrogen;
 
 $color-error: $color-tomato-red;
 $color-error-tint-1: color($color-tomato-red tint(85%));
+
+$color-success: $color-grass-green;
+$color-success-tint-1: color($color-grass-green tint(85%));

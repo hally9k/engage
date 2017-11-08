@@ -87,7 +87,7 @@
         "redux-graphql-subscriptions": "0.0.9",
         "redux-immutablejs": "0.0.8",
         "redux-logger": "^3.0.6",
-        "redux-observable": "^0.16.0",
+        "redux-observable": "^0.17.0",
         "redux-raven-middleware": "^1.2.0",
         "reselect": "^3.0.1"
     },

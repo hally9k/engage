@@ -23,7 +23,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     avatarUploadRequested: file => dispatch(avatarUploadRequested(file)),
-    subscribeToImageUpload: () => dispatch(subscribeToImageUpload()),
+    subscribeToImageUpload: userId => dispatch(subscribeToImageUpload(userId)),
     unsubscribeFromImageUpload: () => dispatch(unsubscribeFromImageUpload())
 })
 

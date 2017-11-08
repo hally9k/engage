@@ -106,7 +106,7 @@ export const sendingRegisterRequestEpic = action$ =>
                 .catch(error => [error(error)])
         )
 
-export const logginOutEpic = action$ =>
+export const loggingOutEpic = action$ =>
     action$.ofType(LOGGING_OUT).mergeMap(() => {
         localStorage.removeItem(LOCAL_STORAGE_SESSION_KEY)
     })
@@ -114,5 +114,5 @@ export const logginOutEpic = action$ =>
 export const epics = {
     sendingLoginRequestEpic,
     sendingRegisterRequestEpic,
-    logginOutEpic
+    loggingOutEpic
 }

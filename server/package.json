@@ -1,8 +1,7 @@
 {
     "name": "engage-server",
     "version": "0.0.1",
-    "description":
-        "Graphql Server. Engage, an educational application to help parents engage with their pre-schoolers.",
+    "description": "Graphql Server. Engage, an educational application to help parents engage with their pre-schoolers.",
     "main": "index.js",
     "author": "hally9k@gmail.com",
     "license": "ISC",
@@ -10,20 +9,20 @@
     "scripts": {
         "start": "./node_modules/.bin/babel-node --inspect=0.0.0.0:9201 index.js",
         "start:local": "NODE_ENV=local ./node_modules/.bin/babel-node --inspect=0.0.0.0:9201 index.js",
-        "db:migrations":
-            "./node_modules/.bin/knex migrate:latest --knexfile ./config/database/knexfile.js"
+        "db:migrations": "./node_modules/.bin/knex migrate:latest --knexfile ./config/database/knexfile.js"
     },
     "devDependencies": {
         "babel-preset-es2015": "^6.24.1",
         "babel-preset-flow": "^6.23.0",
-        "file-loader": "^0.11.2"
+        "file-loader": "^0.11.2",
+        "nodemon": "^1.12.1"
     },
     "dependencies": {
         "babel-cli": "^6.24.1",
         "date-fns": "^1.28.5",
         "graphql": "^0.11.3",
         "graphql-request": "^1.3.3",
-        "graphql-subscriptions": "^0.5.1",
+        "graphql-subscriptions": "^0.5.4",
         "knex": "^0.13.0",
         "koa": "^2.3.0",
         "koa-cors": "0.0.16",

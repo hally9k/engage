@@ -6,7 +6,7 @@ import Loading from 'component/atom/loading'
 import Fallback from 'component/utility/fallback'
 import requiredProps from 'component/utility/required-props'
 
-import { fetchingUser } from 'duck/data/user'
+import { fetchingUser } from 'duck/data/user-actions'
 
 import { currentUserSelector } from 'selector/meta/session'
 

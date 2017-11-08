@@ -29,9 +29,11 @@ services:
       - "redis"
       - "db"
     restart: unless-stopped
-    command: ./node_modules/.bin/babel-node --inspect=0.0.0.0:9201 index.js
+    command: ./node_modules/.bin/nodemon --exec ./node_modules/.bin/babel-node --inspect=0.0.0.0:9201 index.js
   image-upload:
     build: ./image-upload
+    volumes:
+      - "./image-upload:/usr/src/engage"
     ports:
       - "8083:8083"
       - "9203:9203"
@@ -40,4 +42,4 @@ services:
     depends_on:
       - "redis"
       - "db"
-    command: ./node_modules/.bin/babel-node --inspect=0.0.0.0:9203 index.js
+    command: ./node_modules/.bin/nodemon --exec ./node_modules/.bin/babel-node --inspect=0.0.0.0:9203 index.js
